@@ -22,14 +22,13 @@ public class Database {
     private static final String PASSWORD = dotenv.get("DB_PASSWORD");
     private static final String JDBC_URL = String.format(
             "jdbc:mysql://%s:%s/%s??sslmode=require",
-            HOST, PORT, DB_NAME
-    );
+            HOST, PORT, DB_NAME);
 
     /**
      * Gets a connection to the MySQL database.
      *
      * @return Connection object
-     * @throws SQLException if a database access error occurs
+     * @throws SQLException           if a database access error occurs
      * @throws ClassNotFoundException if the JDBC driver is not found
      */
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
