@@ -25,11 +25,11 @@ public class DatabaseUtil {
             InputStream input = DatabaseUtil.class.getClassLoader().getResourceAsStream("db.properties");
             props.load(input);
 
-            String host = props.getProperty("DB_HOST");
-            String port = props.getProperty("DB_PORT");
-            String dbName = props.getProperty("DB_NAME");
-            username = props.getProperty("DB_USER");
-            password = props.getProperty("DB_PASSWORD");
+            String host = props.getProperty("db.host");
+            String port = props.getProperty("db.port");
+            String dbName = props.getProperty("db.name");
+            username = props.getProperty("db.user");
+            password = props.getProperty("db.password");
 
             jdbcUrl = String.format("jdbc:mysql://%s:%s/%s?sslmode=require", host, port, dbName);
 
