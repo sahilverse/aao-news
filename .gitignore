@@ -5,8 +5,8 @@ target/
 
 
 ### Environment Variables ###
-src/main/resources/.env
-.env.local
+src/main/resources/*.env
+src/main/resources/*.properties
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
