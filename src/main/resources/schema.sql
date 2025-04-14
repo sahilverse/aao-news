@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS roles
 
 -- User Status Table Definitions
 -- 0: active, 1: deactivated, 2: pending, 3: suspended, 4: banned
-CREATE TABLE IF NOT EXISTS user_status
+CREATE TABLE IF NOT EXISTS user_statuses
 (
     id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(50) NOT NULL UNIQUE,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS users
     updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     last_login     TIMESTAMP    NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id),
-    FOREIGN KEY (user_status_id) REFERENCES user_status (id),
+    FOREIGN KEY (user_status_id) REFERENCES user_statuses (id),
     INDEX idx_users_email (email),
     INDEX idx_users_username (username),
     INDEX idx_users_phone (phone_number),
