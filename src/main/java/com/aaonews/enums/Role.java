@@ -6,8 +6,11 @@ package com.aaonews.enums;
  */
 
 public enum Role {
+    /** Regular user with basic permissions */
     USER(1),
+    /** Publisher with Article Publishing  permissions */
     PUBLISHER(2),
+    /** Administrator with full permissions */
     ADMIN(3);
 
     private final int id;
