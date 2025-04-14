@@ -31,15 +31,15 @@ CREATE TABLE IF NOT EXISTS users
     id             INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     email          VARCHAR(255) NOT NULL UNIQUE,
     username       VARCHAR(50)  NOT NULL UNIQUE,
-    password  VARCHAR(255) NOT NULL,
+    password       VARCHAR(255) NOT NULL,
     full_name      VARCHAR(100) NOT NULL,
     role_id        INT UNSIGNED NOT NULL,
     phone_number   VARCHAR(15)  NULL UNIQUE,
-    email_verified BOOLEAN   DEFAULT FALSE,
+    email_verified BOOLEAN      DEFAULT FALSE,
     user_status_id INT UNSIGNED DEFAULT 1,
     profile_image  MEDIUMBLOB, -- Storing image Binary data MAX-SIZE: 16MB
-    created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at     TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+    updated_at     TIMESTAMP    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     last_login     TIMESTAMP    NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id),
     FOREIGN KEY (user_status_id) REFERENCES user_statuses (id),
@@ -83,8 +83,8 @@ CREATE TABLE IF NOT EXISTS organization_info
 CREATE TABLE IF NOT EXISTS categories
 (
     id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name        VARCHAR(50)  NOT NULL UNIQUE,
-    slug        VARCHAR(50)  NOT NULL UNIQUE,
+    name        VARCHAR(50) NOT NULL UNIQUE,
+    slug        VARCHAR(50) NOT NULL UNIQUE,
     description TEXT
 ) COMMENT ='Stores article categories';
 
