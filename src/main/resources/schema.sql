@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS roles
 ) COMMENT ='Defines user roles in the system';
 
 -- User Status Table Definitions
--- 0: active, 1: deactivated, 2: pending, 3: suspended, 4: banned
+-- 1: active, 2: deactivated, 3: pending, 4: suspended, 5: banned
 CREATE TABLE IF NOT EXISTS user_statuses
 (
     id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS users
     role_id        INT UNSIGNED NOT NULL,
     phone_number   VARCHAR(15)  NULL UNIQUE,
     email_verified BOOLEAN   DEFAULT FALSE,
-    user_status_id INT UNSIGNED DEFAULT 0,
+    user_status_id INT UNSIGNED DEFAULT 1,
     profile_image  MEDIUMBLOB, -- Storing image Binary data MAX-SIZE: 16MB
     created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
