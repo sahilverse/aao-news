@@ -1,5 +1,10 @@
 package com.aaonews.enums;
 
+/**
+ * UserStatus enum represents the status of a user in the system.
+ * Each status has a unique ID associated with it.
+ */
+
 public enum UserStatus {
     ACTIVE(1),
     DEACTIVATED(2),

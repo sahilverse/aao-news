@@ -1,5 +1,10 @@
 package com.aaonews.enums;
 
+/**
+ * Role enum represents the role of a user in the system.
+ * Each role has a unique ID associated with it.
+ */
+
 public enum Role {
     USER(1),
     PUBLISHER(2),
