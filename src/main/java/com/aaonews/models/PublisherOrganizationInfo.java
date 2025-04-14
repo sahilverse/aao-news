@@ -5,13 +5,13 @@ package com.aaonews.models;
  * It contains fields for publisher ID, organization name, website, and PAN number.
  * It includes constructors, getters, and setters for these fields.
  */
-public class OrganizationInfo {
+public class PublisherOrganizationInfo {
     private int publisherId;
     private String organizationName;
     private String organizationWebsite;
     private String panNumber;
 
-    public OrganizationInfo(int publisherId, String organizationName, String organizationWebsite, String panNumber) {
+    public PublisherOrganizationInfo(int publisherId, String organizationName, String organizationWebsite, String panNumber) {
         this.publisherId = publisherId;
         this.organizationName = organizationName;
         this.organizationWebsite = organizationWebsite;
