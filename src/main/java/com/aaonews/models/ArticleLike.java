@@ -8,6 +8,8 @@ public class ArticleLike {
     private int userId;
     private Timestamp createdAt;
 
+    public ArticleLike() {}
+
     public ArticleLike(int id, int articleId, int userId, Timestamp createdAt) {
         this(articleId, userId);
         this.id = id;
