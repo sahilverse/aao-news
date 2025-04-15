@@ -1,9 +1,14 @@
 package com.aaonews.models;
 
+
+/* * Represents the individual information of a publisher.
+ */
 public class PublisherIndividualInfo {
     private int publisherId;
     private String nationalIdType;
     private String nationalIdNo;
+
+    public PublisherIndividualInfo() {}
 
     public PublisherIndividualInfo(int publisherId, String nationalIdType, String nationalIdNo) {
         this.publisherId = publisherId;
