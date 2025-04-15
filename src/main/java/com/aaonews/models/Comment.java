@@ -15,6 +15,7 @@ public class Comment {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
+    public Comment() {}
 
     public Comment(int id, int articleId, int userId, int parentId, String content, boolean isApproved, Timestamp createdAt, Timestamp updatedAt) {
         this(articleId, userId, parentId, content);
