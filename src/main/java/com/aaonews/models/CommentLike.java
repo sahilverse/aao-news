@@ -7,6 +7,8 @@ public class CommentLike {
     private int userId;
     private Timestamp createdAt;
 
+    public CommentLike() {}
+
     public CommentLike(int commentId, int userId, Timestamp createdAt) {
         this(commentId, userId);
         this.createdAt = createdAt;
