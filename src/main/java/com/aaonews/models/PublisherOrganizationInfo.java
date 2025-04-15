@@ -11,6 +11,8 @@ public class PublisherOrganizationInfo {
     private String organizationWebsite;
     private String panNumber;
 
+    public PublisherOrganizationInfo() {}
+
     public PublisherOrganizationInfo(int publisherId, String organizationName, String organizationWebsite, String panNumber) {
         this.publisherId = publisherId;
         this.organizationName = organizationName;
