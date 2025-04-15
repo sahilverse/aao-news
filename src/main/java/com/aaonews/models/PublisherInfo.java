@@ -14,6 +14,8 @@ public class PublisherInfo {
     private boolean isVerified;
     private Timestamp verificationDate;
 
+    public PublisherInfo() {}
+
     public PublisherInfo(int publisherId, boolean isIndividual, boolean isVerified, Timestamp verificationDate) {
         this.publisherId = publisherId;
         this.isIndividual = isIndividual;
