@@ -1,6 +1,7 @@
 package com.aaonews.models;
 
 import java.sql.Timestamp;
+import com.aaonews.enums.ArticleStatus;
 
 public class Article {
     private int id;
@@ -11,18 +12,17 @@ public class Article {
     private byte[] featureImage;
     private int authorId;
     private int categoryId;
-    private int statusID;
+    private ArticleStatus statusID;
     private boolean isFeatured;
     private int viewCount;
     private Timestamp publishedAt;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    private Article() {
-    }
+    public Article() {}
 
     public Article(int id, String title, String slug, String content, String summary, byte[] featureImage,
-                   int authorId, int categoryId, int statusID, boolean isFeatured, int viewCount,
+                   int authorId, int categoryId, ArticleStatus statusID, boolean isFeatured, int viewCount,
                    Timestamp publishedAt, Timestamp createdAt, Timestamp updatedAt) {
 
         this(title, slug, content, summary, featureImage, authorId, categoryId, statusID,
@@ -35,7 +35,7 @@ public class Article {
     }
 
     public Article(String title, String slug, String content, String summary, byte[] featureImage,
-                   int authorId, int categoryId, int statusID, boolean isFeatured,
+                   int authorId, int categoryId, ArticleStatus statusID, boolean isFeatured,
                    Timestamp publishedAt) {
         this.title = title;
         this.slug = slug;
@@ -111,11 +111,11 @@ public class Article {
         this.categoryId = categoryId;
     }
 
-    public int getStatusID() {
+    public ArticleStatus getStatusID() {
         return statusID;
     }
 
-    public void setStatusID(int statusID) {
+    public void setStatusID(ArticleStatus statusID) {
         this.statusID = statusID;
     }
 
