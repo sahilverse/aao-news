@@ -1,11 +1,5 @@
--- AAOnews Database Schema
-
--- strict mode and UTF-8 encoding
-SET sql_mode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
-SET NAMES utf8mb4;
-
 -- Create database if it doesn't exist
-CREATE DATABASE IF NOT EXISTS aaonews CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS aaonews;
 USE aaonews;
 
 -- Role Definitions
