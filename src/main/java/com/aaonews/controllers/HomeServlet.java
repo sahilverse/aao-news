@@ -14,7 +14,7 @@ import java.io.IOException;
  * It forwards the request to the home.jsp page for rendering.
  */
 
-@WebServlet(urlPatterns = {"/home", "/"})
+@WebServlet(name = "HomeServlet", urlPatterns = {"/home", ""})
 public class HomeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
