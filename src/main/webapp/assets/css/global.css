@@ -1,5 +1,50 @@
 /* This file contains utility classes for global styles */
 :root {
+    /*Button colors*/
+    --btn-bg-color:#1f2937;
+
+    --color-accent: #ea4335;
+    --color-accent-light: #f44336;
+    --color-accent-dark: #c62828;
+
+    /* Neutral Colors */
+    --color-background: #ffffff;
+    --color-background-alt: #f5f7fa;
+    --color-background-elevated: #ffffff;
+
+    --color-text-primary: #1f2937;
+    --color-text-secondary: #4b5563;
+    --color-text-tertiary: #6b7280;
+    --color-text-disabled: #9ca3af;
+
+    --color-border: #e5e7eb;
+    --color-border-light: #f3f4f6;
+    --color-border-dark: #d1d5db;
+
+    /* Semantic Colors */
+    --color-success: #34a853;
+    --color-success-light: #d1fae5;
+    --color-success-dark: #166534;
+
+    --color-warning: #fbbc05;
+    --color-warning-light: #fef3c7;
+    --color-warning-dark: #92400e;
+
+    --color-error: #ea4335;
+    --color-error-light: #fee2e2;
+    --color-error-dark: #b91c1c;
+
+    --color-info: #4285f4;
+    --color-info-light: #dbeafe;
+    --color-info-dark: #1e40af;
+
+
+    /* Container Widths */
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+    --container-2xl: 1536px;
 
 
 }
@@ -11,66 +56,90 @@
 }
 
 html {
-    font-size: 62.5%; /* 1rem = 10px */
+    scroll-behavior: smooth;
 }
 
-/* Base Container */
+/* Apply base font family */
+body {
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+}
+
+
+/* Link styles */
+a {
+
+    text-decoration: none;
+    color: #ffffff;
+
+}
+
+
+/* Container */
 .container {
     width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
-/* Small Devices*/
+
 @media (min-width: 640px) {
     .container {
-        max-width: 640px;
-    }
-}
-/* Medium Devices*/
-@media (min-width: 768px) {
-    .container {
-        max-width: 768px;
+        max-width: var(--container-sm);
     }
 }
 
-/*Large Devices*/
+@media (min-width: 768px) {
+    .container {
+        max-width: var(--container-md);
+    }
+}
 
 @media (min-width: 1024px) {
     .container {
-        max-width: 1024px;
+        max-width: var(--container-lg);
     }
 }
 
-/* Extra Large Devices */
 @media (min-width: 1280px) {
     .container {
-        max-width: 1280px;
+        max-width: var(--container-xl);
     }
 }
 
-/* 2XL Devices */
 @media (min-width: 1536px) {
     .container {
-        max-width: 1536px;
+        max-width: var(--container-2xl);
     }
 }
 
-/*Some other utility class*/
-.text-center {
+/*Buttons*/
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
     text-align: center;
-}
-.mx-auto {
-    margin-left: auto;
-    margin-right: auto;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.text-bold {
-    font-weight: bold;
+.btn > a{
+    text-decoration: none;
+    color: var(--color-text-primary);
+    letter-spacing: 4px;
+    font-size: 16px;
 }
 
-.text-italic {
-    font-style: italic;
+.btn-primary {
+    background-color: transparent;
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-text-primary);
+    transition: 1s ease;
 }
+
+
+
 
