@@ -1,102 +1,7 @@
 /* This file contains utility classes for global styles */
 :root {
-    /* Brand Colors */
-    --color-primary: #1a73e8;
-    --color-primary-light: #4285f4;
-    --color-primary-dark: #0d47a1;
 
-    --color-secondary: #34a853;
-    --color-secondary-light: #4caf50;
-    --color-secondary-dark: #2e7d32;
 
-    --color-accent: #ea4335;
-    --color-accent-light: #f44336;
-    --color-accent-dark: #c62828;
-
-    /* Neutral Colors - Light Mode */
-    --color-background: #ffffff;
-    --color-background-alt: #f5f7fa;
-    --color-background-elevated: #ffffff;
-
-    --color-text-primary: #1f2937;
-    --color-text-secondary: #4b5563;
-    --color-text-tertiary: #6b7280;
-    --color-text-disabled: #9ca3af;
-
-    --color-border: #e5e7eb;
-    --color-border-light: #f3f4f6;
-    --color-border-dark: #d1d5db;
-
-    /* Semantic Colors */
-    --color-success: #34a853;
-    --color-success-light: #d1fae5;
-    --color-success-dark: #166534;
-
-    --color-warning: #fbbc05;
-    --color-warning-light: #fef3c7;
-    --color-warning-dark: #92400e;
-
-    --color-error: #ea4335;
-    --color-error-light: #fee2e2;
-    --color-error-dark: #b91c1c;
-
-    --color-info: #4285f4;
-    --color-info-light: #dbeafe;
-    --color-info-dark: #1e40af;
-
-    /* Category Colors (for category tags/labels) */
-    --color-category-technology: #0ea5e9;
-    --color-category-business: #6366f1;
-    --color-category-health: #10b981;
-    --color-category-sports: #f59e0b;
-    --color-category-culture: #8b5cf6;
-    --color-category-politics: #ef4444;
-    --color-category-science: #06b6d4;
-    --color-category-entertainment: #ec4899;
-
-    /* Dark Mode Colors (to be toggled via class) */
-    --color-dark-background: #121212;
-    --color-dark-background-alt: #1e1e1e;
-    --color-dark-background-elevated: #2d2d2d;
-
-    --color-dark-text-primary: #f9fafb;
-    --color-dark-text-secondary: #e5e7eb;
-    --color-dark-text-tertiary: #9ca3af;
-    --color-dark-text-disabled: #6b7280;
-
-    --color-dark-border: #374151;
-    --color-dark-border-light: #4b5563;
-    --color-dark-border-dark: #1f2937;
-
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-
-    /* Spacing */
-    --spacing-1: 0.25rem;  /* 4px */
-    --spacing-2: 0.5rem;   /* 8px */
-    --spacing-3: 0.75rem;  /* 12px */
-    --spacing-4: 1rem;     /* 16px */
-    --spacing-5: 1.25rem;  /* 20px */
-    --spacing-6: 1.5rem;   /* 24px */
-    --spacing-8: 2rem;     /* 32px */
-    --spacing-10: 2.5rem;  /* 40px */
-    --spacing-12: 3rem;    /* 48px */
-    --spacing-16: 4rem;    /* 64px */
-
-    /* Border Radius */
-    --radius-sm: 0.125rem; /* 2px */
-    --radius-md: 0.375rem; /* 6px */
-    --radius-lg: 0.5rem;   /* 8px */
-    --radius-xl: 0.75rem;  /* 12px */
-    --radius-full: 9999px;
-
-    /* Transitions */
-    --transition-fast: 150ms;
-    --transition-normal: 250ms;
-    --transition-slow: 350ms;
 }
 
 *, *:before, *:after {
@@ -168,5 +73,4 @@ html {
 .text-italic {
     font-style: italic;
 }
-
 
