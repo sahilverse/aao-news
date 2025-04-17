@@ -20,22 +20,22 @@
 
 <div class="container form-container">
     <form>
-        <h1>Login to AAOnews</h1>
+        <h1>Login to Aao-news</h1>
         <label for="email">Email</label>
         <input type="email" name="email" id="email"/>
         <label for="password">Password</label>
         <input type="password" name="password" id="password">
-        <div class="remember-forgot">
+        <div class="remember-forgot" style="margin-top: 4px;">
 
         <div class="checkbox">
         <input type="checkbox" name="checkbox">Remember me
         </div>
         <div class="forget-password">
-            <a href="${pageContext.request.contextPath}/forget-password" style="color: black;"> Forget Password?</a>
+            <a href="${pageContext.request.contextPath}/forget-password" style="color: black;"> Forgot Password?</a>
         </div>
 
         </div>
-        <button type="submit" class="btn">Login</button>
+        <button type="submit" class="btn btn-primary">Login</button>
         <div class="separator" style="margin-top: 4px;"></div>
         <div class="already-account" style="margin-top: 1rem;">
             <p>Don't have an account? <a href="${pageContext.request.contextPath}/register" style="color: black;">Register</a></p>

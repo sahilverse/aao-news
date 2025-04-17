@@ -1,33 +1,225 @@
-.form-container{
-    /*margin-top: 2rem;*/
-    background-color: whitesmoke;
+.form-container {
     display: flex;
-    height: 100vh;
-    width:100vw;
+    min-height: 100vh;
+    width: 100%;
     align-items: center;
     justify-content: center;
-    box-shadow: white;
-
+    padding: 2rem 1rem;
 }
-form{
-    /*border: 2px solid red;*/
+
+form {
+    background-color: white;
     display: flex;
-    /*width:20%;*/
+    width: 100%;
+    max-width: 420px;
     flex-direction: column;
-    padding: 2rem;
-    gap: 6px;
+    padding: 2.5rem;
+    gap: 1.25rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-form input{
 
-}
-form label{
 
+form h1 {
+    color: #1f2937;
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
 }
-.checkbox{
-    display: flex;
-    gap: 3px;
+
+form p {
+    color: #6b7280;
+    text-align: center;
+    margin-top: -0.75rem;
+    font-size: 0.95rem;
 }
-.remember-forgot{
+
+form label {
+    color: #4b5563;
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: -0.75rem;
+}
+
+form input[type="email"],
+form input[type="password"],
+form input[type="text"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f9fafb;
+}
+
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form input[type="text"]:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.25);
+    background-color: white;
+}
+
+.remember-forgot {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-top: -0.5rem;
+    font-size: 0.9rem;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4b5563;
+}
+
+.checkbox input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: #1a73e8;
+    cursor: pointer;
+}
+
+.forget-password a {
+    color: #1a73e8;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.forget-password a:hover {
+    color: #0d47a1;
+    text-decoration: underline;
+}
+
+.social-login {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.social-login button {
+    flex: 1;
+}
+
+.already-account {
+    text-align: center;
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+
+.already-account a {
+    color: #1a73e8;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.already-account a:hover {
+    color: #0d47a1;
+    text-decoration: underline;
+}
+
+/* Form animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+form {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    form {
+        padding: 2rem 1.5rem;
+    }
+
+    form h1 {
+        font-size: 1.5rem;
+    }
+
+    .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+}
+
+/* Error state for inputs */
+.input-error {
+    border-color: #ef4444 !important;
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.85rem;
+    margin-top: -0.75rem;
+}
+
+/* Success message */
+.success-message {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Loading overlay */
+.form-loading {
+    position: relative;
+}
+
+.form-loading::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+.form-loading::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid #e5e7eb;
+    border-top-color: #1a73e8;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 10;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
