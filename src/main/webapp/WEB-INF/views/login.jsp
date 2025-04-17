@@ -19,7 +19,7 @@
 <jsp:include page="../layouts/header.jsp" />
 
 <div class="container form-container">
-    <form>
+    <form action="${pageContext.request.contextPath}/login" method="post">
         <h1>Login to AAOnews</h1>
         <label for="email">Email</label>
         <input type="email" name="email" id="email"/>
@@ -35,7 +35,7 @@
         </div>
 
         </div>
-        <button type="submit" class="btn">Login</button>
+        <button type="submit" class="btn" style="margin-top: 4px;">Login</button>
         <div class="separator" style="margin-top: 4px;"></div>
         <div class="already-account" style="margin-top: 1rem;">
             <p>Don't have an account? <a href="${pageContext.request.contextPath}/register" style="color: black;">Register</a></p>
