@@ -140,6 +140,12 @@ a {
     transition: 1s ease;
 }
 
+/*separtor line*/
+.separator{
+    border: 1px solid black;
+    width: 100%;
+    /*height: 10rem;*/
+}
 
 
 

@@ -1,0 +1,33 @@
+.form-container{
+    /*margin-top: 2rem;*/
+    background-color: whitesmoke;
+    display: flex;
+    height: 100vh;
+    width:100vw;
+    align-items: center;
+    justify-content: center;
+    box-shadow: white;
+
+}
+form{
+    /*border: 2px solid red;*/
+    display: flex;
+    /*width:20%;*/
+    flex-direction: column;
+    padding: 2rem;
+    gap: 6px;
+}
+form input{
+
+}
+form label{
+
+}
+.checkbox{
+    display: flex;
+    gap: 3px;
+}
+.remember-forgot{
+    display: flex;
+    justify-content: space-between;
+}
