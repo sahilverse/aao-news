@@ -320,40 +320,6 @@ a {
     margin-left: 0.5rem;
 }
 
-/* Outline buttons */
-.btn-outline {
-    background: transparent;
-    border: 2px solid;
-    box-shadow: none;
-}
-
-.btn-outline-primary {
-    color: #1a73e8;
-    border-color: #1a73e8;
-}
-
-.btn-outline-primary:hover {
-    background-color: rgba(26, 115, 232, 0.1);
-}
-
-.btn-outline-secondary {
-    color: #34a853;
-    border-color: #34a853;
-}
-
-.btn-outline-secondary:hover {
-    background-color: rgba(52, 168, 83, 0.1);
-}
-
-.btn-outline-danger {
-    color: #ea4335;
-    border-color: #ea4335;
-}
-
-.btn-outline-danger:hover {
-    background-color: rgba(234, 67, 53, 0.1);
-}
-
 /* Social media buttons */
 .btn-social {
     display: inline-flex;
@@ -392,27 +358,6 @@ a {
     border-radius: 10px;
 }
 
-/* Button group */
-.btn-group {
-    display: inline-flex;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.btn-group .btn {
-    border-radius: 0;
-    margin: 0;
-}
-
-.btn-group .btn:first-child {
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-}
-
-.btn-group .btn:last-child {
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
