@@ -31,7 +31,7 @@
         <input type="checkbox" name="checkbox">Remember me
         </div>
         <div class="forget-password">
-            <a href="${pageContext.request.contextPath}/forget-password" style="color: black;"> Forgot Password?</a>
+            <a href="${pageContext.request.contextPath}/forgot-password" style="color: black;"> Forgot Password?</a>
         </div>
 
         </div>
