@@ -35,7 +35,7 @@
         </div>
 
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-default">Login</button>
         <div class="separator" style="margin-top: 4px;"></div>
         <div class="already-account" style="margin-top: 1rem;">
             <p>Don't have an account? <a href="${pageContext.request.contextPath}/register" style="color: black;">Register</a></p>
