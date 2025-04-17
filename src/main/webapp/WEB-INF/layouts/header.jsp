@@ -13,7 +13,7 @@
                 <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
             </ul>
             <div class="nav-actions">
-                <button class="btn btn-primary">
+                <button class="nav-btn">
                     <a href="${pageContext.request.contextPath}/login">Login</a>
                 </button>
             </div>
