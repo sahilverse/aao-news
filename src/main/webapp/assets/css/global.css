@@ -165,11 +165,7 @@ a {
     user-select: none;
 }
 
-/* Hover and focus effects */
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
+
 
 .btn:active {
     transform: translateY(1px);
@@ -225,12 +221,12 @@ a {
 
 /* Default button (for login forms, etc.) */
 .btn-default {
-    background: linear-gradient(135deg, #4a4a4a, #2d2d2d);
+    background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
     color: white;
 }
 
 .btn-default:hover {
-    background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+    background: linear-gradient(135deg, #4a4a4a, #2d2d2d);
 }
 
 /* Full width button (for forms) */
