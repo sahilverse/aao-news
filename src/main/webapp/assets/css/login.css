@@ -1,26 +1,30 @@
 .form-container{
     /*margin-top: 2rem;*/
-    background-color: whitesmoke;
+    /*background-color: whitesmoke;*/
     display: flex;
     height: 100vh;
     width:100vw;
     align-items: center;
     justify-content: center;
-    box-shadow: white;
 
 }
 form{
-    /*border: 2px solid red;*/
+    background-color: whitesmoke;
+    box-shadow: 10px 7px 50px -4px rgba(71,71,71,1);
+    border: 2px solid white;
     display: flex;
-    /*width:20%;*/
+    /*width:%;*/
     flex-direction: column;
-    padding: 2rem;
+    padding: 4rem;
     gap: 6px;
+    /*height: 400px;*/
 }
 form input{
+    padding: 5px;
 
 }
 form label{
+    font-weight: bold;
 
 }
 .checkbox{
@@ -30,4 +34,5 @@ form label{
 .remember-forgot{
     display: flex;
     justify-content: space-between;
+    margin-top: 8px;
 }
