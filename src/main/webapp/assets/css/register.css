@@ -1,0 +1,248 @@
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+h1 {
+    font-family: var(--font-heading), sans-serif;
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    margin-bottom: 0.75rem;
+    color: var(--color-text-primary);
+}
+
+.subtitle {
+    font-family: var(--font-body), sans-serif;
+    font-size: 1rem;
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Cards Container */
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+/* Card Styles */
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid var(--color-border-dark);
+    overflow: hidden;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    padding: 1.5rem;
+    text-align: center;
+    color: white;
+}
+
+.card-header.user-publisher {
+    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+}
+
+.card-header.admin {
+    background: linear-gradient(135deg, #34a853, #2e7d32);
+}
+
+.card-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.card-header h2 {
+    font-family: var(--font-heading), sans-serif;
+    font-size: 1.3rem;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 2px;
+    line-height: var(--line-height-tight);
+    margin-top: 0.5rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Role Description Styles */
+.role-description,
+.admin-description {
+    margin-bottom: 2rem;
+}
+
+.role-item {
+    margin-bottom: 1.5rem;
+}
+
+.role-item h3,
+.admin-description h3 {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-heading), sans-serif;
+    font-size: 1rem;
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    margin-bottom: 0.875rem;
+    color: var(--color-text-primary);
+    letter-spacing: 1px;
+}
+
+.role-item h3 i,
+.admin-description h3 i {
+    margin-right: 0.5rem;
+    color: var(--color-primary);
+}
+
+.admin-description h3 i {
+    color: var(--color-secondary);
+}
+
+.role-item p,
+.admin-description p {
+    font-family: var(--font-body), sans-serif;
+    font-size: 1rem;
+    line-height: var(--line-height-relaxed);
+    margin-bottom: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.note {
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.note i {
+    margin-right: 0.5rem;
+}
+
+.admin-intro {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Security Notice */
+.security-notice {
+    background-color: #fff8e1;
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.security-notice i {
+    color: #f57c00;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.security-notice h4 {
+    font-family: var(--font-heading), sans-serif;
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    color: #e65100;
+    margin-bottom: 0.5rem;
+}
+
+.security-notice p {
+    font-family: var(--font-body), sans-serif;
+    font-size: 0.9375rem;
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+}
+
+
+
+/* Login Link */
+.login-link {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--color-text-secondary);
+}
+
+.login-link a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.login-link a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        max-width: 100%;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .logo {
+        font-size: 2rem;
+    }
+}
+
+/* Animation for cards */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card{
+    animation: fadeIn 0.6s ease-out;
+}
+
+
+
+.btn{
+    display: flex;
+    gap: 10px;
+
+}
+
+
+.list-items>li{
+    font-family: var(--font-body), sans-serif;
+    line-height: var( --line-height-normal);
+}
