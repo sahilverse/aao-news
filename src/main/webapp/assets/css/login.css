@@ -31,7 +31,6 @@ form h1 {
 
 form p {
     color: #6b7280;
-    text-align: center;
     margin-top: -0.75rem;
     font-size: 0.95rem;
 }
@@ -62,6 +61,12 @@ form input[type="text"]:focus {
     border-color: #1a73e8;
     box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.25);
     background-color: white;
+}
+
+.input{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
 .remember-forgot {
