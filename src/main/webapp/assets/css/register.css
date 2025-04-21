@@ -54,14 +54,7 @@ h1 {
     padding: 1.5rem;
     text-align: center;
     color: white;
-}
-
-.card-header.user-publisher {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-}
-
-.card-header.admin {
-    background: linear-gradient(135deg, #34a853, #2e7d32);
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
 }
 
 .card-icon {
@@ -71,7 +64,7 @@ h1 {
 
 .card-header h2 {
     font-family: var(--font-heading), sans-serif;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: var(--font-weight-semibold);
     letter-spacing: 2px;
     line-height: var(--line-height-tight);
@@ -118,7 +111,7 @@ h1 {
 .role-item p,
 .admin-description p {
     font-family: var(--font-body), sans-serif;
-    font-size: 1rem;
+    font-size: 0.8rem;
     line-height: var(--line-height-relaxed);
     margin-bottom: 0.875rem;
     color: var(--color-text-secondary);
@@ -126,7 +119,7 @@ h1 {
 
 .note {
     font-size: 0.9rem;
-    color: var(--color-accent);
+    color: var(--color-text-secondary);
     margin-top: 0.75rem;
     display: flex;
     align-items: center;
@@ -150,6 +143,7 @@ h1 {
     margin-top: 1.5rem;
     display: flex;
     align-items: flex-start;
+    margin-bottom: 50px;
 }
 
 .security-notice i {
@@ -160,7 +154,7 @@ h1 {
 
 .security-notice h4 {
     font-family: var(--font-heading), sans-serif;
-    font-size: 1.125rem;
+    font-size: 0.8rem;
     font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-tight);
     color: #e65100;
@@ -169,7 +163,7 @@ h1 {
 
 .security-notice p {
     font-family: var(--font-body), sans-serif;
-    font-size: 0.9375rem;
+    font-size: 0.8rem;
     line-height: var(--line-height-relaxed);
     margin: 0;
 }
@@ -245,4 +239,5 @@ h1 {
 .list-items>li{
     font-family: var(--font-body), sans-serif;
     line-height: var( --line-height-normal);
+    font-size: 0.8rem;
 }

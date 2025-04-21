@@ -2,31 +2,26 @@
 
 /* This file contains utility classes for global styles */
 :root {
-
-    --color-primary: #1f1f1f;
-    --color-primary-light:  #3f3f3f;
+    --color-primary: #1a1a1a;
+    --color-primary-light: #2d2d2d;
     --color-primary-dark: #000000;
 
-    --color-secondary: #34a853;
-    --color-secondary-light: #4caf50;
-    --color-secondary-dark: #2e7d32;
+
+
+    --color-secondary: #3a5998;
+    --color-secondary-light: #4267b2;
+    --color-secondary-dark: #2a4073;
+
+    /* Neutral Colors - slightly darker for better contrast */
+    --color-background: #f5f7fa;
+    --color-card: #ffffff;
+    --color-text-primary: #1f2937;
+    --color-text-secondary: #4b5563;
+    --color-text-tertiary: #6b7280;
 
     /*Button colors*/
     --btn-bg-color:#1f2937;
 
-    --color-accent: #ea4335;
-    --color-accent-light: #f44336;
-    --color-accent-dark: #c62828;
-
-    /* Neutral Colors */
-    --color-background: #ffffff;
-    --color-background-alt: #f5f7fa;
-    --color-background-elevated: #ffffff;
-
-    --color-text-primary: #1f2937;
-    --color-text-secondary: #4b5563;
-    --color-text-tertiary: #6b7280;
-    --color-text-disabled: #9ca3af;
 
     --color-border: #e5e7eb;
     --color-border-light: #f3f4f6;
@@ -213,9 +208,9 @@ a {
 
 
 
-/* Secondary Button - Green */
+/* Secondary Button  */
 .btn-secondary {
-    background: linear-gradient(135deg, #34a853, #2e7d32);
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
     color: white;
 }
 

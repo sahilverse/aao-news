@@ -48,10 +48,6 @@ header {
 
 }
 
-.nav-links a:hover {
-    color: rgba(0, 0, 0, 0.7);
-    transition: color 0.3s ease;
-}
 
 .nav-links a.active {
     font-weight: bold;
@@ -89,7 +85,7 @@ header {
 /* Default icon styles */
 .hamburger, .close-icon {
     font-size: 24px;
-    color: #343a40;
+    color: #5b5f64;
     cursor: pointer;
     display: none;
 }
@@ -101,7 +97,7 @@ header {
 
 
 /* Responsive: show hamburger on mobile */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .nav-icons {
         display: block;
         position: absolute;
@@ -129,9 +125,10 @@ header {
         width: 100%;
         flex-direction: column;
         align-items: center;
-        background-color: #f8f9fa;
         display: none;
+        background-color: var(--color-primary);
         animation: slideDown 0.3s ease-in-out forwards;
+
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 998;
         padding-bottom: 20px;
@@ -149,6 +146,23 @@ header {
     .nav-links.active-ham ~ .nav-icons .close-icon {
         display: block;
     }
+    .nav-links.slide-out {
+        animation: slideOut 0.3s ease-in-out forwards;
+    }
+
 }
+
+/* Animation for dropdown */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 

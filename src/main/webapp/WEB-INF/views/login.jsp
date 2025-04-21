@@ -18,7 +18,7 @@
 
 </head>
 <body>
-<jsp:include page="../layouts/header.jsp"/>
+<jsp:include page="../layouts/navbar.jsp"/>
 
 
 <div class="container form-container">

@@ -17,7 +17,7 @@
     <%@ include file="../layouts/reusable.jsp" %>
 </head>
 <body>
-<jsp:include page="../layouts/header.jsp"/>
+<jsp:include page="../layouts/navbar.jsp"/>
 <div class="container" style="margin-top: 40px;">
     <div class="header">
         <h1>Choose Registration Type</h1>
@@ -55,7 +55,7 @@
                         <p class="note"><i class="fas fa-info-circle"></i> Publisher accounts require approval</p>
                     </div>
                 </div>
-                <a href="${pageContext.request.contextPath}/register?type=user" class="btn btn-default">Continue <i
+                <a href="${pageContext.request.contextPath}/register?type=user" class="btn btn-secondary">Continue <i
                         class="fas fa-arrow-right"></i></a>
             </div>
         </div>
