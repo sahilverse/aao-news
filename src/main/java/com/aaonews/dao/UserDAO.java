@@ -283,9 +283,8 @@ public class UserDAO {
      * Updates the last login timestamp for a user
      *
      * @param userId The ID of the user
-     * @return true if successful, false otherwise
      */
-    public boolean updateLastLogin(int userId) {
+    public void updateLastLogin(int userId) {
         String sql = "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
@@ -294,10 +293,8 @@ public class UserDAO {
             stmt.setInt(1, userId);
 
             int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
