@@ -8,25 +8,25 @@ import java.sql.Timestamp;
  * This class represents the information of a publisher in the system.
  */
 
-public class PublisherInfo {
+public class Publisher {
     private int publisherId;
     private boolean isVerified;
     private Timestamp verificationDate;
 
-    public PublisherInfo() {}
+    public Publisher() {}
 
-    public PublisherInfo(int publisherId, boolean isVerified, Timestamp verificationDate) {
+    public Publisher(int publisherId, boolean isVerified, Timestamp verificationDate) {
         this.publisherId = publisherId;
         this.isVerified = isVerified;
         this.verificationDate = verificationDate;
     }
 
-    public PublisherInfo( boolean isVerified, Timestamp verificationDate) {
+    public Publisher(boolean isVerified, Timestamp verificationDate) {
 
         this.isVerified = isVerified;
         this.verificationDate = verificationDate;
     }
-    public PublisherInfo(int publisherId) {
+    public Publisher(int publisherId) {
         this.publisherId = publisherId;
         this.isVerified = false;
         this.verificationDate = null;
