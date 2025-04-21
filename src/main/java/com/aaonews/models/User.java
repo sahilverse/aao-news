@@ -19,22 +19,28 @@ public class User {
     public User() {
     }
 
-    public User(int id, String email, String username, String password, String fullName,
-                Role role, String phoneNumber,
-                byte[] profileImage) {
-        this(email, username, password, fullName, role, phoneNumber, profileImage);
+    public User(int id, String email, String password, String fullName, Role role, byte[] profileImage) {
+        this(email, password, fullName,  role, profileImage);
         this.id = id;
     }
 
-    public User(String email, String username, String password, String fullName, Role role, String phoneNumber, byte[] profileImage) {
+    public User(String email,  String password, String fullName, Role role, byte[] profileImage) {
         this.email = email;
-        this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.role = role;
-        this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
     }
+
+    public User(String email,  String password, String fullName, Role role) {
+        this.email = email;
+        this.password = password;
+        this.fullName = fullName;
+        this.role = role;
+        this.profileImage = null;
+    }
+
+
 
     // Getters and setters...
 

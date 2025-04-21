@@ -16,19 +16,15 @@ CREATE TABLE IF NOT EXISTS users
 (
     id            INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     email         VARCHAR(255) NOT NULL UNIQUE,
-    username      VARCHAR(50)  NOT NULL UNIQUE,
     password      VARCHAR(255) NOT NULL,
     full_name     VARCHAR(100) NOT NULL,
     role_id       INT UNSIGNED NOT NULL,
-    phone_number  VARCHAR(15)  NOT NULL UNIQUE,
     profile_image MEDIUMBLOB, -- Storing image Binary data MAX-SIZE: 16MB
     created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     last_login    TIMESTAMP    NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id),
     INDEX idx_users_email (email),
-    INDEX idx_users_username (username),
-    INDEX idx_users_phone (phone_number),
     INDEX idx_users_role (role_id)
 ) COMMENT ='Stores user account information';
 

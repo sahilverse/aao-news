@@ -21,24 +21,22 @@ public class UserDAO {
      * @return The ID of the newly created user, or -1 if creation failed
      */
     public int createUser(User user) {
-        String sql = "INSERT INTO users (email, username, password, full_name, role_id, phone_number, profile_image) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (email, password, full_name, role_id, profile_image) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, user.getEmail());
-            stmt.setString(2, user.getUsername());
-            stmt.setString(3, PasswordUtil.hashPassword(user.getPassword()));
-            stmt.setString(4, user.getFullName());
-            stmt.setInt(5, user.getRole().getId());
-            stmt.setString(6, user.getPhoneNumber());
+            stmt.setString(2, PasswordUtil.hashPassword(user.getPassword()));
+            stmt.setString(3, user.getFullName());
+            stmt.setInt(4, user.getRole().getId());
 
 
             if (user.getProfileImage() != null) {
-                stmt.setBytes(9, user.getProfileImage());
+                stmt.setBytes(5, user.getProfileImage());
             } else {
-                stmt.setNull(9, Types.BLOB);
+                stmt.setNull(5, Types.BLOB);
             }
 
             int affectedRows = stmt.executeUpdate();
@@ -74,12 +72,12 @@ public class UserDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, publisher.getPublisherId());
-            stmt.setBoolean(3, publisher.isVerified());
+            stmt.setBoolean(2, publisher.isVerified());
 
             if(publisher.isVerified()) {
-                stmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+                stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             } else {
-                stmt.setNull(4, Types.TIMESTAMP);
+                stmt.setNull(3, Types.TIMESTAMP);
             }
 
             int affectedRows = stmt.executeUpdate();
@@ -92,31 +90,6 @@ public class UserDAO {
 
 
 
-    /**
-     * Checks if a username already exists in the database
-     *
-     * @param username The username to check
-     * @return true if the username exists, false otherwise
-     */
-    public boolean usernameExists(String username) {
-        String sql = "SELECT COUNT(*) FROM users WHERE username = ?";
-
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, username);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1) > 0;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
 
     /**
      * Checks if an email already exists in the database
@@ -144,31 +117,7 @@ public class UserDAO {
         return false;
     }
 
-    /**
-     * Gets a user by their username
-     *
-     * @param username The username to look up
-     * @return The user, or null if not found
-     */
-    public User getUserByUsername(String username) {
-        String sql = "SELECT id, email, username, password, full_name, role_id, phone_number, profile_image FROM users WHERE username = ?";
 
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, username);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return extractUserFromResultSet(rs);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
     /**
      * Gets a user by their email
@@ -177,7 +126,7 @@ public class UserDAO {
      * @return The user, or null if not found
      */
     public User getUserByEmail(String email) {
-        String sql = "SELECT id, email, username, password, full_name, role_id, phone_number, profile_image FROM users WHERE email = ?";
+        String sql = "SELECT id, email, password, full_name, role_id, profile_image FROM users WHERE email = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -203,7 +152,7 @@ public class UserDAO {
      * @return The user, or null if not found
      */
     public User getUserById(int id) {
-        String sql = "SELECT id, email, username, password, full_name, role_id, phone_number, profile_image FROM users WHERE id = ?";
+        String sql = "SELECT id, email,  password, full_name, role_id, profile_image FROM users WHERE id = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -249,13 +198,11 @@ public class UserDAO {
     private User extractUserFromResultSet(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String email = rs.getString("email");
-        String username = rs.getString("username");
         String password = rs.getString("password");
         String fullName = rs.getString("full_name");
         Role role = Role.fromId(rs.getInt("role_id"));
-        String phoneNumber = rs.getString("phone_number");
         byte[] profileImage = rs.getBytes("profile_image");
 
-        return new User(id, email, username, password, fullName, role, phoneNumber, profileImage);
+        return new User(id, email, password, fullName, role, profileImage);
     }
 }

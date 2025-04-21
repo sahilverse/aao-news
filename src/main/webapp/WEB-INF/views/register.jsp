@@ -89,7 +89,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="${pageContext.request.contextPath}/register?type=admin" class="btn btn-secondary">Request Admin
+                <a href="${pageContext.request.contextPath}/register?type=admin" class="btn btn-secondary">Admin
                     Access <i class="fas fa-lock"></i></a>
             </div>
         </div>
