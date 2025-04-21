@@ -19,7 +19,7 @@
 <jsp:include page="../layouts/header.jsp"/>
 
 <div class="container form-container">
-    <form name="loginForm" onsubmit="return submitForm()">
+    <form name="loginForm" onsubmit="return submitForm()" action="${pageContext.request.contextPath}/login" method="post">
         <h1>Login to Aao-news</h1>
         <div class="input">
             <label for="email">Email</label>
