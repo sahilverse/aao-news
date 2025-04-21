@@ -4,4 +4,9 @@
 
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="3.0">
   <display-name>Archetype Created Web Application</display-name>
+
+  <context-param>
+    <param-name>adminCode</param-name>
+    <param-value>AaonewsAdmin</param-value>
+  </context-param>
 </web-app>
