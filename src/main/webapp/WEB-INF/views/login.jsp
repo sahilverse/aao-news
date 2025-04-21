@@ -22,7 +22,7 @@
 
 
 <div class="container form-container">
-    <form name="loginForm" onsubmit="return submitForm()" action="login" method="post">
+    <form name="loginForm"  action="login" method="POST">
         <h1>Login to Aao-news</h1>
 
         <c:if test="${requestScope.loginAttempted}">
@@ -46,7 +46,7 @@
 
         <div class="input">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email"/>
+            <input type="text" name="email" id="email"/>
 
 
         </div>
@@ -76,6 +76,8 @@
     </form>
 
 </div>
+<script src="${pageContext.request.contextPath}/assets/js/formValidation.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/loginValidation.js"></script>
+
 </body>
 </html>
