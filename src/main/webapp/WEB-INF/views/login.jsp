@@ -1,11 +1,12 @@
 <%--
   Created by IntelliJ IDEA.
-  User: DELL
+  User: Dell
   Date: 4/17/2025
   Time: 10:34 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Login</title>
@@ -13,21 +14,46 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/navbar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css">
+    <%@ include file="../layouts/reusable.jsp" %>
 
 </head>
 <body>
 <jsp:include page="../layouts/header.jsp"/>
 
+
 <div class="container form-container">
-    <form name="loginForm" onsubmit="return submitForm()" action="${pageContext.request.contextPath}/login" method="post">
+    <form name="loginForm" onsubmit="return submitForm()" action="login" method="post">
         <h1>Login to Aao-news</h1>
+
+        <c:if test="${requestScope.loginAttempted}">
+            <c:choose>
+                <c:when test="${not empty requestScope.error}">
+                    <div class="form-error">
+                        <i class="fas fa-exclamation-triangle error-icon"></i>
+                        <p> ${requestScope.error}</p>
+                    </div>
+                </c:when>
+
+                <c:otherwise>
+                    <div class="form-error">
+                        <i class="fas fa-exclamation-triangle error-icon"></i>
+                        <p> An unknown error occurred. Please try again later.</p>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </c:if>
+
+
         <div class="input">
             <label for="email">Email</label>
             <input type="email" name="email" id="email"/>
+
+
         </div>
         <div class="input">
             <label for="password">Password</label>
             <input type="password" name="password" id="password">
+
         </div>
 
         <div class="remember-forgot" style="margin-top: 4px;">
