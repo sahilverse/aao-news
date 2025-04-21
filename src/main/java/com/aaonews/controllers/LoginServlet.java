@@ -3,8 +3,8 @@ package com.aaonews.controllers;
 
 import com.aaonews.dao.UserDAO;
 import com.aaonews.models.User;
-import com.aaonews.utils.JWTUtil;
 import com.aaonews.utils.PasswordUtil;
+import com.aaonews.utils.SessionUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -59,19 +59,12 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("user", user);
         userDAO.updateLastLogin(user.getId());
 
-        Cookie emailCookie;
+
         if ("on".equals(rememberMe)) {
-            String jwt = JWTUtil.generateToken(email);
-            emailCookie = new Cookie("session", jwt);
-            emailCookie.setMaxAge(60 * 60 * 24 * 7); // 7 days
-            emailCookie.setHttpOnly(true);
-        } else {
-            // Clear the cookie if "remember me" not selected
-            emailCookie = new Cookie("session", "");
-            emailCookie.setMaxAge(0);
+            SessionUtil.createRememberMeCookie(response, user.getId());
+        } else{
+            SessionUtil.clearRememberMeCookie(response);
         }
-        emailCookie.setPath("/");
-        response.addCookie(emailCookie);
 
         response.sendRedirect(request.getContextPath());
     }
