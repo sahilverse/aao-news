@@ -1,7 +1,7 @@
 package com.aaonews.dao;
 
 import com.aaonews.enums.Role;
-import com.aaonews.models.PublisherInfo;
+import com.aaonews.models.Publisher;
 import com.aaonews.models.User;
 import com.aaonews.utils.DatabaseUtil;
 import com.aaonews.utils.PasswordUtil;
@@ -63,20 +63,20 @@ public class UserDAO {
     /**
      * Creates publisher information for a user
      *
-     * @param publisherInfo The publisher information
+     * @param publisher The publisher information
      * @return true if successful, false otherwise
      */
-    public boolean createPublisherInfo(PublisherInfo publisherInfo) {
-        String sql = "INSERT INTO publisher_info (publisher_id, is_verified, verification_date) " +
+    public boolean createPublisher(Publisher publisher) {
+        String sql = "INSERT INTO publisher (publisher_id, is_verified, verification_date) " +
                 "VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, publisherInfo.getPublisherId());
-            stmt.setBoolean(3, publisherInfo.isVerified());
+            stmt.setInt(1, publisher.getPublisherId());
+            stmt.setBoolean(3, publisher.isVerified());
 
-            if(publisherInfo.isVerified()) {
+            if(publisher.isVerified()) {
                 stmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
             } else {
                 stmt.setNull(4, Types.TIMESTAMP);
@@ -240,6 +240,8 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * Helper method to extract a User object from a ResultSet
