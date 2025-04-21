@@ -215,11 +215,11 @@ a {
 }
 
 .btn-secondary:hover {
-    background: linear-gradient(135deg, #2e7d32, #1b5e20);
+    background: linear-gradient(135deg, var(--color-secondary-dark), var(--color-secondary));
 }
 
 .btn-secondary:focus {
-    box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.4);
+    box-shadow: 0 0 0 3px rgba(58, 89, 152, 0.4);
 }
 
 /* Danger Button - Red */

@@ -1,6 +1,6 @@
 <header>
 <div class="navbar container ">
-    <a href="${pageContext.request.contextPath}/"><div class="logo">Aao<span>News</span></div></a>
+    <a href="${pageContext.request.contextPath}/"><div class="logo">aao-news</div></a>
 
     <div class="nav-icons">
         <i class="fas fa-bars hamburger" id="hamburger"></i>
@@ -8,8 +8,8 @@
     </div>
 
     <ul class="nav-links" id="nav-links">
-        <li><a href="${pageContext.request.contextPath}/"
-               class="${pageContext.request.contextPath ? 'active' : ''}">Home</a></li>
+        <li><a href="${pageContext.request.contextPath}/home"
+               class="${pageContext.request.requestURI.contains('/home') ? 'active' : ''}">Home</a></li>
 
         <li><a href="${pageContext.request.contextPath}/trending"
                class="${pageContext.request.requestURI.contains('/trending') ? 'active' : ''}">Trending</a></li>
@@ -24,7 +24,7 @@
 
     <div class="nav-actions">
         <button class="nav-btn"><a href="${pageContext.request.contextPath}/login">Login</a></button>
-        <button class="nav-btn"><a href="${pageContext.request.contextPath}/register">Register</a></button>
+        <button class="nav-btn nav-btn-white"><a href="${pageContext.request.contextPath}/register">Register</a></button>
     </div>
 </div>
 </header>
