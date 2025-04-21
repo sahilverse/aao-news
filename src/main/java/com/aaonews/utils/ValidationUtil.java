@@ -11,7 +11,8 @@ public class ValidationUtil {
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     private static final String USERNAME_REGEX = "^[a-zA-Z0-9_]{3,20}$";
     private static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-    private static final String PHONE_REGEX = "^\\+?[0-9]{10,15}$";
+    private static final String PHONE_REGEX = "^(\\+977)?9[6-8][0-9]{8}$";
+
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
     private static final Pattern USERNAME_PATTERN = Pattern.compile(USERNAME_REGEX);
