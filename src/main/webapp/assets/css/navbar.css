@@ -168,4 +168,67 @@ header {
 }
 
 
+/*Modal*/
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: var(--color-primary);
+    width: 350px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.modal-box p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+.modal-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.btn-confirm,
+.btn-cancel {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-confirm {
+    background-color: #ef4444;
+    color: white;
+}
+
+.btn-cancel {
+    background-color: #e5e7eb;
+    color: #111827;
+}
+
+.modal-overlay.active-modal {
+    display: flex;
+}
+
 
