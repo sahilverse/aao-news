@@ -100,7 +100,7 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/formValidation.js"></script>
 <script>
-    attachFormValidator("adminForm", {
+    attachFormValidator("userForm", {
 
         email: [
             { email: { message: "Please enter a valid email address." } },
