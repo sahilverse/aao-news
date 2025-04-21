@@ -3,15 +3,17 @@ package com.aaonews.controllers;
 
 import com.aaonews.dao.UserDAO;
 import com.aaonews.models.User;
+import com.aaonews.utils.JWTUtil;
 import com.aaonews.utils.PasswordUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import org.mindrot.jbcrypt.BCrypt;
+
 
 
 import java.io.IOException;
+import com.aaonews.utils.ValidationUtil;
 
 
 
@@ -23,50 +25,62 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
         dispatcher.forward(request, response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String check = request.getParameter("checkbox");
+        String rememberMe = request.getParameter("checkbox");
+
+        // Validate email and password
+        if (!ValidationUtil.isValidEmail(email.trim())) {
+            forwardWithError(request, response, "Invalid Email");
+            return;
+        }
+
+        System.out.println("Remember Me: " + rememberMe);
 
         UserDAO userDAO = new UserDAO();
         User user = userDAO.getUserByEmail(email);
+
         if (user == null) {
-            request.setAttribute("error","Email does not exist");
-            response.sendRedirect("/login");
+            forwardWithError(request, response, "User not found");
             return;
         }
-        String hashedPassword = user.getPassword();
-        boolean passwordMatch = PasswordUtil.comparePassword(password, hashedPassword);
 
-        if (passwordMatch) {
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            if (check!=null){
-                Cookie emailCookie = new Cookie("email", email);
-                Cookie passwordCookie = new Cookie("password", password);
-
-                emailCookie.setMaxAge(60*60*24*7);
-                passwordCookie.setMaxAge(60*60*24*7);
-
-                response.addCookie(emailCookie);
-                response.addCookie(passwordCookie);
-
-
-
-
-            }
-            response.sendRedirect("/WEB-INF/views/home.jsp");
-
-
-
-
-        }
-        else{
-            request.setAttribute("error","Password does not match");
-            response.sendRedirect(request.getContextPath()+ "/login");
+        boolean passwordMatch = PasswordUtil.comparePassword(password, user.getPassword());
+        if (!passwordMatch) {
+            forwardWithError(request, response, "Incorrect password");
+            return;
         }
 
-        System.out.println("email: " + email + ", password: " + password+ ", check: " + check);
+        // Successful login
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
+        userDAO.updateLastLogin(user.getId());
+
+        Cookie emailCookie;
+        if ("on".equals(rememberMe)) {
+            String jwt = JWTUtil.generateToken(email);
+            emailCookie = new Cookie("session", jwt);
+            emailCookie.setMaxAge(60 * 60 * 24 * 7); // 7 days
+            emailCookie.setHttpOnly(true);
+        } else {
+            // Clear the cookie if "remember me" not selected
+            emailCookie = new Cookie("session", "");
+            emailCookie.setMaxAge(0);
+        }
+        emailCookie.setPath("/");
+        response.addCookie(emailCookie);
+
+        response.sendRedirect(request.getContextPath());
     }
+
+    private void forwardWithError(HttpServletRequest request, HttpServletResponse response, String errorMsg)
+            throws ServletException, IOException {
+        request.setAttribute("loginAttempted", true);
+        request.setAttribute("error", errorMsg);
+        request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+    }
+
 }
