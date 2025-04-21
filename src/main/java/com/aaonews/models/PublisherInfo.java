@@ -10,17 +10,26 @@ import java.sql.Timestamp;
 
 public class PublisherInfo {
     private int publisherId;
-    private boolean isIndividual;
     private boolean isVerified;
     private Timestamp verificationDate;
 
     public PublisherInfo() {}
 
-    public PublisherInfo(int publisherId, boolean isIndividual, boolean isVerified, Timestamp verificationDate) {
+    public PublisherInfo(int publisherId, boolean isVerified, Timestamp verificationDate) {
         this.publisherId = publisherId;
-        this.isIndividual = isIndividual;
         this.isVerified = isVerified;
         this.verificationDate = verificationDate;
+    }
+
+    public PublisherInfo( boolean isVerified, Timestamp verificationDate) {
+
+        this.isVerified = isVerified;
+        this.verificationDate = verificationDate;
+    }
+    public PublisherInfo(int publisherId) {
+        this.publisherId = publisherId;
+        this.isVerified = false;
+        this.verificationDate = null;
     }
 
     public int getPublisherId() {
@@ -31,13 +40,6 @@ public class PublisherInfo {
         this.publisherId = publisherId;
     }
 
-    public boolean isIndividual() {
-        return isIndividual;
-    }
-
-    public void setIndividual(boolean individual) {
-        isIndividual = individual;
-    }
 
     public boolean isVerified() {
         return isVerified;
