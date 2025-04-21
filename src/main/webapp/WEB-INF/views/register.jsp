@@ -17,8 +17,8 @@
     <%@ include file="../layouts/reusable.jsp" %>
 </head>
 <body>
-<div class="container" style="margin-top: 100px;">
-    <jsp:include page="../layouts/header.jsp" />
+<jsp:include page="../layouts/header.jsp"/>
+<div class="container" style="margin-top: 40px;">
     <div class="header">
         <h1>Choose Registration Type</h1>
         <p class="subtitle">Select the appropriate registration option based on your role</p>
@@ -55,7 +55,8 @@
                         <p class="note"><i class="fas fa-info-circle"></i> Publisher accounts require approval</p>
                     </div>
                 </div>
-                <a href="${pageContext.request.contextPath}/register/user" class="btn btn-primary">Continue <i class="fas fa-arrow-right"></i></a>
+                <a href="${pageContext.request.contextPath}/register?type=user" class="btn btn-default">Continue <i
+                        class="fas fa-arrow-right"></i></a>
             </div>
         </div>
 
@@ -83,12 +84,13 @@
                         <i class="fas fa-exclamation-triangle"></i>
                         <div>
                             <h4>Security Notice</h4>
-                            <p>Admin registration requires verification and approval from a Super Admin. All admin
+                            <p>Admin registration requires admin code. All admin
                                 actions are logged for security purposes.</p>
                         </div>
                     </div>
                 </div>
-                <a href="${pageContext.request.contextPath}/register/admin" class="btn btn-secondary">Request Admin Access <i class="fas fa-lock"></i></a>
+                <a href="${pageContext.request.contextPath}/register?type=admin" class="btn btn-secondary">Request Admin
+                    Access <i class="fas fa-lock"></i></a>
             </div>
         </div>
     </div>
