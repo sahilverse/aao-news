@@ -7,6 +7,6 @@
 
   <context-param>
     <param-name>adminCode</param-name>
-    <param-value>AaonewsAdmin</param-value>
+    <param-value>AaoAdmin</param-value>
   </context-param>
 </web-app>

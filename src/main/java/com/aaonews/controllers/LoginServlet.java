@@ -38,7 +38,6 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        System.out.println("Remember Me: " + rememberMe);
 
         UserDAO userDAO = new UserDAO();
         User user = userDAO.getUserByEmail(email);
@@ -55,9 +54,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         // Successful login
-        HttpSession session = request.getSession();
-        session.setAttribute("user", user);
-        userDAO.updateLastLogin(user.getId());
+        SessionUtil.createUserSession(request, user);
 
 
         if ("on".equals(rememberMe)) {

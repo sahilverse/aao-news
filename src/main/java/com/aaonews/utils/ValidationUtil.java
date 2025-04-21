@@ -9,15 +9,12 @@ public class ValidationUtil {
 
     // Regular expressions for validation
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-    private static final String USERNAME_REGEX = "^[a-zA-Z0-9_]{3,20}$";
     private static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-    private static final String PHONE_REGEX = "^(\\+977)?9[6-8][0-9]{8}$";
 
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
-    private static final Pattern USERNAME_PATTERN = Pattern.compile(USERNAME_REGEX);
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEX);
-    private static final Pattern PHONE_PATTERN = Pattern.compile(PHONE_REGEX);
+
 
     /**
      * Validates an email address
@@ -32,18 +29,6 @@ public class ValidationUtil {
         return EMAIL_PATTERN.matcher(email).matches();
     }
 
-    /**
-     * Validates a username
-     *
-     * @param username The username to validate
-     * @return true if valid, false otherwise
-     */
-    public static boolean isValidUsername(String username) {
-        if (username == null) {
-            return false;
-        }
-        return USERNAME_PATTERN.matcher(username).matches();
-    }
 
     /**
      * Validates a password
@@ -58,18 +43,6 @@ public class ValidationUtil {
         return PASSWORD_PATTERN.matcher(password).matches();
     }
 
-    /**
-     * Validates a phone number
-     *
-     * @param phone The phone number to validate
-     * @return true if valid, false otherwise
-     */
-    public static boolean isValidPhone(String phone) {
-        if (phone == null || phone.trim().isEmpty()) {
-            return true;
-        }
-        return PHONE_PATTERN.matcher(phone).matches();
-    }
 
     /**
      * Validates that a string is not empty
