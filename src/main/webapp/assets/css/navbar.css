@@ -146,9 +146,7 @@ header {
     .nav-links.active-ham ~ .nav-icons .close-icon {
         display: block;
     }
-    .nav-links.slide-out {
-        animation: slideOut 0.3s ease-in-out forwards;
-    }
+
 
 }
 
