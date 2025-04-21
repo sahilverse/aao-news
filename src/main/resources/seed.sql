@@ -7,7 +7,6 @@ TRUNCATE TABLE roles;
 TRUNCATE TABLE categories;
 TRUNCATE TABLE article_statuses;
 TRUNCATE TABLE system_settings;
-TRUNCATE TABLE user_statuses;
 SET FOREIGN_KEY_CHECKS = 1;
 
 
@@ -17,13 +16,6 @@ VALUES ('user', 'Regular user with basic privileges'),
        ('publisher', 'Content creator with article management privileges'),
        ('admin', 'Administrator with full system access and management privileges');
 
--- Insert into the 'User Status' table
-INSERT INTO user_statuses (name, description)
-VALUES ('active', 'User account is active and in good standing'),
-       ('deactivated', 'User account is deactivated and not accessible'),
-       ('pending', 'User account is pending approval'),
-       ('suspended', 'User account is suspended due to policy violations'),
-       ('banned', 'User account is banned due to violations');
 
 -- Insert into the 'Categories' table
 INSERT INTO categories (name, slug, description)

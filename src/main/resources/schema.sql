@@ -10,37 +10,25 @@ CREATE TABLE IF NOT EXISTS roles
     description TEXT
 ) COMMENT ='Defines user roles in the system';
 
--- User Status Table Definitions
--- 1: active, 2: deactivated, 3: pending, 4: suspended, 5: banned
-CREATE TABLE IF NOT EXISTS user_statuses
-(
-    id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name        VARCHAR(50) NOT NULL UNIQUE,
-    description TEXT
-) COMMENT ='Defines user status in the system';
 
 -- Users table
 CREATE TABLE IF NOT EXISTS users
 (
-    id             INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    email          VARCHAR(255) NOT NULL UNIQUE,
-    username       VARCHAR(50)  NOT NULL UNIQUE,
-    password       VARCHAR(255) NOT NULL,
-    full_name      VARCHAR(100) NOT NULL,
-    role_id        INT UNSIGNED NOT NULL,
-    phone_number   VARCHAR(15)  NULL UNIQUE,
-    email_verified BOOLEAN      DEFAULT FALSE,
-    user_status_id INT UNSIGNED DEFAULT 1,
-    profile_image  MEDIUMBLOB, -- Storing image Binary data MAX-SIZE: 16MB
-    created_at     TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
-    updated_at     TIMESTAMP    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    last_login     TIMESTAMP    NULL,
+    id            INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email         VARCHAR(255) NOT NULL UNIQUE,
+    username      VARCHAR(50)  NOT NULL UNIQUE,
+    password      VARCHAR(255) NOT NULL,
+    full_name     VARCHAR(100) NOT NULL,
+    role_id       INT UNSIGNED NOT NULL,
+    phone_number  VARCHAR(15)  NOT NULL UNIQUE,
+    profile_image MEDIUMBLOB, -- Storing image Binary data MAX-SIZE: 16MB
+    created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    last_login    TIMESTAMP    NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id),
-    FOREIGN KEY (user_status_id) REFERENCES user_statuses (id),
     INDEX idx_users_email (email),
     INDEX idx_users_username (username),
     INDEX idx_users_phone (phone_number),
-    INDEX idx_users_status (user_status_id),
     INDEX idx_users_role (role_id)
 ) COMMENT ='Stores user account information';
 
@@ -48,30 +36,10 @@ CREATE TABLE IF NOT EXISTS users
 CREATE TABLE IF NOT EXISTS publisher_info
 (
     publisher_id      INT UNSIGNED PRIMARY KEY,
-    is_individual     BOOLEAN DEFAULT TRUE,
     is_verified       BOOLEAN DEFAULT FALSE,
     verification_date TIMESTAMP NULL,
     FOREIGN KEY (publisher_id) REFERENCES users (id) ON DELETE CASCADE
 ) COMMENT ='Stores core info for all publishers';
-
--- Individual publisher information
-CREATE TABLE IF NOT EXISTS individual_info
-(
-    publisher_id     INT UNSIGNED PRIMARY KEY,
-    national_id_type VARCHAR(50) NOT NULL,
-    national_id_no   VARCHAR(50) NOT NULL,
-    FOREIGN KEY (publisher_id) REFERENCES publisher_info (publisher_id) ON DELETE CASCADE
-) COMMENT ='Stores identity verification for individual publishers';
-
--- Organization publisher information
-CREATE TABLE IF NOT EXISTS organization_info
-(
-    publisher_id         INT UNSIGNED PRIMARY KEY,
-    organization_name    VARCHAR(100) NOT NULL,
-    organization_website VARCHAR(255),
-    pan_number           VARCHAR(20)  NOT NULL,
-    FOREIGN KEY (publisher_id) REFERENCES publisher_info (publisher_id) ON DELETE CASCADE
-) COMMENT ='Stores information for organizational publishers';
 
 -- Categories table
 CREATE TABLE IF NOT EXISTS categories
