@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS users
     INDEX idx_users_role (role_id)
 ) COMMENT ='Stores user account information';
 
--- Publisher information table
-CREATE TABLE IF NOT EXISTS publisher_info
+-- Publisher table
+CREATE TABLE IF NOT EXISTS publisher
 (
     publisher_id      INT UNSIGNED PRIMARY KEY,
     is_verified       BOOLEAN DEFAULT FALSE,
