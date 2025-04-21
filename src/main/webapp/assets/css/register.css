@@ -57,7 +57,7 @@ h1 {
 }
 
 .card-header.user-publisher {
-    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
 }
 
 .card-header.admin {
