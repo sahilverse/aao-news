@@ -1,10 +1,7 @@
 package com.aaonews.dao;
 
 import com.aaonews.enums.Role;
-import com.aaonews.enums.UserStatus;
 import com.aaonews.models.PublisherInfo;
-import com.aaonews.models.PublisherIndividualInfo;
-import com.aaonews.models.PublisherOrganizationInfo;
 import com.aaonews.models.User;
 import com.aaonews.utils.DatabaseUtil;
 import com.aaonews.utils.PasswordUtil;
@@ -24,8 +21,8 @@ public class UserDAO {
      * @return The ID of the newly created user, or -1 if creation failed
      */
     public int createUser(User user) {
-        String sql = "INSERT INTO users (email, username, password, full_name, role_id, phone_number, email_verified, user_status_id, profile_image) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (email, username, password, full_name, role_id, phone_number, profile_image) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -36,8 +33,7 @@ public class UserDAO {
             stmt.setString(4, user.getFullName());
             stmt.setInt(5, user.getRole().getId());
             stmt.setString(6, user.getPhoneNumber());
-            stmt.setBoolean(7, user.isEmailVerified());
-            stmt.setInt(8, user.getUserStatus().getId());
+
 
             if (user.getProfileImage() != null) {
                 stmt.setBytes(9, user.getProfileImage());
@@ -71,14 +67,13 @@ public class UserDAO {
      * @return true if successful, false otherwise
      */
     public boolean createPublisherInfo(PublisherInfo publisherInfo) {
-        String sql = "INSERT INTO publisher_info (publisher_id, is_individual, is_verified, verification_date) " +
-                "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO publisher_info (publisher_id, is_verified, verification_date) " +
+                "VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, publisherInfo.getPublisherId());
-            stmt.setBoolean(2, publisherInfo.isIndividual());
             stmt.setBoolean(3, publisherInfo.isVerified());
 
             if(publisherInfo.isVerified()) {
@@ -95,56 +90,7 @@ public class UserDAO {
         }
     }
 
-    /**
-     * Creates individual publisher information
-     *
-     * @param individualInfo The individual publisher information
-     * @return true if successful, false otherwise
-     */
-    public boolean createIndividualInfo(PublisherIndividualInfo individualInfo) {
-        String sql = "INSERT INTO individual_info (publisher_id, national_id_type, national_id_no) " +
-                "VALUES (?, ?, ?)";
 
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, individualInfo.getPublisherId());
-            stmt.setString(2, individualInfo.getNationalIdType());
-            stmt.setString(3, individualInfo.getNationalIdNo());
-
-            int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * Creates organization publisher information
-     *
-     * @param organizationInfo The organization publisher information
-     * @return true if successful, false otherwise
-     */
-    public boolean createOrganizationInfo(PublisherOrganizationInfo organizationInfo) {
-        String sql = "INSERT INTO organization_info (publisher_id, organization_name, organization_website, pan_number) " +
-                "VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, organizationInfo.getPublisherId());
-            stmt.setString(2, organizationInfo.getOrganizationName());
-            stmt.setString(3, organizationInfo.getOrganizationWebsite());
-            stmt.setString(4, organizationInfo.getPanNumber());
-
-            int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
     /**
      * Checks if a username already exists in the database
@@ -205,8 +151,7 @@ public class UserDAO {
      * @return The user, or null if not found
      */
     public User getUserByUsername(String username) {
-        String sql = "SELECT id, email, username, password, full_name, role_id, phone_number, " +
-                "email_verified, user_status_id, profile_image FROM users WHERE username = ?";
+        String sql = "SELECT id, email, username, password, full_name, role_id, phone_number, profile_image FROM users WHERE username = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -232,8 +177,7 @@ public class UserDAO {
      * @return The user, or null if not found
      */
     public User getUserByEmail(String email) {
-        String sql = "SELECT id, email, username, password, full_name, role_id, phone_number, " +
-                "email_verified, user_status_id, profile_image FROM users WHERE email = ?";
+        String sql = "SELECT id, email, username, password, full_name, role_id, phone_number, profile_image FROM users WHERE email = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -259,8 +203,7 @@ public class UserDAO {
      * @return The user, or null if not found
      */
     public User getUserById(int id) {
-        String sql = "SELECT id, email, username, password, full_name, role_id, phone_number, " +
-                "email_verified, user_status_id, profile_image FROM users WHERE id = ?";
+        String sql = "SELECT id, email, username, password, full_name, role_id, phone_number, profile_image FROM users WHERE id = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -309,10 +252,8 @@ public class UserDAO {
         String fullName = rs.getString("full_name");
         Role role = Role.fromId(rs.getInt("role_id"));
         String phoneNumber = rs.getString("phone_number");
-        boolean emailVerified = rs.getBoolean("email_verified");
-        UserStatus userStatus = UserStatus.fromId(rs.getInt("user_status_id"));
         byte[] profileImage = rs.getBytes("profile_image");
 
-        return new User(id, email, username, password, fullName, role, emailVerified, phoneNumber, userStatus, profileImage);
+        return new User(id, email, username, password, fullName, role, phoneNumber, profileImage);
     }
 }
