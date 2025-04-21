@@ -2,9 +2,10 @@
 
 /* This file contains utility classes for global styles */
 :root {
-    --color-primary: #1a73e8;
-    --color-primary-light: #4285f4;
-    --color-primary-dark: #0d47a1;
+
+    --color-primary: #1f1f1f;
+    --color-primary-light:  #3f3f3f;
+    --color-primary-dark: #000000;
 
     --color-secondary: #34a853;
     --color-secondary-light: #4caf50;
@@ -210,19 +211,7 @@ a {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }
 
-/* Primary Button - Blue */
-.btn-primary {
-    background: linear-gradient(135deg, #1a73e8, #0d47a1);
-    color: white;
-}
 
-.btn-primary:hover {
-    background: linear-gradient(135deg, #0d47a1, #0a3880);
-}
-
-.btn-primary:focus {
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.4);
-}
 
 /* Secondary Button - Green */
 .btn-secondary {
