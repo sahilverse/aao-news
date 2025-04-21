@@ -2,80 +2,62 @@ package com.aaonews.filters;
 
 import com.aaonews.dao.UserDAO;
 import com.aaonews.models.User;
-import com.aaonews.utils.JWTUtil;
+import com.aaonews.utils.SessionUtil;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+
 
 import java.io.IOException;
 
-
 /**
- * AuthFilter checks if the user is logged in and manages JWT token validation.
- * It redirects logged-in users away from login/register pages.
+ * Filter for handling authentication and "Remember Me" functionality
  */
-
 @WebFilter("/*")
 public class AuthFilter implements Filter {
 
-    private final UserDAO userDAO = new UserDAO();
+    private UserDAO userDAO;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        Filter.super.init(filterConfig);
+        userDAO = new UserDAO();
     }
 
-    /**
-     * Filters requests to check if the user is logged in.
-     * If not, it checks for a JWT token in cookies and validates it.
-     * If valid, it sets the user in the session.
-     * Redirects logged-in users away from login/register pages.
-     */
-
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-            throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) res;
+        // Check if user is already in session
+        User currentUser = SessionUtil.getCurrentUser(httpRequest);
 
-        HttpSession session = request.getSession(false);
-        boolean loggedIn = (session != null && session.getAttribute("user") != null);
-
-        if (!loggedIn) {
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if ("session".equals(cookie.getName())) {
-                        String email = JWTUtil.validateToken(cookie.getValue());
-                        if (email != null) {
-                            User user = userDAO.getUserByEmail(email);
-                            if (user != null) {
-                                request.getSession().setAttribute("user", user);
-                            }
-                        }
-                    }
+        // If not in session, check for "Remember Me" cookie
+        if (currentUser == null) {
+            int userId = SessionUtil.getUserIdFromRememberMeCookie(httpRequest);
+            if (userId > 0) {
+                User user = userDAO.getUserById(userId);
+                if (user != null) {
+                    // Create session for user
+                    SessionUtil.createUserSession(httpRequest, user);
+                    // Update last login time
+                    userDAO.updateLastLogin(userId);
                 }
             }
         }
 
         // Redirect logged-in users away from login/register pages
-        String uri = request.getRequestURI();
-        if ((uri.endsWith("/login") || uri.endsWith("/register")) &&
-                request.getSession().getAttribute("user") != null) {
-            response.sendRedirect(request.getContextPath());
+        String uri = httpRequest.getRequestURI();
+        if ((uri.endsWith("/login") || uri.endsWith("/register")) && currentUser != null) {
+            httpResponse.sendRedirect(httpRequest.getContextPath());
             return;
         }
 
         chain.doFilter(request, response);
     }
 
-
     @Override
     public void destroy() {
-        Filter.super.destroy();
+        // Nothing to do
     }
 }
