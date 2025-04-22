@@ -37,9 +37,14 @@
 
         <c:if test="${not empty sessionScope.currentUser}">
             <div class="nav-actions">
-                <button class="nav-btn"><a href="${pageContext.request.contextPath}/profile">Profile</a></button>
-                <button type="button" class="nav-btn nav-btn-white" onclick="showLogoutModal()">Logout
-                </button>
+
+
+
+                <a href="${pageContext.request.contextPath}/profile">
+                    <span>Hi, ${sessionScope.currentUser.fullName}</span>
+                    <i class="fa-regular fa-user" style="font-size: 1.4rem; margin-left: 4px; "></i>
+
+                </a>
             </div>
         </c:if>
     </div>
@@ -51,9 +56,9 @@
             <p>You will be logged out of your account.</p>
             <div class="modal-actions">
                 <form id="logoutForm" method="post" action="${pageContext.request.contextPath}/logout">
-                    <button type="submit" class="btn-confirm">Yes, Logout</button>
+                    <button type="submit" class="btn btn-danger">Yes, Logout</button>
                 </form>
-                <button class="btn-cancel" onclick="hideLogoutModal()">Cancel</button>
+                <button class="nav-btn nav-btn-white cancel-btn"  onclick="hideLogoutModal()">Cancel</button>
             </div>
         </div>
     </div>

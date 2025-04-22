@@ -173,8 +173,8 @@ a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
     border: none;
 
     /* Typography */
