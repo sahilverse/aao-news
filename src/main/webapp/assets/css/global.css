@@ -78,7 +78,8 @@
 
 }
 
-*, *:before, *:after {
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -90,8 +91,22 @@ html {
 
 /* Apply base font family */
 body {
+    font-family: "Poppins", sans-serif;
+    line-height: 1.6;
     color: var(--color-text-primary);
     background-color: var(--color-background);
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 
