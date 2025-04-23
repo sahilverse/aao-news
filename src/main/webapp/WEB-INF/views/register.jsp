@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aaonews - Registration</title>
     <%@ include file="../layouts/reusable.jsp" %>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/register.css">
 </head>
 <body>

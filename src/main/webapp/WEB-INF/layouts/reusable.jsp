@@ -1,5 +1,6 @@
 <!--Reusable Inside Head tag-->
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/navbar.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
 
