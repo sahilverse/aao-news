@@ -11,8 +11,8 @@
 <html>
 <head>
     <title>Admin Registration</title>
+    <%@ include file="../layouts/reusable.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/navbar.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/form.css"/>
 
 </head>
@@ -97,6 +97,8 @@
         </div>
     </form>
 </div>
+
+<jsp:include page="../layouts/footer.jsp"/>
 
 <script src="${pageContext.request.contextPath}/assets/js/formValidation.js"></script>
 <script>

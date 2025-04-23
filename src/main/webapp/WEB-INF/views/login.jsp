@@ -11,10 +11,9 @@
 <head>
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/form.css">
     <%@ include file="../layouts/reusable.jsp" %>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/form.css">
 
 </head>
 <body>
@@ -76,6 +75,8 @@
     </form>
 
 </div>
+
+<jsp:include page="../layouts/footer.jsp"/>
 <script src="${pageContext.request.contextPath}/assets/js/formValidation.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/loginValidation.js"></script>
 

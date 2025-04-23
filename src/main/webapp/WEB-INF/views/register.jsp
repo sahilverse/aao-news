@@ -11,10 +11,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aaonews - Registration</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/register.css">
     <%@ include file="../layouts/reusable.jsp" %>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/register.css">
 </head>
 <body>
 <jsp:include page="../layouts/navbar.jsp"/>
@@ -95,10 +94,12 @@
         </div>
     </div>
 
-    <div class="login-link">
+    <div class="login-link" style="margin-bottom: 20px;">
         Already have an account? <a href="${pageContext.request.contextPath}/login">Sign in</a>
     </div>
 </div>
+
+<jsp:include page="../layouts/footer.jsp"/>
 
 </body>
 </html>

@@ -11,11 +11,10 @@
     <title>About Us</title>
 
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+
+    <%@ include file="../layouts/reusable.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/about.css">
-    <%@ include file="../layouts/reusable.jsp" %>
 </head>
 <body>
 <jsp:include page="../layouts/navbar.jsp"/>

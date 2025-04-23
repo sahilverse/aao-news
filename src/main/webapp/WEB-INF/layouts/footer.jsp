@@ -9,11 +9,10 @@
                 <div class="footer-column">
                     <h3>Navigation</h3>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">News</a></li>
-                        <li><a href="#">Categories</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="${pageContext.request.contextPath}/">Home</a></li>
+                        <li><a href="${pageContext.request.contextPath}/trending">Trending</a></li>
+                        <li><a href="${pageContext.request.contextPath}/about">About</a></li>
+                        <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">

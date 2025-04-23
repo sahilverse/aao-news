@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>News Page</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/home.css">
 
     <%@ include file="../layouts/reusable.jsp" %>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/home.css">
+
 </head>
 <body>
 <jsp:include page="../layouts/navbar.jsp"/>
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <!-- Trending Topics -->
+
     <div class="trending-topics">
         <h4>Trending:</h4>
         <a href="#">Climate Summit</a>
@@ -73,6 +73,8 @@
     </div>
 
 </div>
+
+<jsp:include page="../layouts/footer.jsp"/>
 
 </body>
 </html>

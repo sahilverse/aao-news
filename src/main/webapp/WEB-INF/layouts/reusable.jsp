@@ -1,4 +1,7 @@
 <!--Reusable Inside Head tag-->
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/navbar.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+
 <!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
