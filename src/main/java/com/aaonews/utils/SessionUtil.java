@@ -82,12 +82,14 @@ public class SessionUtil {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (REMEMBER_ME_COOKIE.equals(cookie.getName())) {
-                    String value = cookie.getValue();
-                    String[] parts = value.split(":");
-                    if (parts.length == 2) {
+                    String token = cookie.getValue();
+                    String userIdStr = JWTUtil.validateToken(token);
+                    if (userIdStr != null) {
                         try {
-                            return Integer.parseInt(parts[0]);
+                            return Integer.parseInt(userIdStr);
                         } catch (NumberFormatException e) {
+                            // Log the error
+                            System.err.println("Failed to parse user ID from token: " + e.getMessage());
                             return -1;
                         }
                     }
