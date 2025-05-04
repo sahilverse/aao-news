@@ -9,4 +9,10 @@
     <param-name>adminCode</param-name>
     <param-value>AaoAdmin</param-value>
   </context-param>
+
+<!--  Error Pages-->
+  <error-page>
+    <error-code>404</error-code>
+    <location>/notfound</location>
+  </error-page>
 </web-app>
