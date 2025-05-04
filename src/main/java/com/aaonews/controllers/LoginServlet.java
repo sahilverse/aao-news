@@ -66,6 +66,7 @@ public class LoginServlet extends HttpServlet {
 
         if (user.getRole() == Role.ADMIN || user.getRole() == Role.PUBLISHER) {
             response.sendRedirect(request.getContextPath() + "/dashboard");
+            return;
         }
 
         response.sendRedirect(request.getContextPath());

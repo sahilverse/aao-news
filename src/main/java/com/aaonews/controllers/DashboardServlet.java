@@ -27,10 +27,12 @@ public class DashboardServlet extends HttpServlet {
 
         if (currentUser.getRole() == Role.ADMIN) {
             request.getRequestDispatcher("/WEB-INF/views/dashboard/admin.jsp").forward(request, response);
+            return;
         } else if (currentUser.getRole() == Role.PUBLISHER) {
             request.getRequestDispatcher("/WEB-INF/views/dashboard/publisher.jsp").forward(request, response);
+            return;
         }
-        
+
         request.getRequestDispatcher("/WEB-INF/views/unauthorized.jsp").forward(request, response);
     }
 
