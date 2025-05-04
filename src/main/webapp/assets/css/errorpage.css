@@ -1,0 +1,70 @@
+/* Error Page Styles --> Not Found, Unauthorized */
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    text-align: center;
+    padding: 2rem;
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: 700;
+    color: #2e2f33;
+    margin: 0;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.error-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.error-message {
+    max-width: 600px;
+    margin-bottom: 2rem;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+.error-icon {
+    font-size: 5rem;
+    color: #ef4444;
+    margin-bottom: 1.5rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+    .error-code {
+        font-size: 6rem;
+    }
+
+    .error-title {
+        font-size: 1.5rem;
+        margin-top: -1.5rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+    }
+}
