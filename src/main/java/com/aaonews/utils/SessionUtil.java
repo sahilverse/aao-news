@@ -7,8 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 
-import java.util.UUID;
-
 /**
  * Utility class for session and cookie management
  */
