@@ -50,8 +50,12 @@
         </div>
         <div class="input">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password">
-
+            <div class="password-input-container">
+                <input type="password" name="password" id="password"/>
+                <button type="button"  class="password-toggle">
+                    <i class="fas fa-eye-slash"></i>
+                </button>
+            </div>
         </div>
 
         <div class="remember-forgot" style="margin-top: 4px;">
@@ -78,6 +82,7 @@
 <jsp:include page="../layouts/footer.jsp"/>
 <script src="${pageContext.request.contextPath}/assets/js/formValidation.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/loginValidation.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/passwordToggle.js"></script>
 
 </body>
 </html>

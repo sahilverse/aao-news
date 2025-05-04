@@ -2,6 +2,7 @@ package com.aaonews.controllers;
 
 
 import com.aaonews.dao.UserDAO;
+import com.aaonews.enums.Role;
 import com.aaonews.models.User;
 import com.aaonews.utils.PasswordUtil;
 import com.aaonews.utils.SessionUtil;
@@ -61,6 +62,10 @@ public class LoginServlet extends HttpServlet {
             SessionUtil.createRememberMeCookie(response, user.getId());
         } else{
             SessionUtil.clearRememberMeCookie(response);
+        }
+
+        if (user.getRole() == Role.ADMIN || user.getRole() == Role.PUBLISHER) {
+            response.sendRedirect(request.getContextPath() + "/dashboard");
         }
 
         response.sendRedirect(request.getContextPath());

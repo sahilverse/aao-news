@@ -9,9 +9,6 @@
 <html>
 <head>
     <title>About Us</title>
-
-
-
     <%@ include file="../layouts/reusable.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/about.css">
 </head>

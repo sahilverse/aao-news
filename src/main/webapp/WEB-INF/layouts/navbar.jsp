@@ -1,8 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <header>
     <div class="navbar container ">
         <a href="${pageContext.request.contextPath}/">
-            <div class="logo">aao-news</div>
+            <div class="logo">Aaonews</div>
         </a>
 
 
@@ -37,14 +38,33 @@
 
         <c:if test="${not empty sessionScope.currentUser}">
             <div class="nav-actions">
-
-
-
-                <a href="${pageContext.request.contextPath}/profile">
-                    <span>Hi, ${sessionScope.currentUser.fullName}</span>
-                    <i class="fa-regular fa-user" style="font-size: 1.4rem; margin-left: 4px; "></i>
-
-                </a>
+                <div class="dropdown">
+                    <button class="dropdown-toggle">
+                        <span style="margin-right: 4px;">Hi, ${fn:split(sessionScope.currentUser.fullName, " ")[0]}</span>
+                        <i class="fa-regular fa-user" style="font-size: 1.4rem; margin-left: 4px;"></i>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 4px;"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <c:choose>
+                            <c:when test="${sessionScope.currentUser.role == 'PUBLISHER' || sessionScope.currentUser.role == 'ADMIN'}">
+                                <a href="${pageContext.request.contextPath}/dashboard" class="dropdown-item">
+                                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${pageContext.request.contextPath}/profile" class="dropdown-item">
+                                    <i class="fas fa-user"></i> Profile
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
+                        <a href="${pageContext.request.contextPath}/bookmarks" class="dropdown-item">
+                            <i class="fas fa-bookmark"></i> Saved Articles
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showLogoutModal(); return false;">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
             </div>
         </c:if>
     </div>
@@ -96,4 +116,24 @@
     function hideLogoutModal() {
         document.getElementById('logoutModal').classList.remove('active-modal');
     }
+
+    // Dropdown functionality
+    document.addEventListener("DOMContentLoaded", function() {
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+
+        if (dropdownToggle) {
+            dropdownToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.parentElement.classList.toggle('active');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                const dropdown = document.querySelector('.dropdown');
+                if (dropdown && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        }
+    });
 </script>
