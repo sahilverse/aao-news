@@ -19,7 +19,6 @@ form {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
 form h1 {
     color: #1f2937;
     font-size: 1.75rem;
@@ -44,8 +43,7 @@ form label {
 form input[type="email"],
 form input[type="password"],
 form input[type="text"],
-form select
-{
+form select {
     width: 100%;
     padding: 0.75rem 1rem;
     border: 1px solid #d1d5db;
@@ -64,7 +62,7 @@ form input[type="text"]:focus {
     background-color: white;
 }
 
-.input{
+.input {
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -104,7 +102,6 @@ form input[type="text"]:focus {
     text-decoration: underline;
 }
 
-
 .already-account {
     text-align: center;
     color: #6b7280;
@@ -122,6 +119,41 @@ form input[type="text"]:focus {
 .already-account a:hover {
     color: #0d47a1;
     text-decoration: underline;
+}
+
+/* Password visibility toggle */
+.password-input-container {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: #1a73e8;
+}
+
+.password-toggle:focus {
+    outline: none;
+}
+
+/* Ensure the password input leaves space for the toggle button */
+.password-input-container input[type="password"],
+.password-input-container input[type="text"] {
+    padding-right: 40px;
 }
 
 /* Form animation */

@@ -53,7 +53,12 @@
 
         <div class="input">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password"/>
+            <div class="password-input-container">
+                <input type="password" id="password" name="password"/>
+                <button type="button" class="password-toggle">
+                    <i class="fas fa-eye-slash"></i>
+                </button>
+            </div>
             <c:if test="${not empty errors.password}">
 
                 <p class="error">${errors.password}</p>
@@ -63,7 +68,12 @@
 
         <div class="input">
             <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword"/>
+            <div class="password-input-container">
+                <input type="password" id="confirmPassword" name="confirmPassword"/>
+                <button type="button" class="password-toggle">
+                    <i class="fas fa-eye-slash"></i>
+                </button>
+            </div>
             <c:if test="${not empty errors.confirmPassword}">
 
                 <p class="error">${errors.confirmPassword}</p>
@@ -90,7 +100,8 @@
 
         <div class="separator" style="margin-top: 4px;"></div>
         <div class="already-account" style="margin-top: 1rem;">
-            <p>Already have an account? <a href="${pageContext.request.contextPath}/login" style="color: black;">Login</a>
+            <p>Already have an account? <a href="${pageContext.request.contextPath}/login"
+                                           style="color: black;">Login</a>
             </p>
 
         </div>
@@ -100,22 +111,23 @@
 <jsp:include page="../layouts/footer.jsp"/>
 
 <script src="${pageContext.request.contextPath}/assets/js/formValidation.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/passwordToggle.js"></script>
 <script>
     attachFormValidator("userForm", {
 
         email: [
-            { email: { message: "Please enter a valid email address." } },
-            { required: { message: "Email is required." } }
+            {email: {message: "Please enter a valid email address."}},
+            {required: {message: "Email is required."}}
         ],
         fullName: [
-            { required: { message: "Full name is required." } }
+            {required: {message: "Full name is required."}}
         ],
         password: [
-            { required: { message: "Password is required." } }
+            {required: {message: "Password is required."}}
         ],
         confirmPassword: [
-            { required: { message: "Please confirm your password." } },
-            { match: { message: "Passwords do not match.", matchField: "password" } }
+            {required: {message: "Please confirm your password."}},
+            {match: {message: "Passwords do not match.", matchField: "password"}}
         ]
     });
 

@@ -54,7 +54,12 @@
 
         <div class="input">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password"/>
+            <div class="password-input-container">
+                <input type="password" id="password" name="password"/>
+                <button type="button" class="password-toggle">
+                    <i class="fas fa-eye-slash"></i>
+                </button>
+            </div>
             <c:if test="${not empty errors.password}">
 
                 <p class="error">${errors.password}</p>
@@ -64,7 +69,14 @@
 
         <div class="input">
             <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword"/>
+            <div class="password-input-container">
+
+                <input type="password" id="confirmPassword" name="confirmPassword"/>
+                <button type="button" class="password-toggle">
+                    <i class="fas fa-eye-slash"></i>
+                </button>
+            </div>
+
             <c:if test="${not empty errors.confirmPassword}">
 
                 <p class="error">${errors.confirmPassword}</p>
@@ -74,7 +86,12 @@
 
         <div class="input">
             <label for="adminCode">Admin Code</label>
-            <input type="text" id="adminCode" name="adminCode"/>
+            <div class="password-input-container">
+                <input type="password" id="adminCode" name="adminCode"/>
+                <button type="button" class="password-toggle">
+                    <i class="fas fa-eye-slash"></i>
+                </button>
+            </div>
             <c:if test="${not empty errors.adminCode}">
 
                 <p class="error">${errors.adminCode}</p>
@@ -86,7 +103,8 @@
 
         <div class="separator" style="margin-top: 4px;"></div>
         <div class="already-account" style="margin-top: 1rem;">
-            <p>Already have an account? <a href="${pageContext.request.contextPath}/login" style="color: black;">Login</a>
+            <p>Already have an account? <a href="${pageContext.request.contextPath}/login"
+                                           style="color: black;">Login</a>
             </p>
 
         </div>
@@ -97,7 +115,6 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/formValidation.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/adminValidation.js"></script>
-
-
+<script src="${pageContext.request.contextPath}/assets/js/passwordToggle.js"></script>
 </body>
 </html>
