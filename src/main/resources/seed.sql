@@ -36,16 +36,3 @@ VALUES ('draft', 'Article is saved as a draft'),
        ('rejected', 'Article was rejected during review'),
        ('archived', 'Article is archived and no longer visible');
 
--- Insert into the System Settings Table
-INSERT INTO system_settings (setting_key, setting_value, setting_group, description)
-VALUES ('site_name', 'AAOnews', 'general', 'The name of the website'),
-       ('site_description', 'Your trusted source for the latest news', 'general', 'Short description of the website'),
-       ('contact_email', 'info@aaonews.com', 'contact', 'Primary contact email address'),
-       ('articles_per_page', '10', 'content', 'Number of articles to display per page'),
-       ('allow_comments', 'true', 'content', 'Whether to allow comments on articles'),
-       ('require_comment_approval', 'false', 'content', 'Whether comments require approval before being displayed'),
-       ('allow_user_registration', 'true', 'users', 'Whether to allow new user registrations'),
-       ('default_user_role', '1', 'users', 'Default role ID for new users'),
-       ('maintenance_mode', 'false', 'system', 'Whether the site is in maintenance mode'),
-       ('maintenance_message', 'We are currently performing scheduled maintenance. Please check back soon.', 'system',
-        'Message to display during maintenance mode');

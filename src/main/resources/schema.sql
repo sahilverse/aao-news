@@ -134,16 +134,6 @@ CREATE TABLE IF NOT EXISTS bookmarks
     FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE
 ) COMMENT ='Tracks user bookmarks';
 
--- System settings table
-CREATE TABLE IF NOT EXISTS system_settings
-(
-    setting_key   VARCHAR(100) NOT NULL PRIMARY KEY,
-    setting_value TEXT         NOT NULL,
-    setting_group VARCHAR(50)  NOT NULL,
-    description   TEXT,
-    created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) COMMENT ='Stores system configuration settings';
 
 -- Audit log table for tracking important system changes
 CREATE TABLE IF NOT EXISTS audit_logs
