@@ -3,6 +3,8 @@ package com.aaonews.models;
 import java.sql.Timestamp;
 import com.aaonews.enums.ArticleStatus;
 
+import java.time.LocalDateTime;
+
 public class Article {
     private int id;
     private String title;
@@ -12,42 +14,26 @@ public class Article {
     private byte[] featureImage;
     private int authorId;
     private int categoryId;
-    private ArticleStatus statusID;
+    private ArticleStatus statusId;
+    private String rejectionMessage;
     private boolean isFeatured;
     private int viewCount;
-    private Timestamp publishedAt;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private LocalDateTime publishedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Article() {}
 
-    public Article(int id, String title, String slug, String content, String summary, byte[] featureImage,
-                   int authorId, int categoryId, ArticleStatus statusID, boolean isFeatured, int viewCount,
-                   Timestamp publishedAt, Timestamp createdAt, Timestamp updatedAt) {
 
-        this(title, slug, content, summary, featureImage, authorId, categoryId, statusID,
-                isFeatured, publishedAt);
-
-        this.id = id;
-        this.viewCount = viewCount;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-    public Article(String title, String slug, String content, String summary, byte[] featureImage,
-                   int authorId, int categoryId, ArticleStatus statusID, boolean isFeatured,
-                   Timestamp publishedAt) {
+    public Article(String title, String slug, String content, String summary,
+                   int authorId, int categoryId, ArticleStatus statusId) {
         this.title = title;
         this.slug = slug;
         this.content = content;
         this.summary = summary;
-        this.featureImage = featureImage;
         this.authorId = authorId;
         this.categoryId = categoryId;
-        this.statusID = statusID;
-        this.isFeatured = isFeatured;
-        this.publishedAt = publishedAt;
-
+        this.statusId = statusId;
     }
 
     public String getTitle() {
@@ -112,11 +98,11 @@ public class Article {
     }
 
     public ArticleStatus getStatusID() {
-        return statusID;
+        return statusId;
     }
 
-    public void setStatusID(ArticleStatus statusID) {
-        this.statusID = statusID;
+    public void setStatusID(ArticleStatus statusId) {
+        this.statusId = statusId;
     }
 
     public boolean isFeatured() {
@@ -135,29 +121,40 @@ public class Article {
         this.viewCount = viewCount;
     }
 
-    public Timestamp getPublishedAt() {
+    public String getRejectionMessage() {
+        return rejectionMessage;
+    }
+
+    public void setRejectionMessage(String rejectionMessage) {
+        this.rejectionMessage = rejectionMessage;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getPublishedAt() {
         return publishedAt;
     }
 
-    public void setPublishedAt(Timestamp publishedAt) {
+    public void setPublishedAt(LocalDateTime publishedAt) {
         this.publishedAt = publishedAt;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }
