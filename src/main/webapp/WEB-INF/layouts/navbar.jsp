@@ -60,7 +60,7 @@
                         <a href="${pageContext.request.contextPath}/bookmarks" class="dropdown-item">
                             <i class="fas fa-bookmark"></i> Saved Articles
                         </a>
-                        <a href="#" class="dropdown-item" onclick="showLogoutModal(); return false;">
+                        <a href="#" class="dropdown-item" onclick="showLogoutModal();">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </a>
                     </div>
@@ -70,21 +70,11 @@
     </div>
 
     <!-- Logout Confirmation Modal -->
-    <div id="logoutModal" class="modal-overlay">
-        <div class="modal-box">
-            <h2>Are you sure?</h2>
-            <p>You will be logged out of your account.</p>
-            <div class="modal-actions">
-                <form id="logoutForm" method="post" action="${pageContext.request.contextPath}/logout">
-                    <button type="submit" class="btn btn-danger">Yes, Logout</button>
-                </form>
-                <button class="nav-btn nav-btn-white cancel-btn"  onclick="hideLogoutModal()">Cancel</button>
-            </div>
-        </div>
-    </div>
+    <%@ include file="../layouts/logoutModal.jsp" %>
+
 </header>
 
-
+<script src="${pageContext.request.contextPath}/assets/js/logoutModal.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const navLinks = document.getElementById("nav-links");
@@ -108,14 +98,6 @@
     });
 
 
-    // Logout Modal
-    function showLogoutModal() {
-        document.getElementById('logoutModal').classList.add('active-modal');
-    }
-
-    function hideLogoutModal() {
-        document.getElementById('logoutModal').classList.remove('active-modal');
-    }
 
     // Dropdown functionality
     document.addEventListener("DOMContentLoaded", function() {
