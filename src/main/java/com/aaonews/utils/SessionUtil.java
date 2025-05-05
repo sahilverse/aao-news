@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpSession;
  */
 public class SessionUtil {
 
-    // Constants
     private static final String USER_SESSION_KEY = "currentUser";
     private static final String REMEMBER_ME_COOKIE = "aaonews_sess";
     private static final int COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
@@ -65,7 +64,7 @@ public class SessionUtil {
         Cookie cookie = new Cookie(REMEMBER_ME_COOKIE, tokenValue);
         cookie.setMaxAge(COOKIE_MAX_AGE);
         cookie.setPath("/");
-        cookie.setHttpOnly(true); // For security, not accessible via JavaScript
+        cookie.setHttpOnly(true);
         response.addCookie(cookie);
     }
 
@@ -86,7 +85,6 @@ public class SessionUtil {
                         try {
                             return Integer.parseInt(userIdStr);
                         } catch (NumberFormatException e) {
-                            // Log the error
                             System.err.println("Failed to parse user ID from token: " + e.getMessage());
                             return -1;
                         }
