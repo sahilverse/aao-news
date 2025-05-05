@@ -12,44 +12,44 @@
     <nav class="sidebar-nav">
         <ul>
             <c:choose>
-                <%-- Publisher Navigation--%>
+                <%-- Admin Navigation--%>
                 <c:when test="${sessionScope.currentUser.role == 'ADMIN'}">
 
                 </c:when>
 
                 <%-- Publisher Navigation--%>
                 <c:when test="${sessionScope.currentUser.role == 'PUBLISHER'}">
-                    <li class="${pageContext.request.contextPath.contains('/publisher/dashboard') ? 'active' : ''}">
-                        <a href="${pageContext.request.contextPath}/publisher/dashboard">
+                    <li class="${pageContext.request.requestURI.contains('/dashboard') ? 'active' : ''}">
+                        <a href="${pageContext.request.contextPath}/dashboard">
                             <i class="fas fa-tachometer-alt"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="${pageContext.request.contextPath.contains('/publisher/articles')  ? 'active' : ''}">
+                    <li class="${pageContext.request.requestURI.contains('/publisher/articles')  ? 'active' : ''}">
                         <a href="${pageContext.request.contextPath}/publisher/articles">
                             <i class="fas fa-newspaper"></i>
                             <span>My Articles</span>
                         </a>
                     </li>
-                    <li class="${pageContext.request.contextPath.contains('/publisher/create')  ? 'active' : ''}">
+                    <li class="${pageContext.request.requestURI.contains('/publisher/create')  ? 'active' : ''}">
                         <a href="${pageContext.request.contextPath}/publisher/create">
                             <i class="fas fa-pen-to-square"></i>
                             <span>Create Article</span>
                         </a>
                     </li>
-                    <li class="${pageContext.request.contextPath.contains('/publisher/analytics')  ? 'active' : ''}">
+                    <li class="${pageContext.request.requestURI.contains('/publisher/analytics')  ? 'active' : ''}">
                         <a href="${pageContext.request.contextPath}/publisher/analytics">
                             <i class="fas fa-chart-line"></i>
                             <span>Analytics</span>
                         </a>
                     </li>
-                    <li class="${pageContext.request.contextPath.contains('/publisher/profile')  ? 'active' : ''}">
+                    <li class="${pageContext.request.requestURI.contains('/publisher/profile')  ? 'active' : ''}">
                         <a href="${pageContext.request.contextPath}/publisher/profile">
                             <i class="fas fa-user"></i>
                             <span>Profile</span>
                         </a>
                     </li>
-                    <li class="${pageContext.request.contextPath.contains('/publisher/settings')  ? 'active' : ''}">
+                    <li class="${pageContext.request.requestURI.contains('/publisher/settings')  ? 'active' : ''}">
                         <a href="${pageContext.request.contextPath}/publisher/settings">
                             <i class="fas fa-gear"></i>
                             <span>Settings</span>
