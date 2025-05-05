@@ -6,7 +6,6 @@ SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE roles;
 TRUNCATE TABLE categories;
 TRUNCATE TABLE article_statuses;
-TRUNCATE TABLE system_settings;
 SET FOREIGN_KEY_CHECKS = 1;
 
 
