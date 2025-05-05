@@ -80,7 +80,13 @@
 
 .logout-btn {
     display: flex;
+    background-color: transparent;
+    border: none;
+    width: 100%;
     align-items: center;
+    font-family: var(--font-body), sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
     color: rgba(255, 255, 255, 0.8);
     padding: 0.5rem;
     border-radius: 4px;

@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Sidebar -->
@@ -67,11 +66,13 @@
     </nav>
 
     <div class="sidebar-footer">
-        <div class="logout-btn" onclick="showLogoutModal()">
+        <button class="logout-btn" onclick="showLogoutModal()">
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
-        </div>
+        </button>
     </div>
 </aside>
+
+<%@include file="../../../layouts/logoutModal.jsp"%>
 
 <script src="${pageContext.request.contextPath}/assets/js/logoutModal.js"></script>
