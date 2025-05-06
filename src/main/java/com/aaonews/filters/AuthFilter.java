@@ -1,6 +1,8 @@
 package com.aaonews.filters;
 
+import com.aaonews.dao.PublisherDAO;
 import com.aaonews.dao.UserDAO;
+import com.aaonews.enums.Role;
 import com.aaonews.models.User;
 import com.aaonews.utils.SessionUtil;
 import jakarta.servlet.*;
@@ -40,6 +42,12 @@ public class AuthFilter implements Filter {
                 if (user != null) {
                     // Create session for user
                     SessionUtil.createUserSession(httpRequest, user);
+
+                    // Create session for publisher if user is a publisher
+                    if (user.getRole() == Role.PUBLISHER) {
+                        PublisherDAO publisherDAO = new PublisherDAO();
+                        SessionUtil.createPublisherSession(httpRequest, user, publisherDAO.getPublisherById(user.getId()));
+                    }
                     // Update last login time
                     userDAO.updateLastLogin(userId);
                 }
