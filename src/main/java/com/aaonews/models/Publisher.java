@@ -19,8 +19,6 @@ public class Publisher {
     private String publisherEmail;
 
 
-
-
     public String getEmail() {
         return publisherEmail;
     }

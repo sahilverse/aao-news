@@ -27,13 +27,13 @@
         <div class="card">
             <div class="card-header user-publisher">
                 <i class="fas fa-users card-icon"></i>
-                <h2>User / Publisher</h2>
+                <h2>Reader / Publisher</h2>
             </div>
             <div class="card-body">
                 <div class="role-description">
                     <div class="role-item">
-                        <h3><i class="fas fa-user"></i> User</h3>
-                        <p>Register as a regular user to:</p>
+                        <h3><i class="fas fa-user"></i> Reader</h3>
+                        <p>Register as a Reader to:</p>
                         <ul class="list-items">
                             <li>Access personalized news feed</li>
                             <li>Save articles to read later</li>

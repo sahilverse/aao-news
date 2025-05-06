@@ -1,5 +1,6 @@
 package com.aaonews.controllers;
 
+import com.aaonews.dao.PublisherDAO;
 import com.aaonews.dao.UserDAO;
 import com.aaonews.enums.Role;
 import com.aaonews.models.Publisher;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class RegisterServlet extends HttpServlet {
 
     private UserDAO userDAO;
+    private PublisherDAO publisherDAO;
 
     @Override
     public void init() throws ServletException {
@@ -112,11 +114,18 @@ public class RegisterServlet extends HttpServlet {
         if (userId > 0) {
             // Set user in session
             user = userDAO.getUserById(userId);
+            SessionUtil.createUserSession(request, user);
+
+            // Update last login timestamp
+            userDAO.updateLastLogin(userId);
+
+            // Create publisher if role is PUBLISHER
             if (user.getRole() == Role.PUBLISHER) {
                 Publisher publisher = new Publisher(userId);
-                userDAO.createPublisher(publisher);
+                publisherDAO.createPublisher(publisher);
+                SessionUtil.createPublisherSession(request, user, publisher);
+
             }
-            SessionUtil.createUserSession(request, user);
 
             // Set remember me cookie if requested
             if (rememberMe) {

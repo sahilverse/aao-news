@@ -12,6 +12,9 @@ import java.io.IOException;
 public class PublisherArticlesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("activePage", "publisherArticles");
+
+        request.getRequestDispatcher("/WEB-INF/views/dashboard/publisher/publisher.jsp").forward(request, response);
 
     }
 }

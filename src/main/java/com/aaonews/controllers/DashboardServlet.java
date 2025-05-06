@@ -41,6 +41,8 @@ public class DashboardServlet extends HttpServlet {
             return;
         }
 
+        request.setAttribute("activePage", "dashboard");
+
         if (currentUser.getRole() == Role.ADMIN) {
             switch (path) {
                 case "/admin/pending-publishers":
@@ -89,7 +91,7 @@ public class DashboardServlet extends HttpServlet {
                 if("approve".equals(action)) {
                     boolean approved = adminDAO.approvePublisher(id);
                     System.out.println("approved: " + approved);
-                    List <>
+
                     request.setAttribute("approved", approved);
                 }
                 else if("reject".equals(action)) {

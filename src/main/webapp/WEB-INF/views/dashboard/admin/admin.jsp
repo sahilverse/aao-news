@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>Admin Dashboard</title>
+    <jsp:include page="../common/common.jsp"/>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,7 +25,7 @@
             margin: 0 auto;
             background-color: white;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
 
@@ -91,7 +92,6 @@
 </head>
 <body>
 <jsp:include page="../common/sidebar.jsp"/>
-<jsp:include page="../common/common.jsp"/>
 
 
 <div class="table-container">
@@ -119,7 +119,8 @@
                         <input type="hidden" name="id" value="${user.id}">
                         <button type="submit" class="edit-btn">Edit</button>
                     </form>
-                    <form action="delete-user" method="post" style="display:inline;" onsubmit="return confirm('Are you sure?');">
+                    <form action="delete-user" method="post" style="display:inline;"
+                          onsubmit="return confirm('Are you sure?');">
                         <input type="hidden" name="id" value="${user.id}">
                         <button type="submit" class="delete-btn">Delete</button>
                     </form>

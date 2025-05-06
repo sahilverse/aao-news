@@ -58,38 +58,6 @@ public class UserDAO {
         }
     }
 
-    /**
-     * Creates publisher information for a user
-     *
-     * @param publisher The publisher information
-     * @return true if successful, false otherwise
-     */
-    public boolean createPublisher(Publisher publisher) {
-        String sql = "INSERT INTO publisher (publisher_id, is_verified, verification_date) " +
-                "VALUES (?, ?, ?)";
-
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, publisher.getPublisherId());
-            stmt.setBoolean(2, publisher.isVerified());
-
-            if(publisher.isVerified()) {
-                stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            } else {
-                stmt.setNull(3, Types.TIMESTAMP);
-            }
-
-            int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-
-
 
     /**
      * Checks if an email already exists in the database

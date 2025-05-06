@@ -1,6 +1,7 @@
 package com.aaonews.controllers;
 
 
+import com.aaonews.dao.PublisherDAO;
 import com.aaonews.dao.UserDAO;
 import com.aaonews.enums.Role;
 import com.aaonews.models.User;
@@ -57,7 +58,17 @@ public class LoginServlet extends HttpServlet {
         // Successful login
         SessionUtil.createUserSession(request, user);
 
+        // Create a session for the publisher if the user is a publisher
+        if (user.getRole() == Role.PUBLISHER) {
+            PublisherDAO publisherDAO = new PublisherDAO();
+            SessionUtil.createPublisherSession(request, user, publisherDAO.getPublisherById(user.getId()));
+        }
 
+
+        // Update last login time
+        userDAO.updateLastLogin(user.getId());
+
+        // Set "Remember Me" cookie if checked
         if ("on".equals(rememberMe)) {
             SessionUtil.createRememberMeCookie(response, user.getId());
         } else{
@@ -65,6 +76,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (user.getRole() == Role.ADMIN || user.getRole() == Role.PUBLISHER) {
+
             response.sendRedirect(request.getContextPath() + "/dashboard");
             return;
         }
