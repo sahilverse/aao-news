@@ -1,7 +1,6 @@
 package com.aaonews.dao;
 
 import com.aaonews.enums.Role;
-import com.aaonews.models.Publisher;
 import com.aaonews.models.User;
 import com.aaonews.utils.DatabaseUtil;
 import com.aaonews.utils.PasswordUtil;

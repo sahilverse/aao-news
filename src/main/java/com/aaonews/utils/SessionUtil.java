@@ -17,7 +17,7 @@ public class SessionUtil {
     private static final String USER_SESSION_KEY = "currentUser";
     private static final String PUBLISHER_SESSION_KEY = "currentPublisher";
     private static final String REMEMBER_ME_COOKIE = "aaonews_sess";
-    private static final int COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
+    private static final int COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
     /**
      * Creates a session for a user
