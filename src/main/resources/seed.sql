@@ -11,7 +11,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- Insert into the 'Roles' table
 INSERT INTO roles (name, description)
-VALUES ('user', 'Regular user with basic privileges'),
+VALUES ('reader', 'Regular user with basic privileges'),
        ('publisher', 'Content creator with article management privileges'),
        ('admin', 'Administrator with full system access and management privileges');
 

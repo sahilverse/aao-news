@@ -84,7 +84,7 @@
         <div class="input">
             <label for="role">Register As</label>
             <select name="role" id="role">
-                <option value="user" ${formData.role == 'user' ? 'selected' : ''}>User</option>
+                <option value="reader" ${formData.role == 'reader' ? 'selected' : ''}>Reader</option>
                 <option value="publisher" ${formData.role == 'publisher' ? 'selected' : ''}>Publisher</option>
             </select>
 
