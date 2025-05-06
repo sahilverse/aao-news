@@ -1,3 +1,4 @@
+
 /* Sidebar */
 .sidebar {
     width: 260px;
@@ -12,7 +13,7 @@
 }
 
 .sidebar-header {
-    padding: 1.5rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,9 +21,9 @@
 }
 
 .sidebar-header .logo {
-    width: 80px;
-    height: auto;
-    margin-bottom: 0.5rem;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #fff;
 }
 
 .sidebar-header h2 {

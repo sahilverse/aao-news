@@ -4,13 +4,18 @@
 <aside class="sidebar">
     <div class="sidebar-header">
         <a href="${pageContext.request.contextPath}/dashboard">
-            <div class="logo">Aaonews</div>
+            <h1 class="logo">Aaonews</h1>
         </a>
-        <h2>Publisher Portal</h2>
     </div>
 
     <nav class="sidebar-nav">
         <ul>
+            <li class="${pageContext.request.requestURI.contains('/home') ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/home">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+            </li>
             <c:choose>
                 <%-- Admin Navigation--%>
                 <c:when test="${sessionScope.currentUser.role == 'ADMIN'}">
