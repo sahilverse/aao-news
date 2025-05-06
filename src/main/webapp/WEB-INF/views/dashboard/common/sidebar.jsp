@@ -6,6 +6,7 @@
         <a href="${pageContext.request.contextPath}/dashboard">
             <h1 class="logo">Aaonews</h1>
         </a>
+<%--        <h2>Publisher Portal</h2>--%>
     </div>
 
     <nav class="sidebar-nav">
@@ -17,9 +18,37 @@
                 </a>
             </li>
             <c:choose>
-                <%-- Admin Navigation--%>
-                <c:when test="${sessionScope.currentUser.role == 'ADMIN'}">
 
+                <%-- Admin Navigation--%>
+
+                <c:when test="${sessionScope.currentUser.role == 'ADMIN'}">
+                    <li class="${currentPage eq 'dashboard' ? 'active' : ''}">
+                        <a href="${pageContext.request.contextPath}/admin/dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="${currentPage eq 'user-management' ? 'active' : ''}">
+                        <a href="${pageContext.request.contextPath}/admin/user-management">
+                            <i class="fas fa-users"></i>
+                            <span>User Management</span>
+                        </a>
+                    </li>
+
+                    <li class="${currentPage eq 'publisher-approval' ? 'active' : ''}">
+                        <a href="${pageContext.request.contextPath}/admin/pending-publishers">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Publisher Approval</span>
+                        </a>
+                    </li>
+
+                    <li class="${currentPage eq 'content-management' ? 'active' : ''}">
+                        <a href="${pageContext.request.contextPath}/admin/content-management">
+                            <i class="fas fa-newspaper"></i>
+                            <span>Content Management</span>
+                        </a>
+                    </li>
                 </c:when>
 
                 <%-- Publisher Navigation--%>

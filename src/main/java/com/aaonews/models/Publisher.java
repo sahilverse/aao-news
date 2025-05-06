@@ -13,6 +13,29 @@ public class Publisher {
     private boolean isVerified;
     private Timestamp verificationDate;
 
+
+//    added by -raghav dahal
+    private String publisherName;
+    private String publisherEmail;
+
+
+
+
+    public String getEmail() {
+        return publisherEmail;
+    }
+
+    public void setEmail(String email) {
+        this.publisherEmail = email;
+    }
+    public String getFullName() {
+        return publisherName;
+    }
+
+    public void setFullName(String fullName) {
+        this.publisherName = fullName;
+    }
+// end
     public Publisher() {}
 
     public Publisher(int publisherId, boolean isVerified, Timestamp verificationDate) {
