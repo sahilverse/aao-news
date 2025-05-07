@@ -144,7 +144,7 @@ public class UserDAO {
      * @param userId The ID of the user
      */
     public void updateLastLogin(int userId) {
-        String sql = "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?";
+        String sql = "UPDATE users SET last_login = NOW() WHERE id = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

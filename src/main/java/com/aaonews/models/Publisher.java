@@ -61,8 +61,7 @@ public class Publisher {
         this.publisherId = publisherId;
     }
 
-
-    public boolean isVerified() {
+    public boolean getIsVerified() {
         return isVerified;
     }
 
@@ -76,5 +75,26 @@ public class Publisher {
 
     public void setVerificationDate(Timestamp verificationDate) {
         this.verificationDate = verificationDate;
+    }
+
+    public String getPublisherEmail() {
+        return publisherEmail;
+    }
+
+    public void setPublisherEmail(String publisherEmail) {
+        this.publisherEmail = publisherEmail;
+    }
+
+    public String getPublisherName() {
+        return publisherName;
+    }
+
+    public void setPublisherName(String publisherName) {
+        this.publisherName = publisherName;
+    }
+
+    @Override
+    public String toString() {
+        return "Publisher{id=" + this.getPublisherId() + ", isVerified=" + this.getIsVerified() + "}";
     }
 }
