@@ -13,6 +13,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+/*
+ * UserImageServlet.java
+ * This servlet handles requests for user profile images.
+ * If the user has a profile image, it serves that image.
+ * If not, it serves a default image.
+ */
+
 @WebServlet("/user-image")
 public class UserImageServlet extends HttpServlet {
     private static final String DEFAULT_IMAGE_PATH = "/assets/images/default-user.jpeg";
@@ -32,7 +40,6 @@ public class UserImageServlet extends HttpServlet {
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT profile_image FROM users WHERE id = ?")) {
 
-            // Set parameter BEFORE executing the query
             ps.setInt(1, Integer.parseInt(userId));
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -54,7 +61,6 @@ public class UserImageServlet extends HttpServlet {
             response.getOutputStream().write(imageData);
             response.getOutputStream().flush();
         } else {
-            // Serve default image directly instead of redirecting
             serveDefaultImage(request, response);
         }
     }
@@ -74,7 +80,6 @@ public class UserImageServlet extends HttpServlet {
                 }
                 response.getOutputStream().flush();
             } else {
-                // If default image not found, redirect to a standard image path
                 response.sendRedirect(request.getContextPath() + DEFAULT_IMAGE_PATH);
             }
         }
