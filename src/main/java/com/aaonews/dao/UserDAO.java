@@ -93,7 +93,7 @@ public class UserDAO {
      * @return The user, or null if not found
      */
     public User getUserByEmail(String email) {
-        String sql = "SELECT id, email, password, full_name, role_id, profile_image FROM users WHERE email = ?";
+        String sql = "SELECT * FROM users WHERE email = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -119,7 +119,7 @@ public class UserDAO {
      * @return The user, or null if not found
      */
     public User getUserById(int id) {
-        String sql = "SELECT id, email,  password, full_name, role_id, profile_image FROM users WHERE id = ?";
+        String sql = "SELECT * FROM users WHERE id = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -157,6 +157,27 @@ public class UserDAO {
         }
     }
 
+    /**
+     * Updates the profile image for a user
+     *
+     * @param userId The ID of the user
+     * @param imageBytes The image bytes to update
+     */
+
+    public void updateProfileImage(int userId, byte[] imageBytes) {
+        String sql = "UPDATE users SET profile_image = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setBytes(1, imageBytes);
+            stmt.setInt(2, userId);
+
+            int affectedRows = stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     /**
@@ -169,7 +190,10 @@ public class UserDAO {
         String fullName = rs.getString("full_name");
         Role role = Role.fromId(rs.getInt("role_id"));
         byte[] profileImage = rs.getBytes("profile_image");
+        Timestamp createdAt = rs.getTimestamp("created_at");
+        Timestamp updatedAt = rs.getTimestamp("updated_at");
+        Timestamp lastLogin = rs.getTimestamp("last_login");
 
-        return new User(id, email, password, fullName, role, profileImage);
+        return new User(id, email, password, fullName, role, profileImage,lastLogin, createdAt, updatedAt);
     }
 }
