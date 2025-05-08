@@ -47,6 +47,15 @@
                             <span>Content Management</span>
                         </a>
                     </li>
+
+                    <li class="${requestScope.activePage == 'adminProfile' ? 'active' : ''}">
+                        <a href="${pageContext.request.contextPath}/publisher/profile">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+
+
                 </c:when>
 
                 <%-- Publisher Navigation--%>
@@ -69,24 +78,14 @@
                             <span>Create Article</span>
                         </a>
                     </li>
-                    <li class="${requestScope.activePage == 'publisherAnalytics' ? 'active' : ''}">
-                        <a href="${pageContext.request.contextPath}/publisher/analytics">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Analytics</span>
-                        </a>
-                    </li>
+
                     <li class="${requestScope.activePage == 'publisherProfile' ? 'active' : ''}">
                         <a href="${pageContext.request.contextPath}/publisher/profile">
                             <i class="fas fa-user"></i>
                             <span>Profile</span>
                         </a>
                     </li>
-                    <li class="${requestScope.activePage == 'publisherSettings' ? 'active' : ''}">
-                        <a href="${pageContext.request.contextPath}/publisher/settings">
-                            <i class="fas fa-gear"></i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
+
                 </c:when>
             </c:choose>
         </ul>
