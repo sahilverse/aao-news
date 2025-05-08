@@ -22,7 +22,7 @@ public class AdminDAO {
         try (
                 Connection conn = DatabaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
-                ResultSet rs = stmt.executeQuery()
+                ResultSet rs = stmt.executeQuery();
         ) {
             while (rs.next()) {
                 users.add(extractUserFromResultSet(rs));
@@ -48,8 +48,6 @@ public class AdminDAO {
 
 
 //    publisher pending
-
-
     public List<Publisher> getPendingPublishers() {
         List<Publisher> publishersWithUsers = new ArrayList<>();
         String query = "SELECT u.email, u.full_name, p.is_verified, p.verification_date, p.publisher_id " +

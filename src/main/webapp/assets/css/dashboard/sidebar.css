@@ -2,7 +2,7 @@
 /* Sidebar */
 .sidebar {
     width: 260px;
-    background: linear-gradient(to bottom, var(--color-primary), var(--color-primary-dark));
+    background: var(--db-only);
     color: white;
     display: flex;
     flex-direction: column;
