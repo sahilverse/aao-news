@@ -4,6 +4,8 @@
 
 
 <div class="container profile-container" style="margin-top: 10px;">
+    <!-- Load errors from request  -->
+    <c:set var="errors" value="${requestScope.errors}"/>
     <div class="profile-page">
         <!-- Profile Header with Picture -->
         <div class="profile-header">
@@ -50,11 +52,14 @@
         <div class="profile-section">
             <div class="info-container">
                 <h2>Personal Information</h2>
-                <form id="personal-info-form" action="${pageContext.request.contextPath}/update-profile" method="post">
+                <form id="personal-info-form" name="personal-info-form" action="${pageContext.request.contextPath}/update-profile" method="post">
                     <div class="form-group">
                         <label for="fullName">Full Name</label>
                         <input type="text" id="fullName" name="fullName" value="${sessionScope.currentUser.fullName}"
-                               required>
+                               >
+                        <c:if test="${not empty errors.fullName}">
+                            <p class="error">${errors.fullName}</p>
+                        </c:if>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -64,7 +69,7 @@
                         <label for="lastLogin">Last Login</label>
                         <fmt:formatDate var="formattedLastLogin"
                                         value="${sessionScope.currentUser.lastLogin}"
-                                        pattern="dd MMM yyyy, hh:mm a" />
+                                        pattern="dd MMM yyyy, hh:mm a"/>
 
                         <input type="text" id="lastLogin" name="lastLogin"
                                value="${formattedLastLogin}" readonly>
@@ -83,23 +88,27 @@
 
                         </div>
                     </c:if>
-                    <button type="submit" class="submit-btn">Save Changes</button>
+                    <button type="submit" class="submit-btn" id="save-changes-btn" disabled>Save Changes</button>
                 </form>
             </div>
 
             <!-- Security -->
             <div class="info-container">
                 <h2>Security</h2>
-                <form id="password-change-form" action="${pageContext.request.contextPath}/update-password" method="post">
+                <form id="password-change-form" name="password-change-form" action="${pageContext.request.contextPath}/update-password"
+                      method="post">
                     <div class="form-group">
                         <label for="oldPassword">Old Password</label>
                         <div class="password-input-container">
                             <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter Old Password"
-                                   required>
+                                   >
                             <button type="button" class="password-toggle">
                                 <i class="fas fa-eye-slash"></i>
                             </button>
                         </div>
+                        <c:if test="${not empty errors.oldPassword}">
+                            <p class="error">${errors.oldPassword}</p>
+                        </c:if>
 
                     </div>
                     <div class="form-group">
@@ -107,21 +116,27 @@
 
                         <div class="password-input-container">
                             <input type="password" id="newPassword" name="newPassword" placeholder="Enter New Password"
-                                   required>
+                                   >
                             <button type="button" class="password-toggle">
                                 <i class="fas fa-eye-slash"></i>
                             </button>
                         </div>
+                        <c:if test="${not empty errors.newPassword}">
+                            <p class="error">${errors.newPassword}</p>
+                        </c:if>
                     </div>
                     <div class="form-group">
                         <label for="confirmPassword">Confirm New Password</label>
                         <div class="password-input-container">
                             <input type="password" id="confirmPassword" name="confirmPassword"
-                                   placeholder="Confirm New Password" required>
+                                   placeholder="Confirm New Password" >
                             <button type="button" class="password-toggle">
                                 <i class="fas fa-eye-slash"></i>
                             </button>
                         </div>
+                        <c:if test="${not empty errors.confirmPassword}">
+                            <p class="error">${errors.confirmPassword}</p>
+                        </c:if>
                     </div>
                     <button type="submit" class="submit-btn">Change Password</button>
                 </form>
@@ -153,24 +168,5 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/passwordToggle.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/formValidation.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/profile.js"></script>
 
-<script>
-
-    const openBtn = document.getElementById("camera-btn");
-    const dialog = document.getElementById("upload-dialog");
-    const cancelBtn = document.getElementById("cancel-upload");
-
-    openBtn.addEventListener("click", () => {
-        dialog.style.display = "flex";
-    });
-
-    cancelBtn.addEventListener("click", () => {
-        dialog.style.display = "none";
-    });
-
-    dialog.addEventListener("click", (e) => {
-        if (e.target === dialog) {
-            dialog.style.display = "none";
-        }
-    });
-</script>

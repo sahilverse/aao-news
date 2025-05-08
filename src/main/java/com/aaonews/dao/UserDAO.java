@@ -85,7 +85,6 @@ public class UserDAO {
     }
 
 
-
     /**
      * Gets a user by their email
      *
@@ -158,9 +157,58 @@ public class UserDAO {
     }
 
     /**
+     * Updates the password for a user
+     *
+     * @param userId      The ID of the user
+     * @param newPassword The new password to set
+     * @return true if the update was successful, false otherwise
+     */
+    public boolean updatePassword(int userId, String newPassword) {
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, PasswordUtil.hashPassword(newPassword));
+            stmt.setInt(2, userId);
+
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Updates the profile information for a user
+     *
+     * @param userId   The ID of the user
+     * @param fullName The new full name to set
+     * @return true if the update was successful, false otherwise
+     */
+
+    public boolean updateProfile(int userId, String fullName) {
+        String sql = "UPDATE users SET full_name = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, fullName);
+            stmt.setInt(2, userId);
+
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * Updates the profile image for a user
      *
-     * @param userId The ID of the user
+     * @param userId     The ID of the user
      * @param imageBytes The image bytes to update
      */
 
@@ -194,6 +242,6 @@ public class UserDAO {
         Timestamp updatedAt = rs.getTimestamp("updated_at");
         Timestamp lastLogin = rs.getTimestamp("last_login");
 
-        return new User(id, email, password, fullName, role, profileImage,lastLogin, createdAt, updatedAt);
+        return new User(id, email, password, fullName, role, profileImage, lastLogin, createdAt, updatedAt);
     }
 }
