@@ -494,6 +494,23 @@ public class ArticleDAO {
         return 1;
     }
 
+    public int getAllArticlesCount() {
+        String sql = "SELECT COUNT(*) FROM articles";
+        try(Connection conn = DatabaseUtil.getConnection();) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+                else{
+                    return 0;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Helper method to map a ResultSet row to an Article object
      *

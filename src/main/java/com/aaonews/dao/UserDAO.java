@@ -157,6 +157,48 @@ public class UserDAO {
         }
     }
 
+    /**
+     * update method for user
+     */
+    public User updateUser(User user) {
+        String sql = "UPDATE users SET email=?, password=?, full_name=?, role_id=?, profile_image=? WHERE id=?";
+        System.out.println("The email is" + user.getEmail());
+        System.out.println("The password is" + user.getPassword());
+        System.out.println("The full name is" + user.getFullName());
+        System.out.println("The role id is" + user.getRole().getId());
+        System.out.println("The profile image is" + user.getProfileImage());
+        System.out.println("The id is" + user.getId());
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set the parameters for the prepared statement
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, PasswordUtil.hashPassword(user.getPassword())); // Make sure your password utility is working correctly
+            stmt.setString(3, user.getFullName());
+            stmt.setInt(4, user.getRole().getId());
+            stmt.setBytes(5, user.getProfileImage());  // Profile image (byte array)
+            stmt.setInt(6, user.getId()); // User ID
+
+            // Execute the update
+            int rowsUpdated = stmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                // If update is successful, return the updated user object
+                return user;
+            } else {
+                // If no rows were updated, handle this case
+                throw new RuntimeException("User update failed, no rows affected.");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while updating user", e);
+        }
+    }
+
+
+
+
+
 
 
     /**
@@ -172,4 +214,21 @@ public class UserDAO {
 
         return new User(id, email, password, fullName, role, profileImage);
     }
+    public int getAllUsersCount() {
+        String sql = "SELECT COUNT(*) FROM users";
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getInt(1); // return the count
+            } else {
+                return 0; // in case no rows are returned
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving user count", e);
+        }
+    }
+
 }

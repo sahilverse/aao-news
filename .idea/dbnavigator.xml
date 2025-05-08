@@ -37,7 +37,7 @@
     <connection id="5bb9477d-0fa3-4937-97da-2e0b4dfb5a33" />
   </component>
   <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$PROJECT_DIR$/src/main/resources/schema.sql" connection-id="" session-id="" current-schema="" />
+    <mapping file-url="file://$PROJECT_DIR$/src/main/resources/schema.sql" connection-id="" session-id="MAIN" current-schema="" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />

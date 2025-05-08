@@ -115,7 +115,7 @@
                         <input type="hidden" name="id" value="${user.id}">
                         <button type="submit" class="view-btn">Block</button>
                     </form>
-                    <form action="edit-user.jsp" method="get" style="display:inline;">
+                    <form action="${pageContext.request.contextPath}/edit-user" method="get" style="display:inline;">
                         <input type="hidden" name="id" value="${user.id}">
                         <button type="submit" class="edit-btn">Edit</button>
                     </form>

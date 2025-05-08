@@ -178,7 +178,7 @@ public class PublisherDAO {
      * Updates the verification status of a publisher
      *
      * @param publisherId The publisher ID to update
-     * @param verified The new verification status
+     * @param verified    The new verification status
      * @return true if successful, false otherwise
      */
     public boolean updateVerificationStatus(int publisherId, boolean verified) {
@@ -238,5 +238,24 @@ public class PublisherDAO {
         publisher.setFullName(user.getFullName());
         publisher.setEmail(user.getEmail());
         return createPublisher(publisher);
+    }
+
+    public int getAllVerifiedPublishersCount() throws SQLException {
+        String sql = "SELECT count(*) FROM publisher";
+        try (Connection conn = DatabaseUtil.getConnection();) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                } else {
+                    return 0;
+                }
+            } catch (Exception e) {
+                throw new SQLException(e);
+            }
+
+        }
+
+
     }
 }

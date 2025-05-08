@@ -7,5 +7,6 @@
 <body>
 <jsp:include page="../layouts/navbar.jsp"/>
 
+
 </body>
 </html>
