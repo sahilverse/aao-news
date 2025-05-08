@@ -51,15 +51,18 @@ public class ProfileServlet extends HttpServlet {
 
         User currentUser = SessionUtil.getCurrentUser(req);
 
+
         if (currentUser == null) {
             res.sendRedirect(req.getContextPath() + "/login");
             return;
         }
+        UserDAO userDAO = new UserDAO();
+        User user = userDAO.getUserById(currentUser.getId());
 
         System.out.println(path);
 
         Map<String, String> errors = new HashMap<>();
-        UserDAO userDAO = new UserDAO();
+
 
         switch (path) {
             case "/update-password":
@@ -79,7 +82,7 @@ public class ProfileServlet extends HttpServlet {
                 }
 
                 // check if current password is correct
-                boolean passwordMatch = PasswordUtil.comparePassword(oldPassword, currentUser.getPassword());
+                boolean passwordMatch = PasswordUtil.comparePassword(oldPassword, user.getPassword());
                 if (!passwordMatch) {
                     errors.put("oldPassword", "Incorrect password");
                 }
@@ -97,14 +100,10 @@ public class ProfileServlet extends HttpServlet {
                 }
 
                 // update password
-                boolean isUpdated = userDAO.updatePassword(currentUser.getId(), newPassword);
+                boolean isUpdated = userDAO.updatePassword(user.getId(), newPassword);
 
 
                 if (isUpdated) {
-                    // Update the user object in the session
-                    currentUser.setPassword(PasswordUtil.hashPassword(newPassword));
-                    SessionUtil.createUserSession(req, currentUser);
-                    // Password updated successfully
                     req.setAttribute("successMessage", "Password updated successfully.");
                     dispatchRequestAsPerRole(req, res, currentUser);
                 } else {
