@@ -229,6 +229,28 @@ public class UserDAO {
 
 
     /**
+     * Gets the count of all users in the database
+     *
+     * @return The count of all users
+     */
+   public int getAllUsersCount(){
+        String sql = "SELECT COUNT(*) FROM users";
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+   }
+
+
+    /**
      * Helper method to extract a User object from a ResultSet
      */
     private User extractUserFromResultSet(ResultSet rs) throws SQLException {
