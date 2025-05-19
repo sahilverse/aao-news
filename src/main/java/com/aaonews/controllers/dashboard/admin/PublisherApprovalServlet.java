@@ -1,4 +1,4 @@
-package com.aaonews.controllers;
+package com.aaonews.controllers.dashboard.admin;
 import com.aaonews.dao.AdminDAO;
 
 import com.aaonews.models.Publisher;

@@ -1,4 +1,4 @@
-package com.aaonews.controllers;
+package com.aaonews.controllers.auth;
 
 import com.aaonews.dao.PublisherDAO;
 import com.aaonews.dao.UserDAO;

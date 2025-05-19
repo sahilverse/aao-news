@@ -1,4 +1,4 @@
-package com.aaonews.controllers;
+package com.aaonews.controllers.dashboard.publisher;
 
 
 import jakarta.servlet.ServletException;
