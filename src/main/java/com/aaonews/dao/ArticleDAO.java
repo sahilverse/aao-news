@@ -21,8 +21,8 @@ public class ArticleDAO {
      * @return The ID of the newly created article, or -1 if creation failed
      */
     public int createArticle(Article article) {
-        String sql = "INSERT INTO articles (title, slug, content, summary, author_id, category_id, status_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO articles (title, slug, content, summary, author_id, category_id, status_id, featured_image) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -34,6 +34,12 @@ public class ArticleDAO {
             stmt.setInt(5, article.getAuthorId());
             stmt.setInt(6, article.getCategoryId());
             stmt.setInt(7, article.getStatusID().getId());
+
+            if (article.getFeatureImage() != null) {
+                stmt.setBytes(8, article.getFeatureImage());
+            } else {
+                stmt.setNull(8, Types.BLOB);
+            }
 
             int affectedRows = stmt.executeUpdate();
 
