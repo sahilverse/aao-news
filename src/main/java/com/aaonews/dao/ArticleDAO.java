@@ -33,7 +33,7 @@ public class ArticleDAO {
             stmt.setString(4, article.getSummary());
             stmt.setInt(5, article.getAuthorId());
             stmt.setInt(6, article.getCategoryId());
-            stmt.setInt(7, article.getStatusID().getId());
+            stmt.setInt(7, article.getStatus().getId());
 
             if (article.getFeatureImage() != null) {
                 stmt.setBytes(8, article.getFeatureImage());
@@ -133,7 +133,7 @@ public class ArticleDAO {
             stmt.setString(3, article.getContent());
             stmt.setString(4, article.getSummary());
             stmt.setInt(5, article.getCategoryId());
-            stmt.setInt(6, article.getStatusID().getId());
+            stmt.setInt(6, article.getStatus().getId());
             stmt.setInt(7, article.getId());
 
             int affectedRows = stmt.executeUpdate();
@@ -533,25 +533,19 @@ public class ArticleDAO {
         article.setSummary(rs.getString("summary"));
         article.setAuthorId(rs.getInt("author_id"));
         article.setCategoryId(rs.getInt("category_id"));
-        article.setStatusID(ArticleStatus.fromId(rs.getInt("status_id")));
+        article.setStatus(ArticleStatus.fromId(rs.getInt("status_id")));
         article.setRejectionMessage(rs.getString("rejection_message"));
         article.setFeatured(rs.getBoolean("is_featured"));
         article.setViewCount(rs.getInt("view_count"));
+        article.setCreatedAt(rs.getTimestamp("created_at"));
+        article.setUpdatedAt(rs.getTimestamp("updated_at"));
 
-        // Handle timestamps
-        Timestamp publishedAt = rs.getTimestamp("published_at");
-        if (publishedAt != null) {
-            article.setPublishedAt(publishedAt.toLocalDateTime());
-        }
-
-        article.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
-        article.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
-
-        // Handle BLOB data if needed
-        Blob featuredImage = rs.getBlob("featured_image");
+        // Handle image bytes
+        byte[] featuredImage = rs.getBytes("featured_image");
         if (featuredImage != null) {
-            article.setFeatureImage(featuredImage.getBytes(1, (int) featuredImage.length()));
+            article.setFeatureImage(featuredImage);
         }
+
 
         return article;
     }
