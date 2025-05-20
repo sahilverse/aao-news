@@ -274,7 +274,7 @@ select {
 
 /*Error Box*/
 
-.alert, .success{
+.alert{
     margin: 0;
     margin-bottom: 20px;
     padding: 10px;
@@ -284,11 +284,4 @@ select {
     border: 1px solid #f5c6cb;
 }
 
-.success{
-    background-color:  #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-
-
-}
 

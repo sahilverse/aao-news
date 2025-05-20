@@ -124,9 +124,7 @@ public class CreateArticleServlet extends HttpServlet {
             article.setSummary(sanitizedSummary);
             article.setAuthorId(userId);
             article.setCategoryId(categoryId);
-            article.setStatusID(status);
-            article.setCreatedAt(LocalDateTime.now());
-            article.setUpdatedAt(LocalDateTime.now());
+            article.setStatus(status);
 
             // Handle featured image if provided
             try {
@@ -153,7 +151,7 @@ public class CreateArticleServlet extends HttpServlet {
                 // Success - redirect to the article list with success message
                 System.out.println("Article created successfully with ID: " + articleId);
                 request.getSession().setAttribute("successMessage", "Article created successfully!");
-                response.sendRedirect(request.getContextPath() + "/publisher/create");
+                response.sendRedirect(request.getContextPath() + "/publisher/articles");
             } else {
                 // Error - return to form with error message
                 request.setAttribute("error", "Failed to create article. Please try again.");
