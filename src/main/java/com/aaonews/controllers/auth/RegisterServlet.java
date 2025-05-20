@@ -30,6 +30,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         userDAO = new UserDAO();
+        publisherDAO = new PublisherDAO();
     }
 
     @Override
