@@ -1,0 +1,80 @@
+:root{
+    --db-only: #0f1722;
+}
+
+/* Layout */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--color-background);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 300px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+/*Dashboard Navbar Css*/
+.nav-header {
+    background: var(--db-only);
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 20px;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    left: 0;
+    color: white;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+
+
+.logo span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.dp-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.profile-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.profile-photo:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .logo span {
+        font-size: 1.2rem;
+    }
+
+    .profile-photo {
+        width: 36px;
+        height: 36px;
+    }
+}

@@ -126,6 +126,7 @@ form input[type="text"]:focus {
     position: relative;
 }
 
+
 .password-toggle {
     position: absolute;
     right: 10px;

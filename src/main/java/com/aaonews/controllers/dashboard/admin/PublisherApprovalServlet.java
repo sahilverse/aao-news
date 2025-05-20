@@ -1,6 +1,6 @@
-package com.aaonews.controllers;
+package com.aaonews.controllers.dashboard.admin;
 import com.aaonews.dao.AdminDAO;
-import com.aaonews.enums.Role;
+
 import com.aaonews.models.Publisher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,6 +26,6 @@ public class PublisherApprovalServlet extends HttpServlet {
         List<Publisher> pendingPublishers = adminDAO.getPendingPublishers();
         System.out.println("this is pending"+pendingPublishers);
         request.setAttribute("pendingPublishers", pendingPublishers);
-//        request.getRequestDispatcher("/WEB-INF/views/admin/publisher-approval.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/admin/publisher-approval.jsp").forward(request, response);
     }
 }

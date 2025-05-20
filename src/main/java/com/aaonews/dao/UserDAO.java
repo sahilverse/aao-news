@@ -85,7 +85,6 @@ public class UserDAO {
     }
 
 
-
     /**
      * Gets a user by their email
      *
@@ -93,7 +92,7 @@ public class UserDAO {
      * @return The user, or null if not found
      */
     public User getUserByEmail(String email) {
-        String sql = "SELECT id, email, password, full_name, role_id, profile_image FROM users WHERE email = ?";
+        String sql = "SELECT * FROM users WHERE email = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -119,7 +118,7 @@ public class UserDAO {
      * @return The user, or null if not found
      */
     public User getUserById(int id) {
-        String sql = "SELECT id, email,  password, full_name, role_id, profile_image FROM users WHERE id = ?";
+        String sql = "SELECT * FROM users WHERE id = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -144,7 +143,7 @@ public class UserDAO {
      * @param userId The ID of the user
      */
     public void updateLastLogin(int userId) {
-        String sql = "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?";
+        String sql = "UPDATE users SET last_login = NOW() WHERE id = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -158,47 +157,97 @@ public class UserDAO {
     }
 
     /**
-     * update method for user
+     * Updates the password for a user
+     *
+     * @param userId      The ID of the user
+     * @param newPassword The new password to set
+     * @return true if the update was successful, false otherwise
      */
-    public User updateUser(User user) {
-        String sql = "UPDATE users SET email=?, password=?, full_name=?, role_id=?, profile_image=? WHERE id=?";
-        System.out.println("The email is" + user.getEmail());
-        System.out.println("The password is" + user.getPassword());
-        System.out.println("The full name is" + user.getFullName());
-        System.out.println("The role id is" + user.getRole().getId());
-        System.out.println("The profile image is" + user.getProfileImage());
-        System.out.println("The id is" + user.getId());
+    public boolean updatePassword(int userId, String newPassword) {
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Set the parameters for the prepared statement
-            stmt.setString(1, user.getEmail());
-            stmt.setString(2, PasswordUtil.hashPassword(user.getPassword())); // Make sure your password utility is working correctly
-            stmt.setString(3, user.getFullName());
-            stmt.setInt(4, user.getRole().getId());
-            stmt.setBytes(5, user.getProfileImage());  // Profile image (byte array)
-            stmt.setInt(6, user.getId()); // User ID
+            stmt.setString(1, PasswordUtil.hashPassword(newPassword));
+            stmt.setInt(2, userId);
 
-            // Execute the update
-            int rowsUpdated = stmt.executeUpdate();
-
-            if (rowsUpdated > 0) {
-                // If update is successful, return the updated user object
-                return user;
-            } else {
-                // If no rows were updated, handle this case
-                throw new RuntimeException("User update failed, no rows affected.");
-            }
-
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0;
         } catch (SQLException e) {
-            throw new RuntimeException("Error while updating user", e);
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Updates the profile information for a user
+     *
+     * @param userId   The ID of the user
+     * @param fullName The new full name to set
+     * @return true if the update was successful, false otherwise
+     */
+
+    public boolean updateProfile(int userId, String fullName) {
+        String sql = "UPDATE users SET full_name = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, fullName);
+            stmt.setInt(2, userId);
+
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Updates the profile image for a user
+     *
+     * @param userId     The ID of the user
+     * @param imageBytes The image bytes to update
+     */
+
+    public void updateProfileImage(int userId, byte[] imageBytes) {
+        String sql = "UPDATE users SET profile_image = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setBytes(1, imageBytes);
+            stmt.setInt(2, userId);
+
+            int affectedRows = stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
 
+    /**
+     * Gets the count of all users in the database
+     *
+     * @return The count of all users
+     */
+   public int getAllUsersCount(){
+        String sql = "SELECT COUNT(*) FROM users";
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-
-
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+   }
 
 
     /**
@@ -211,24 +260,10 @@ public class UserDAO {
         String fullName = rs.getString("full_name");
         Role role = Role.fromId(rs.getInt("role_id"));
         byte[] profileImage = rs.getBytes("profile_image");
+        Timestamp createdAt = rs.getTimestamp("created_at");
+        Timestamp updatedAt = rs.getTimestamp("updated_at");
+        Timestamp lastLogin = rs.getTimestamp("last_login");
 
-        return new User(id, email, password, fullName, role, profileImage);
+        return new User(id, email, password, fullName, role, profileImage, lastLogin, createdAt, updatedAt);
     }
-    public int getAllUsersCount() {
-        String sql = "SELECT COUNT(*) FROM users";
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            if (rs.next()) {
-                return rs.getInt(1); // return the count
-            } else {
-                return 0; // in case no rows are returned
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Error retrieving user count", e);
-        }
-    }
-
 }

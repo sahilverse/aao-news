@@ -27,6 +27,7 @@ public class SessionUtil {
      */
     public static void createUserSession(HttpServletRequest request, User user) {
         HttpSession session = request.getSession(true);
+        user.setPassword(null); // Clear password for security
         session.setAttribute(USER_SESSION_KEY, user);
     }
 

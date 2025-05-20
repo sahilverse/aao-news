@@ -1,0 +1,232 @@
+/* Profile Header */
+.profile-header {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 2rem 0;
+    border-radius: 20px;
+}
+
+.header-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.profile-picture-container {
+    position: relative;
+}
+
+.profile-picture {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: white;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.camera-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: var(--color-secondary);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.camera-btn:hover {
+    background-color: var(--color-secondary-dark);
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-info h1 {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+}
+
+.user-info p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+}
+
+.change-picture-btn {
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.change-picture-btn:hover {
+    background-color: var(--color-secondary-dark);
+}
+
+.verified-icon, .pending-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #5191f6;
+}
+
+.pending-icon{
+    color: #eec27d;
+}
+
+/* Profile Details */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.info-container {
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-container h2 {
+    margin-bottom: 1.25rem;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.submit-btn {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.submit-btn:hover {
+    background-color: var(--color-primary-dark);
+}
+
+/* Password visibility toggle */
+.password-input-container {
+    position: relative;
+}
+
+.password-input-container > input{
+    width: 100%;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: #1a73e8;
+}
+
+.password-toggle:focus {
+    outline: none;
+}
+
+#save-changes-btn:disabled{
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+/*Dialog*/
+
+.dialog {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    width: 90%;
+    max-width: 400px;
+}
+
+.dialog-header h2 {
+    margin: 0 0 1rem;
+    font-size: 1.25rem;
+}
+
+.file-input {
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.relative {
+    position: relative;
+}
+
