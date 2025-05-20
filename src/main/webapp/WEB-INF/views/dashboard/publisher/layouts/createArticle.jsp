@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
 <div class="create-article-container">
     <div class="page-header">
         <h1>Create New Article</h1>
@@ -11,7 +10,23 @@
         </div>
     </div>
 
-    <form id="articleForm" action="${pageContext.request.contextPath}/publisher/article/create" method="post" enctype="multipart/form-data">
+    <!-- Display error message if any -->
+    <c:if test="${not empty error}">
+        <div class="alert">
+                ${error}
+        </div>
+    </c:if>
+
+    <!-- Display success message if any -->
+    <!-- Display success message if any -->
+    <c:if test="${not empty sessionScope.successMessage}">
+        <div class="success">
+                ${sessionScope.successMessage}
+        </div>
+        <c:remove var="successMessage" scope="session" />
+    </c:if>
+
+    <form id="articleForm" action="${pageContext.request.contextPath}/publisher/create" method="post" enctype="multipart/form-data">
         <div class="form-grid">
             <!-- Left Column -->
             <div class="main-content" style="margin-left: 0; margin-top: 0; ">
@@ -19,7 +34,8 @@
                 <div class="form-group">
                     <label for="articleTitle">Article Title <span class="required">*</span></label>
                     <input type="text" id="articleTitle" name="title" required
-                           placeholder="Enter a descriptive title" maxlength="150">
+                           placeholder="Enter a descriptive title" maxlength="150"
+                           value="${article.title}">
                     <div class="char-counter">
                         <span id="titleCharCount">0</span>/150 characters
                     </div>
@@ -28,14 +44,14 @@
                 <!-- Article Content Editor -->
                 <div class="form-group">
                     <label for="articleContent">Article Content <span class="required">*</span></label>
-                    <textarea id="articleContent" name="content"></textarea>
+                    <textarea id="articleContent" name="content">${article.content}</textarea>
                 </div>
 
                 <!-- Article Summary -->
                 <div class="form-group">
                     <label for="articleSummary">Article Summary <span class="required">*</span></label>
                     <textarea id="articleSummary" name="summary" rows="4"
-                              placeholder="Write a brief summary of your article" maxlength="500"></textarea>
+                              placeholder="Write a brief summary of your article" maxlength="500">${article.summary}</textarea>
                     <div class="char-counter">
                         <span id="summaryCharCount">0</span>/500 characters
                     </div>
@@ -73,19 +89,17 @@
                     <div class="form-group">
                         <select id="articleCategory" name="category" required>
                             <option value="">Select a category</option>
-                            <!-- Mock categories - replace with actual data from backend -->
-                            <option value="1">Politics</option>
-                            <option value="2">Technology</option>
-                            <option value="3">Business</option>
-                            <option value="4">Health</option>
-                            <option value="5">Science</option>
-                            <option value="6">Sports</option>
-                            <option value="7">Entertainment</option>
-                            <option value="8">World</option>
+                            <option value="1" ${article.categoryId == 1 ? 'selected' : ''}>Technology</option>
+                            <option value="2" ${article.categoryId == 2 ? 'selected' : ''}>Business</option>
+                            <option value="3" ${article.categoryId == 3 ? 'selected' : ''}>Health</option>
+                            <option value="4" ${article.categoryId == 4 ? 'selected' : ''}>Sports</option>
+                            <option value="5" ${article.categoryId == 5 ? 'selected' : ''}>Culture</option>
+                            <option value="6" ${article.categoryId == 6 ? 'selected' : ''}>Politics</option>
+                            <option value="7" ${article.categoryId == 7 ? 'selected' : ''}>Science</option>
+                            <option value="8" ${article.categoryId == 8 ? 'selected' : ''}>Entertainment</option>
                         </select>
                     </div>
                 </div>
-
 
                 <!-- Featured Image -->
                 <div class="sidebar-card">
@@ -99,7 +113,7 @@
                                 <label for="featuredImage" class="btn btn-secondary upload-btn">
                                     <i class="fas fa-upload"></i> Choose Image
                                 </label>
-                                <input type="file" id="featuredImage" name="featuredImage" accept="image/*" style="display: none;">
+                                <input type="file" id="featuredImage" name="featuredImage" accept=".jpg,.jpeg" style="display: none;">
                                 <button type="button" id="removeImageBtn" class="btn btn-danger" style="display: none;">
                                     <i class="fas fa-trash"></i> Remove
                                 </button>
@@ -108,7 +122,7 @@
                         <div class="image-requirements">
                             <small>Recommended size: 1200 x 630 pixels (16:9 ratio)</small>
                             <small>Maximum file size: 2MB</small>
-                            <small>Supported formats: JPG, PNG, WebP</small>
+                            <small>Supported formats: JPG, JPEG</small>
                         </div>
                     </div>
                 </div>
@@ -128,7 +142,7 @@
             'bold', 'italic', 'underline', 'strikethrough', '|',
             'ul', 'ol', '|',
             'paragraph', 'fontsize', 'brush', '|',
-             'table', 'link', '|',
+            'table', 'link', '|',
             'align', '|',
             'undo', 'redo', '|',
             'hr', 'eraser', 'fullsize'
@@ -183,6 +197,15 @@
         document.getElementById('summaryCharCount').textContent = count;
     });
 
+    // Initialize character counters on page load
+    window.addEventListener('load', function() {
+        const titleCount = document.getElementById('articleTitle').value.length;
+        document.getElementById('titleCharCount').textContent = titleCount;
+
+        const summaryCount = document.getElementById('articleSummary').value.length;
+        document.getElementById('summaryCharCount').textContent = summaryCount;
+    });
+
     // Image preview functionality
     document.getElementById('featuredImage').addEventListener('change', function() {
         const file = this.files[0];
@@ -201,8 +224,6 @@
         document.getElementById('imagePreview').src = '${pageContext.request.contextPath}/assets/images/placeholder-image.jpg';
         this.style.display = 'none';
     });
-
-
 
     // Auto-save functionality (mock)
     let autoSaveTimer;
@@ -236,12 +257,21 @@
     // Form submission handling
     document.getElementById('saveDraftButton').addEventListener('click', function() {
         document.getElementById('articleStatus').value = 'draft';
+
+        // Make sure the Jodit editor content is synced to the textarea
+        editor.value = editor.getEditorValue();
+
         document.getElementById('articleForm').submit();
     });
 
-    document.getElementById('publishButton').addEventListener('click', function() {
+    document.getElementById('publishButton').addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent default button behavior
         document.getElementById('articleStatus').value = 'publish';
-        // Form will be submitted normally
+
+        // Make sure the Jodit editor content is synced to the textarea
+        editor.value = editor.getEditorValue();
+
+        document.getElementById('articleForm').submit();
     });
 
     document.getElementById('previewButton').addEventListener('click', function() {
