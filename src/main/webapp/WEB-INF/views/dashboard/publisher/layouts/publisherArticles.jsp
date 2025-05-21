@@ -151,7 +151,7 @@
                                 <button class="action-btn delete-btn" onclick="confirmDelete(${article.id})">
                                     <i class="fas fa-trash"></i> Delete
                                 </button>
-                                <a href="${pageContext.request.contextPath}/article/preview/${article.id}" class="action-btn preview-btn" target="_blank">
+                                <a href="${pageContext.request.contextPath}/article/${article.id}" class="action-btn preview-btn" target="_blank">
                                     <i class="fas fa-eye"></i> Preview
                                 </a>
                             </div>

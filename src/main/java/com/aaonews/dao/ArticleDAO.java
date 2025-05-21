@@ -2,6 +2,7 @@ package com.aaonews.dao;
 
 import com.aaonews.enums.ArticleStatus;
 import com.aaonews.models.Article;
+import com.aaonews.models.User;
 import com.aaonews.utils.DatabaseUtil;
 
 import java.sql.*;
@@ -515,6 +516,29 @@ public class ArticleDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public User getArticleAuthor(int articleId) {
+        String sql = "SELECT u.* FROM articles a JOIN users u ON a.author_id = u.id WHERE a.id = ?";
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, articleId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setUsername(rs.getString("full_name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setProfileImage(rs.getBytes("profile_image"));
+                    return user;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

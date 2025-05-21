@@ -1,0 +1,117 @@
+/* Blog Header */
+.article-header {
+    padding: 20px 30px 0 30px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+    margin: 5px auto 60px;
+}
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.date,
+.author,
+.category-name {
+    color: grey;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-family: var(--font-body), sans-serif;
+    letter-spacing: 1px;
+}
+
+.author-name {
+    color: #f57324;
+    cursor: pointer;
+}
+
+.heading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem;
+}
+
+.divider {
+    border: 1px solid #000000;
+    width: 120px;
+}
+
+.heading {
+    font-family: var(--font-heading), sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    text-transform: capitalize;
+    font-weight: 400;
+}
+
+/* Blog Section */
+.article {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.article-image-container {
+    height: 500px;
+    width: 900px;
+    margin: auto;
+}
+
+.article-image-container img {
+    height: 100%;
+    width: 100%;
+    filter: brightness(0.9);
+
+}
+
+.share-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+    max-width: 900px;
+    margin: 0.8rem auto 3rem;
+}
+
+.share-container p {
+    font-family: var(--font-body), sans-serif;
+    font-size: 1rem;
+    color: grey;
+    letter-spacing: 1px;
+}
+
+.share-icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.share-icons a i {
+    font-size: 1rem;
+    color: #088178;
+    cursor: pointer;
+}
+
+.article-content-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.article-content-container p {
+    font-size: 1rem;
+    color: #000000;
+    letter-spacing: 0px;
+    line-height: 2rem;
+    text-align: justify;
+}
+
+.article-content-container h1,
+.article-content-container h2,
+.article-content-container h3,
+.article-content-container h4,
+.article-content-container h5,
+.article-content-container h6 {
+    margin-bottom: 20px;
+}
