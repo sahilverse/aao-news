@@ -122,19 +122,23 @@ public class ArticleDAO {
      * @return true if update was successful, false otherwise
      */
     public boolean updateArticle(Article article) {
-        String sql = "UPDATE articles SET title = ?, slug = ?, content = ?, summary = ?, " +
-                "category_id = ?, status_id = ?, updated_at = CURRENT_TIMESTAMP " +
+        String sql = "UPDATE articles SET title = ?, content = ?, summary = ?, " +
+                "category_id = ?, status_id = ?, featured_image=?, updated_at = CURRENT_TIMESTAMP " +
                 "WHERE id = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, article.getTitle());
-            stmt.setString(2, article.getSlug());
-            stmt.setString(3, article.getContent());
-            stmt.setString(4, article.getSummary());
-            stmt.setInt(5, article.getCategoryId());
-            stmt.setInt(6, article.getStatus().getId());
+            stmt.setString(2, article.getContent());
+            stmt.setString(3, article.getSummary());
+            stmt.setInt(4, article.getCategoryId());
+            stmt.setInt(5, article.getStatus().getId());
+            if (article.getFeatureImage() != null) {
+                stmt.setBytes(6, article.getFeatureImage());
+            } else {
+                stmt.setNull(6, Types.BLOB);
+            }
             stmt.setInt(7, article.getId());
 
             int affectedRows = stmt.executeUpdate();

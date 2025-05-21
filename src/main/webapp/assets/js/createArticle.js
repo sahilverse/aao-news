@@ -84,24 +84,6 @@ function setupAutoSave() {
     });
 }
 
-// Form submission handling
-document.getElementById('saveDraftButton').addEventListener('click', function() {
-    document.getElementById('articleStatus').value = 'draft';
-
-    // Make sure the Jodit editor content is synced to the textarea
-    editor.value = editor.getEditorValue();
-
-    document.getElementById('articleForm').submit();
-});
-
-document.getElementById('publishButton').addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent default button behavior
-    document.getElementById('articleStatus').value = 'publish';
-
-    editor.value = editor.getEditorValue();
-
-    document.getElementById('articleForm').submit();
-});
 
 document.getElementById('previewButton').addEventListener('click', function() {
 
