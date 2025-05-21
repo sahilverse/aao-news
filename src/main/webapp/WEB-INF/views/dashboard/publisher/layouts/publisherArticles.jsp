@@ -17,6 +17,14 @@
         </div>
     </div>
 
+    <!-- Display Error message if any -->
+    <c:if test="${not empty sessionScope.errorMessage}">
+        <div class="alert">
+                ${sessionScope.errorMessage}
+        </div>
+        <c:remove var="errorMessage" scope="session" />
+    </c:if>
+
     <!-- Display success message if any -->
     <c:if test="${not empty sessionScope.successMessage}">
         <div class="success">
@@ -254,7 +262,18 @@
 
     function confirmDelete(articleId, articleTitle) {
         if (confirm('Are you sure you want to delete the article "' + articleTitle + '"? This action cannot be undone.')) {
-            window.location.href = '${pageContext.request.contextPath}/publisher/delete-article?id=' + articleId;
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `${pageContext.request.contextPath}/publisher/delete-article`;
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'articleId';
+            input.value = articleId;
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
         }
     }
 
