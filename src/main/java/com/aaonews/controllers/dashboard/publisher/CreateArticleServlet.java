@@ -68,15 +68,9 @@ public class CreateArticleServlet extends HttpServlet {
             String content = request.getParameter("content");
             String summary = request.getParameter("summary");
 
-            // Get category parameter - FIXED: changed from categoryId to category
+            // Get category parameter
             String categoryParam = request.getParameter("category");
 
-            // Debug output to see what parameters are coming in
-            System.out.println("Title: " + title);
-            System.out.println("Content: " + content);
-            System.out.println("Summary: " + summary);
-            System.out.println("Category: " + categoryParam);
-            System.out.println("Status: " + request.getParameter("status"));
 
             // Validate required fields
             if (title == null || title.trim().isEmpty() ||
@@ -129,12 +123,7 @@ public class CreateArticleServlet extends HttpServlet {
             // Handle featured image if provided
             try {
                 Part imagePart = request.getPart("featuredImage");
-                if(imagePart != null){
-                    System.out.println("Image part name: " + imagePart.getName());
-                    System.out.println("Image part size: " + imagePart.getSize());
-                } else {
-                    System.out.println("Image part is null");
-                }
+
                 if (imagePart != null && imagePart.getSize() > 0) {
                    byte[] imageBytes = imagePart.getInputStream().readAllBytes();
                     article.setFeatureImage(imageBytes);

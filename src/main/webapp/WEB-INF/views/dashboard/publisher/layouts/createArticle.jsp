@@ -4,7 +4,14 @@
 
 <div class="create-article-container">
     <div class="page-header">
-        <h1>Create New Article</h1>
+        <c:if test="${not empty requestScope.article.id}">
+            <h1>Edit Article</h1>
+        </c:if>
+
+        <c:if test="${empty requestScope.article.id}">
+            <h1>Create New Article</h1>
+        </c:if>
+
         <div class="auto-save-status">
             <span id="autoSaveStatus">All changes saved</span>
         </div>
@@ -17,9 +24,29 @@
         </div>
     </c:if>
 
+    <!-- Display : Unverfied Publishers Cannot Create Articles -->
 
-    <form id="articleForm" action="${pageContext.request.contextPath}/publisher/create" method="post" enctype="multipart/form-data">
+
+    <c:if test="${!sessionScope.currentPublisher.isVerified}">
+        <div class="alert">
+            <strong>Warning!</strong> Your account is not verified. You cannot create articles until your account is
+            verified.
+        </div>
+    </c:if>
+
+
+    <form id="articleForm" action="
+        <c:if test="${not empty article.id}">
+            ${pageContext.request.contextPath}/publisher/updateArticle
+        </c:if>
+
+        <c:if test="${empty article.id}">
+            ${pageContext.request.contextPath}/publisher/create
+        </c:if>
+" method="post"
+          enctype="multipart/form-data">
         <div class="form-grid">
+            <input type="hidden" name="articleId" value="${article.id}"/>
             <!-- Left Column -->
             <div class="main-content" style="margin-left: 0; margin-top: 0; ">
                 <!-- Article Title -->
@@ -43,7 +70,8 @@
                 <div class="form-group">
                     <label for="articleSummary">Article Summary <span class="required">*</span></label>
                     <textarea id="articleSummary" name="summary" rows="4"
-                              placeholder="Write a brief summary of your article" maxlength="500">${article.summary}</textarea>
+                              placeholder="Write a brief summary of your article"
+                              maxlength="500">${article.summary}</textarea>
                     <div class="char-counter">
                         <span id="summaryCharCount">0</span>/500 characters
                     </div>
@@ -56,22 +84,34 @@
                 <div class="sidebar-card">
                     <h3>Publishing</h3>
                     <div class="form-group">
+
                         <label for="articleStatus">Status</label>
                         <select id="articleStatus" name="status">
-                            <option value="draft">Save as Draft</option>
-                            <option value="publish">Submit for Review</option>
+                            <c:if test="${empty article.id || article.status == 'PENDING_REVIEW' || article.status == 'DRAFT'}">
+                                <option value="draft">Save as Draft</option>
+                                <option value="publish">Submit for Review</option>
+                            </c:if>
+
+                            <c:if test="${not empty article.id && article.status == 'PUBLISHED'}">
+                                <option value="publish">Publish</option>
+                            </c:if>
                         </select>
+
+
                     </div>
                     <div class="action-buttons">
-                        <button type="button" id="previewButton" class="btn btn-secondary">
-                            <i class="fas fa-eye"></i> Preview
-                        </button>
-                        <button type="button" id="saveDraftButton" class="btn btn-secondary">
-                            <i class="fas fa-save"></i> Save Draft
-                        </button>
-                        <button type="submit" id="publishButton" class="btn btn-primary">
-                            <i class="fas fa-paper-plane"></i> Submit
-                        </button>
+                        <c:if test="${sessionScope.currentPublisher.isVerified}">
+                            <button type="submit" id="publishButton" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Submit
+                            </button>
+                        </c:if>
+
+                        <c:if test="${!sessionScope.currentPublisher.isVerified}">
+                            <button type="submit" id="publishButton" class="btn btn-primary"
+                                    disabled>
+                                <i class="fas fa-paper-plane"></i> Submit
+                            </button>
+                        </c:if>
                     </div>
                 </div>
 
@@ -99,13 +139,24 @@
                     <div class="form-group">
                         <div class="image-upload-container">
                             <div id="imagePreviewContainer" class="image-preview">
-                                <img id="imagePreview" src="${pageContext.request.contextPath}/assets/images/placeholder-image.jpg" alt="Featured image preview">
+                                <c:if test="${not empty article.featureImage}">
+                                    <img id="imagePreview"
+                                         src="${pageContext.request.contextPath}/article-image?id=${article.id}"
+                                         alt="Featured image preview"/>
+                                </c:if>
+                                <c:if test="${empty article.featureImage}">
+
+                                    <img id="imagePreview"
+                                         src="${pageContext.request.contextPath}/assets/images/placeholder-image.jpg"
+                                         alt="Featured image preview"/>
+                                </c:if>
                             </div>
                             <div class="upload-controls">
                                 <label for="featuredImage" class="btn btn-secondary upload-btn">
                                     <i class="fas fa-upload"></i> Choose Image
                                 </label>
-                                <input type="file" id="featuredImage" name="featuredImage" accept=".jpg,.jpeg" style="display: none;">
+                                <input type="file" id="featuredImage" name="featuredImage" accept=".jpg,.jpeg"
+                                       style="display: none;">
                                 <button type="button" id="removeImageBtn" class="btn btn-danger" style="display: none;">
                                     <i class="fas fa-trash"></i> Remove
                                 </button>

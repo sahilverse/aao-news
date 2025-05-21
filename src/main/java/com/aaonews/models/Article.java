@@ -22,6 +22,7 @@ public class Article {
     private Timestamp updatedAt;
     private int commentCount;
     private int likeCount;
+    private User author;
 
     public Article() {}
 
@@ -35,6 +36,14 @@ public class Article {
         this.authorId = authorId;
         this.categoryId = categoryId;
         this.status = status;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public User getAuthor() {
+        return author;
     }
 
     public int getLikeCount() {

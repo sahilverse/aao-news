@@ -17,6 +17,14 @@
         </div>
     </div>
 
+    <!-- Display Error message if any -->
+    <c:if test="${not empty sessionScope.errorMessage}">
+        <div class="alert">
+                ${sessionScope.errorMessage}
+        </div>
+        <c:remove var="errorMessage" scope="session" />
+    </c:if>
+
     <!-- Display success message if any -->
     <c:if test="${not empty sessionScope.successMessage}">
         <div class="success">
@@ -140,10 +148,10 @@
                                 <a href="${pageContext.request.contextPath}/publisher/edit?id=${article.id}" class="action-btn edit-btn">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
-                                <button class="action-btn delete-btn" onclick="confirmDelete(${article.id}, '${article.title}')">
+                                <button class="action-btn delete-btn" onclick="confirmDelete(${article.id})">
                                     <i class="fas fa-trash"></i> Delete
                                 </button>
-                                <a href="${pageContext.request.contextPath}/article/preview/${article.id}" class="action-btn preview-btn" target="_blank">
+                                <a href="${pageContext.request.contextPath}/article/${article.id}" class="action-btn preview-btn" target="_blank">
                                     <i class="fas fa-eye"></i> Preview
                                 </a>
                             </div>
@@ -214,6 +222,23 @@
             </div>
         </div>
     </c:if>
+
+
+        <%--    Modal--%>
+    <div id="deleteModal" class="custom-modal" style="display: none;">
+        <div class="custom-modal-content">
+            <span class="custom-close" onclick="closeModal()">&times;</span>
+            <h2>Confirm Deletion</h2>
+            <p id="deleteModalMessage">Are you sure you want to delete this article? This action cannot be undone.</p>
+            <form id="deleteForm" method="post" action="${pageContext.request.contextPath}/publisher/delete-article">
+                <input type="hidden" name="articleId" id="deleteArticleId">
+                <div class="modal-actions">
+                    <button type="button" onclick="closeModal()" class="cancel-btn">Cancel</button>
+                    <button type="submit" class="confirm-btn">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -252,11 +277,15 @@
         window.location.href = '${pageContext.request.contextPath}/publisher/articles?page=1&size=' + size + "&status=${requestScope.statusFilter}&sort=${requestScope.sortFilter}";
     }
 
-    function confirmDelete(articleId, articleTitle) {
-        if (confirm('Are you sure you want to delete the article "' + articleTitle + '"? This action cannot be undone.')) {
-            window.location.href = '${pageContext.request.contextPath}/publisher/delete-article?id=' + articleId;
-        }
+    function confirmDelete(articleId) {
+        document.getElementById("deleteArticleId").value = articleId;
+        document.getElementById("deleteModal").style.display = "flex";
     }
+
+    function closeModal() {
+        document.getElementById("deleteModal").style.display = "none";
+    }
+
 
     // Set the current filter values based on URL parameters
     window.addEventListener('load', function() {
