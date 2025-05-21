@@ -275,8 +275,7 @@ select {
 /*Error Box*/
 
 .alert{
-    margin: 0;
-    margin-bottom: 20px;
+    margin: 0 0 20px;
     padding: 10px;
     border-radius: 4px;
     background-color: #f8d7da;
