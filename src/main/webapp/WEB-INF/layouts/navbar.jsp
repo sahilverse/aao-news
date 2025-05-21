@@ -40,9 +40,9 @@
             <div class="nav-actions">
                 <div class="dropdown">
                     <button class="dropdown-toggle">
-                        <span style="margin-right: 4px;">Hi, ${fn:split(sessionScope.currentUser.fullName, " ")[0]}</span>
-                        <i class="fa-regular fa-user" style="font-size: 1.4rem; margin-left: 4px;"></i>
-                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 4px;"></i>
+                        <span style="margin-right: 20px;">Hi, ${fn:split(sessionScope.currentUser.fullName, " ")[0]}</span>
+                        <img src="${pageContext.request.contextPath}/user-image?id=${sessionScope.currentUser.id}" alt="User Photo" class="profile-photo">
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 8px;"></i>
                     </button>
                     <div class="dropdown-menu">
                         <c:choose>

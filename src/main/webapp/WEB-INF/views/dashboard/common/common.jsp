@@ -1,5 +1,6 @@
 <%--Stylesheets--%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dashboard/common.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dashboard/sidebar.css">
 
 

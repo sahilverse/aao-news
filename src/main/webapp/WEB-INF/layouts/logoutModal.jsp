@@ -6,7 +6,7 @@
             <form id="logoutForm" method="post" action="${pageContext.request.contextPath}/logout">
                 <button type="submit" class="btn btn-danger">Yes, Logout</button>
             </form>
-            <button class="nav-btn nav-btn-white cancel-btn"  onclick="hideLogoutModal()">Cancel</button>
+            <button class="btn cancel-btn"  onclick="hideLogoutModal()">Cancel</button>
         </div>
     </div>
 </div>

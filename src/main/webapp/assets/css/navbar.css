@@ -8,13 +8,14 @@ header {
     z-index: 1000;
     top: 0;
     left: 0;
+    display: flex;
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 32px;
+    padding: 10px 32px;
     background: var(--color-primary);
     color: #ffffff;
 }
@@ -136,7 +137,25 @@ header {
     }
 }
 
+.profile-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
 
+.profile-photo:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+
+    .profile-photo {
+        width: 36px;
+        height: 36px;
+    }
+}
 
 /* Dropdown styles */
 .dropdown {
