@@ -57,15 +57,6 @@
             </div>
         </div>
 
-        <div class="stat-card">
-            <div class="stat-icon">
-                <i class="fas fa-comment"></i>
-            </div>
-            <div class="stat-content">
-                <h3>Total Comments</h3>
-                <p class="stat-number">${requestScope.totalComments}</p>
-            </div>
-        </div>
     </div>
 
     <!-- Top Performing Article -->

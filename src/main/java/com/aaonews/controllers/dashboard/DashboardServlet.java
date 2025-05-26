@@ -155,10 +155,15 @@ public class DashboardServlet extends HttpServlet {
 //            find the total number of articles
             int totalArticles = articles.size();
 
-//            find total Number of Views, Likes, Comments
+//            find total Number of Views, Likes
             int totalViews = articles.stream().mapToInt(Article::getViewCount).sum();
-            int totalLikes = articles.stream().mapToInt(Article::getLikeCount).sum();
-            int totalComments = articles.stream().mapToInt(Article::getCommentCount).sum();
+            int totalLikes = 0;
+            ArticleLikeDAO articleLikeDAO = new ArticleLikeDAO();
+
+            for (Article article : articles) {
+                totalLikes += articleLikeDAO.getArticleLikeCount(article.getId());
+            }
+
 
 //            Top Performing Article
             Article topArticle = articles.stream()
@@ -169,7 +174,6 @@ public class DashboardServlet extends HttpServlet {
 // find total comments and likes for top article
             if (topArticle != null) {
                 CommentDAO commentDAO = new CommentDAO();
-                ArticleLikeDAO articleLikeDAO = new ArticleLikeDAO();
                 int topArticleCommentCount = commentDAO.getArticleCommentCount(topArticle.getId(), false);
                 int topArticleLikeCount = articleLikeDAO.getArticleLikeCount(topArticle.getId());
                 topArticle.setCommentCount(topArticleCommentCount);
@@ -184,7 +188,6 @@ public class DashboardServlet extends HttpServlet {
             request.setAttribute("totalArticles", totalArticles);
             request.setAttribute("totalViews", totalViews);
             request.setAttribute("totalLikes", totalLikes);
-            request.setAttribute("totalComments", totalComments);
             request.setAttribute("topArticle", topArticle);
             request.setAttribute("articles", articles);
             request.setAttribute("pendingCount", pendingCount);
