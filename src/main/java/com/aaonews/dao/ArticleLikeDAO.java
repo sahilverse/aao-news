@@ -43,47 +43,16 @@ public class ArticleLikeDAO {
             if (affectedRows == 0) {
                 LOGGER.log(Level.WARNING, "Adding like failed, no rows affected.");
                 return null;
+            }else{
+                return getLike(articleId, userId);
             }
 
-            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    return getLikeById(generatedKeys.getInt(1));
-                } else {
-                    LOGGER.log(Level.WARNING, "Adding like failed, no ID obtained.");
-                    return null;
-                }
-            }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error adding like", e);
             return null;
         }
     }
 
-    /**
-     * Retrieves a like by its ID.
-     *
-     * @param likeId The ID of the like to retrieve
-     * @return The like, or null if not found
-     */
-    public ArticleLike getLikeById(int likeId) {
-        String sql = "SELECT * FROM article_likes WHERE id = ?";
-
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, likeId);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return mapResultSetToLike(rs);
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error retrieving like by ID: " + likeId, e);
-        }
-
-        return null;
-    }
 
     /**
      * Retrieves a like by article ID and user ID.
@@ -279,7 +248,6 @@ public class ArticleLikeDAO {
      */
     private ArticleLike mapResultSetToLike(ResultSet rs) throws SQLException {
         ArticleLike like = new ArticleLike();
-        like.setId(rs.getInt("id"));
         like.setArticleId(rs.getInt("article_id"));
         like.setUserId(rs.getInt("user_id"));
         like.setCreatedAt(rs.getTimestamp("created_at"));

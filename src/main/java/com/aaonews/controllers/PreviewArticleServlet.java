@@ -1,6 +1,8 @@
 package com.aaonews.controllers;
 
 import com.aaonews.dao.ArticleDAO;
+import com.aaonews.enums.ArticleStatus;
+import com.aaonews.enums.Role;
 import com.aaonews.models.Article;
 import com.aaonews.models.User;
 import com.aaonews.utils.SessionUtil;
@@ -37,11 +39,24 @@ public class PreviewArticleServlet extends HttpServlet {
         User author = articleDAO.getArticleAuthor(Integer.parseInt(articleId));
         article.ifPresent(a -> a.setAuthor(author));
 
-      // increase the view count if only the article is being previewed and the user is not the author
-
-
 
         if (article.isPresent()) {
+            // increase the view count if only the article is being previewed and the user is not the author and admin
+            User currentUser = SessionUtil.getCurrentUser(request);
+            if (currentUser == null) {
+               // create null user to avoid null pointer exception
+                currentUser = new User();
+            }
+            if (!(currentUser.getRole() == Role.ADMIN) && !(currentUser.getId() == author.getId())) {
+                articleDAO.incrementViewCount(Integer.parseInt(articleId));
+            }
+
+            if(!(article.get().getStatus() == ArticleStatus.PUBLISHED) && currentUser.getRole() == Role.READER) {
+
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Article is not available for preview");
+                return;
+
+            }
          
             request.setAttribute("article", article.get());
             request.getRequestDispatcher("/WEB-INF/views/article-preview.jsp").forward(request, response);
