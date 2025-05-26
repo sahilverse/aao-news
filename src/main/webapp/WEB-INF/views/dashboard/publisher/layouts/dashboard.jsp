@@ -82,7 +82,7 @@
                         <p class="article-date"><i class="fas fa-calendar-alt"></i> Published:
                             <fmt:formatDate value="${topArticle.createdAt}" pattern="MMM d, yyyy" />
                         </p>
-                        <p class="article-summary">${topArticle.summary}</p>
+                        <p class="article-summary" style="text-align: justify;">${topArticle.summary}</p>
 
                         <div class="article-metrics">
                             <div class="metric">
