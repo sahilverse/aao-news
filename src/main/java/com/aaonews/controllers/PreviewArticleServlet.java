@@ -3,6 +3,7 @@ package com.aaonews.controllers;
 import com.aaonews.dao.ArticleDAO;
 import com.aaonews.models.Article;
 import com.aaonews.models.User;
+import com.aaonews.utils.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,6 +24,12 @@ public class PreviewArticleServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String pathInfo = request.getPathInfo();
+
+        if (pathInfo == null || pathInfo.length() <= 1) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing article ID");
+            return;
+        }
         String articleId = request.getPathInfo().substring(1);
 
         // Fetch the article from the database
@@ -30,7 +37,12 @@ public class PreviewArticleServlet extends HttpServlet {
         User author = articleDAO.getArticleAuthor(Integer.parseInt(articleId));
         article.ifPresent(a -> a.setAuthor(author));
 
+      // increase the view count if only the article is being previewed and the user is not the author
+
+
+
         if (article.isPresent()) {
+         
             request.setAttribute("article", article.get());
             request.getRequestDispatcher("/WEB-INF/views/article-preview.jsp").forward(request, response);
         } else {

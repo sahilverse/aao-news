@@ -1,9 +1,7 @@
 package com.aaonews.controllers.dashboard;
 
-import com.aaonews.dao.AdminDAO;
-import com.aaonews.dao.ArticleDAO;
-import com.aaonews.dao.PublisherDAO;
-import com.aaonews.dao.UserDAO;
+import com.aaonews.dao.*;
+import com.aaonews.enums.ArticleStatus;
 import com.aaonews.enums.Role;
 import com.aaonews.models.Article;
 import com.aaonews.models.Publisher;
@@ -141,6 +139,60 @@ public class DashboardServlet extends HttpServlet {
 
             return;
         } else if (currentUser.getRole() == Role.PUBLISHER) {
+
+            User user = (User) SessionUtil.getCurrentUser(request);
+            if (user == null || user.getRole() != Role.PUBLISHER) {
+                response.sendRedirect(request.getContextPath() + "/login");
+                return;
+            }
+            ArticleDAO articleDAO = new ArticleDAO();
+            List<Article> articles = articleDAO.getArticlesByAuthor(user.getId());
+
+            if (articles == null) {
+                articles = List.of(); // Initialize to an empty list if null
+            }
+
+//            find the total number of articles
+            int totalArticles = articles.size();
+
+//            find total Number of Views, Likes, Comments
+            int totalViews = articles.stream().mapToInt(Article::getViewCount).sum();
+            int totalLikes = articles.stream().mapToInt(Article::getLikeCount).sum();
+            int totalComments = articles.stream().mapToInt(Article::getCommentCount).sum();
+
+//            Top Performing Article
+            Article topArticle = articles.stream()
+                    .max((a1, a2) -> Integer.compare(a1.getViewCount(), a2.getViewCount()))
+                    .orElse(null);
+
+
+// find total comments and likes for top article
+            if (topArticle != null) {
+                CommentDAO commentDAO = new CommentDAO();
+                ArticleLikeDAO articleLikeDAO = new ArticleLikeDAO();
+                int topArticleCommentCount = commentDAO.getArticleCommentCount(topArticle.getId(), false);
+                int topArticleLikeCount = articleLikeDAO.getArticleLikeCount(topArticle.getId());
+                topArticle.setCommentCount(topArticleCommentCount);
+                topArticle.setLikeCount(topArticleLikeCount);
+            }
+//            filter and count articles by status
+            int pendingCount = (int) articles.stream().filter(article -> article.getStatus() == ArticleStatus.PENDING_REVIEW).count();
+            int publishedCount = (int) articles.stream().filter(article -> article.getStatus() == ArticleStatus.PUBLISHED).count();
+            int rejectedCount = (int) articles.stream().filter(article -> article.getStatus() == ArticleStatus.REJECTED).count();
+            int draftCount = (int) articles.stream().filter(article -> article.getStatus() == ArticleStatus.DRAFT).count();
+
+            request.setAttribute("totalArticles", totalArticles);
+            request.setAttribute("totalViews", totalViews);
+            request.setAttribute("totalLikes", totalLikes);
+            request.setAttribute("totalComments", totalComments);
+            request.setAttribute("topArticle", topArticle);
+            request.setAttribute("articles", articles);
+            request.setAttribute("pendingCount", pendingCount);
+            request.setAttribute("publishedCount", publishedCount);
+            request.setAttribute("rejectedCount", rejectedCount);
+            request.setAttribute("draftCount", draftCount);
+
+
             request.getRequestDispatcher("/WEB-INF/views/dashboard/publisher/publisher.jsp").forward(request, response);
             return;
         }
