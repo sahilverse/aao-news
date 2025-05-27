@@ -222,7 +222,6 @@ public class DashboardServlet extends HttpServlet {
         String action = request.getParameter("action");
         String path = request.getServletPath();
 
-
         switch (path) {
             case "/admin/pending-publishers":
                 int id = Integer.parseInt(request.getParameter("id"));
