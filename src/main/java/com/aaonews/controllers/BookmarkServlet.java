@@ -1,6 +1,8 @@
 package com.aaonews.controllers;
 
+import com.aaonews.dao.ArticleDAO;
 import com.aaonews.dao.BookmarkDAO;
+import com.aaonews.models.Article;
 import com.aaonews.models.Bookmark;
 import com.aaonews.models.User;
 import com.aaonews.utils.SessionUtil;
@@ -14,6 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Optional;
 
 @WebServlet("/bookmark")
 public class BookmarkServlet extends HttpServlet {
@@ -87,7 +91,39 @@ public class BookmarkServlet extends HttpServlet {
 
         try {
             String action = request.getParameter("action");
-            int articleId = Integer.parseInt(request.getParameter("articleId"));
+            String articleIdParam = request.getParameter("articleId");
+
+            // Handle case where no parameters are provided or action is "getAll"
+            if (action == null || action.isEmpty() || "getAll".equals(action)) {
+                User currentUser = SessionUtil.getCurrentUser(request);
+                if (currentUser == null) {
+                    response.sendRedirect(request.getContextPath() + "/login");
+                    return;
+                }
+                ArrayList<Bookmark> userBookmarks = (ArrayList<Bookmark>) bookmarkDAO.getBookmarksByUserId(currentUser.getId());
+                ArrayList<Article> userArticles = new ArrayList<>();
+
+                ArticleDAO articleDAO = new ArticleDAO();
+                for (Bookmark bookmark : userBookmarks) {
+                    Optional<Article> article = articleDAO.getArticleById(bookmark.getArticleId());
+                    article.ifPresent(userArticles::add);
+                }
+                request.setAttribute("bookmarks", userArticles);
+                request.getRequestDispatcher("/WEB-INF/views/bookmarks.jsp").forward(request, response);
+                return;
+            }
+
+            // For other actions, articleId is required
+            if (articleIdParam == null || articleIdParam.isEmpty()) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                JsonObject errorResponse = new JsonObject();
+                errorResponse.addProperty("success", false);
+                errorResponse.addProperty("message", "Article ID is required");
+                out.print(gson.toJson(errorResponse));
+                return;
+            }
+
+            int articleId = Integer.parseInt(articleIdParam);
 
             if ("getCount".equals(action)) {
                 getBookmarkCount(articleId, out);
@@ -104,7 +140,7 @@ public class BookmarkServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             JsonObject errorResponse = new JsonObject();
             errorResponse.addProperty("success", false);
-            errorResponse.addProperty("message", "Invalid article ID");
+            errorResponse.addProperty("message", "Invalid article ID format");
             out.print(gson.toJson(errorResponse));
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

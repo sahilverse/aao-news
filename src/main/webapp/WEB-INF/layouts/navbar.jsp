@@ -57,7 +57,7 @@
                                 </a>
                             </c:otherwise>
                         </c:choose>
-                        <a href="${pageContext.request.contextPath}/bookmarks" class="dropdown-item">
+                        <a href="${pageContext.request.contextPath}/bookmark" class="dropdown-item">
                             <i class="fas fa-bookmark"></i> Saved Articles
                         </a>
                         <a href="#" class="dropdown-item" onclick="showLogoutModal();">

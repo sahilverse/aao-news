@@ -3,6 +3,7 @@
     background-color: var(--color-primary);
     color: white;
     padding: 4rem 0 2rem;
+    margin-bottom: 0;
 }
 
 .footer-content {

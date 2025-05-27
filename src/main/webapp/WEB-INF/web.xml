@@ -1,18 +1,28 @@
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="3.0">
-  <display-name>Archetype Created Web Application</display-name>
+    <display-name>Archetype Created Web Application</display-name>
 
-  <context-param>
-    <param-name>adminCode</param-name>
-    <param-value>AaoAdmin</param-value>
-  </context-param>
+    <context-param>
+        <param-name>adminCode</param-name>
+        <param-value>AaoAdmin</param-value>
+    </context-param>
 
-<!--  Error Pages-->
-  <error-page>
-    <error-code>404</error-code>
-    <location>/notfound</location>
-  </error-page>
+    <!--  Error Pages-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/notfound</location>
+    </error-page>
+    <error-page>
+        <error-code>401</error-code>
+        <location>/unauthorized</location>
+    </error-page>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/unauthorized</location>
+    </error-page>
+
 </web-app>
