@@ -31,9 +31,15 @@ public class CommentDAO {
 
             stmt.setInt(1, comment.getArticleId());
             stmt.setInt(2, comment.getUserId());
-            stmt.setInt(3, comment.getParentId());
-            stmt.setString(4, comment.getContent());
 
+            // Handle parentId - set to null for parent comments, actual value for replies
+            if (comment.getParentId() == 0 || comment.getParentId() == -1) {
+                stmt.setNull(3, Types.INTEGER);
+            } else {
+                stmt.setInt(3, comment.getParentId());
+            }
+
+            stmt.setString(4, comment.getContent());
 
             int affectedRows = stmt.executeUpdate();
 

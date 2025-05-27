@@ -94,22 +94,22 @@
             </span>
             </div>
             <c:if test="${not empty sessionScope.currentUser}">
-            <div class="interaction-buttons">
-                <button class="interaction-btn like-btn" id="like-btn" onclick="toggleLike()">
-                    <i class="far fa-heart" id="like-icon"></i>
-                    <span>Like</span>
-                </button>
-                <button class="interaction-btn comment-btn" onclick="focusCommentInput()">
-                    <i class="far fa-comment"></i>
-                    <span>Comment</span>
-                </button>
-                <button class="interaction-btn save-btn" id="save-btn" onclick="toggleSave()">
-                    <i class="far fa-bookmark" id="save-icon"></i>
-                    <span>Save</span>
-                </button>
-            </div>
+                <div class="interaction-buttons">
+                    <button class="interaction-btn like-btn" id="like-btn" onclick="toggleLike()">
+                        <i class="far fa-heart" id="like-icon"></i>
+                        <span>Like</span>
+                    </button>
+                    <button class="interaction-btn comment-btn" onclick="focusCommentInput()">
+                        <i class="far fa-comment"></i>
+                        <span>Comment</span>
+                    </button>
+                    <button class="interaction-btn save-btn" id="save-btn" onclick="toggleSave()">
+                        <i class="far fa-bookmark" id="save-icon"></i>
+                        <span>Save</span>
+                    </button>
+                </div>
+            </c:if>
         </div>
-        </c:if>
     </section>
 
     <!-- Comment Section -->
@@ -119,33 +119,38 @@
 
             <!-- Add Comment Form -->
             <c:if test="${not empty sessionScope.currentUser}">
-            <div class="add-comment-form">
-                <div class="comment-input-container">
-                    <img src="${pageContext.request.contextPath}/user-image?id=${sessionScope.currentUser.id}"
-                         alt="Your Avatar" class="comment-avatar">
-                    <div class="comment-input-wrapper">
-                    <textarea
-                            id="comment-input"
-                            placeholder="Add a comment..."
-                            class="comment-input"
-                            rows="3"
-                    ></textarea>
-                        <div class="comment-actions">
-                            <button class="comment-submit-btn" onclick="addComment()">Post Comment</button>
-                            <button class="comment-cancel-btn" onclick="cancelComment()">Cancel</button>
+                <div class="add-comment-form">
+                    <div class="comment-input-container">
+                        <img src="${pageContext.request.contextPath}/user-image?id=${sessionScope.currentUser.id}"
+                             alt="Your Avatar" class="comment-avatar">
+                        <div class="comment-input-wrapper">
+                        <textarea
+                                id="comment-input"
+                                placeholder="Add a comment..."
+                                class="comment-input"
+                                rows="3"
+                        ></textarea>
+                            <div class="comment-actions">
+                                <button class="comment-submit-btn" onclick="addComment()">Post Comment</button>
+                                <button class="comment-cancel-btn" onclick="cancelComment()">Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </c:if>
+
+            <!-- Comments List -->
+            <div class="comments-list">
             </div>
         </div>
-        </c:if>
+
 
     </section>
 </c:if>
 <script>
-    let currentArticleId = ${requestScope.article.id};
+    const currentArticleId = ${requestScope.article.id};
     const contextPath = "${pageContext.request.contextPath}";
-
+    const currentUser = ${sessionScope.currentUser != null ? sessionScope.currentUser.id : 'null'};
 </script>
 <script src="${pageContext.request.contextPath}/assets/js/articlePreview.js"></script>
 

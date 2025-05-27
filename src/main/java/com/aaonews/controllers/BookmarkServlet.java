@@ -1,7 +1,7 @@
 package com.aaonews.controllers;
 
-import com.aaonews.dao.ArticleLikeDAO;
-import com.aaonews.models.ArticleLike;
+import com.aaonews.dao.BookmarkDAO;
+import com.aaonews.models.Bookmark;
 import com.aaonews.models.User;
 import com.aaonews.utils.SessionUtil;
 import com.google.gson.Gson;
@@ -15,14 +15,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/article-like")
-public class ArticleLikeServlet extends HttpServlet {
-    private ArticleLikeDAO articleLikeDAO;
+@WebServlet("/bookmark")
+public class BookmarkServlet extends HttpServlet {
+    private BookmarkDAO bookmarkDAO;
     private Gson gson;
 
     @Override
     public void init() throws ServletException {
-        articleLikeDAO = new ArticleLikeDAO();
+        bookmarkDAO = new BookmarkDAO();
         gson = new Gson();
     }
 
@@ -42,7 +42,10 @@ public class ArticleLikeServlet extends HttpServlet {
 
         if (currentUser == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.sendRedirect(request.getContextPath() + "/login");
+            JsonObject errorResponse = new JsonObject();
+            errorResponse.addProperty("success", false);
+            errorResponse.addProperty("message", "Please log in to bookmark articles");
+            out.print(gson.toJson(errorResponse));
             return;
         }
 
@@ -51,7 +54,7 @@ public class ArticleLikeServlet extends HttpServlet {
             int articleId = Integer.parseInt(request.getParameter("articleId"));
 
             if ("toggle".equals(action)) {
-                toggleLike(articleId, currentUser.getId(), out);
+                toggleBookmark(articleId, currentUser.getId(), out);
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 JsonObject errorResponse = new JsonObject();
@@ -59,6 +62,12 @@ public class ArticleLikeServlet extends HttpServlet {
                 errorResponse.addProperty("message", "Invalid action");
                 out.print(gson.toJson(errorResponse));
             }
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            JsonObject errorResponse = new JsonObject();
+            errorResponse.addProperty("success", false);
+            errorResponse.addProperty("message", "Invalid article ID");
+            out.print(gson.toJson(errorResponse));
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             JsonObject errorResponse = new JsonObject();
@@ -81,9 +90,9 @@ public class ArticleLikeServlet extends HttpServlet {
             int articleId = Integer.parseInt(request.getParameter("articleId"));
 
             if ("getCount".equals(action)) {
-                getLikeCount(articleId, out);
-            } else if ("checkLiked".equals(action)) {
-                checkIfLiked(request, articleId, out);
+                getBookmarkCount(articleId, out);
+            } else if ("checkBookmarked".equals(action)) {
+                checkIfBookmarked(request, articleId, out);
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 JsonObject errorResponse = new JsonObject();
@@ -91,6 +100,12 @@ public class ArticleLikeServlet extends HttpServlet {
                 errorResponse.addProperty("message", "Invalid action");
                 out.print(gson.toJson(errorResponse));
             }
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            JsonObject errorResponse = new JsonObject();
+            errorResponse.addProperty("success", false);
+            errorResponse.addProperty("message", "Invalid article ID");
+            out.print(gson.toJson(errorResponse));
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             JsonObject errorResponse = new JsonObject();
@@ -100,56 +115,54 @@ public class ArticleLikeServlet extends HttpServlet {
         }
     }
 
-    private void toggleLike(int articleId, int userId, PrintWriter out) throws IOException {
-        ArticleLikeDAO articleLikeDAO = new ArticleLikeDAO();
-        boolean isLiked = articleLikeDAO.hasUserLikedArticle(articleId, userId);
+    private void toggleBookmark(int articleId, int userId, PrintWriter out) throws IOException {
+        boolean isBookmarked = bookmarkDAO.isBookmarked(userId, articleId);
         boolean success;
 
-        if (isLiked) {
-            success = articleLikeDAO.removeLike(articleId, userId);
+        if (isBookmarked) {
+            success = bookmarkDAO.removeBookmark(userId, articleId);
         } else {
-            ArticleLike like = articleLikeDAO.addLike(articleId, userId);
-            success = (like != null);
+            Bookmark bookmark = new Bookmark(userId, articleId);
+            success = bookmarkDAO.addBookmark(bookmark);
         }
 
         JsonObject response = new JsonObject();
 
         if (success) {
-            int newCount = articleLikeDAO.getArticleLikeCount(articleId);
+            int newCount = bookmarkDAO.getBookmarkCount(articleId);
             response.addProperty("success", true);
-            response.addProperty("liked", !isLiked);
-            response.addProperty("likeCount", newCount);
-            response.addProperty("message", isLiked ? "Like removed" : "Article liked");
+            response.addProperty("bookmarked", !isBookmarked);
+            response.addProperty("bookmarkCount", newCount);
+            response.addProperty("message", isBookmarked ? "Bookmark removed" : "Article bookmarked");
         } else {
             response.addProperty("success", false);
-            response.addProperty("message", "Failed to toggle like");
+            response.addProperty("message", "Failed to toggle bookmark");
         }
 
-        // Make sure to flush and close properly
         String jsonResponse = gson.toJson(response);
         out.print(jsonResponse);
         out.flush();
     }
 
-    private void getLikeCount(int articleId, PrintWriter out) throws IOException {
-        int count = articleLikeDAO.getArticleLikeCount(articleId);
+    private void getBookmarkCount(int articleId, PrintWriter out) throws IOException {
+        int count = bookmarkDAO.getBookmarkCount(articleId);
         JsonObject successResponse = new JsonObject();
         successResponse.addProperty("success", true);
         successResponse.addProperty("count", count);
         out.print(gson.toJson(successResponse));
     }
 
-    private void checkIfLiked(HttpServletRequest request, int articleId, PrintWriter out) throws IOException {
+    private void checkIfBookmarked(HttpServletRequest request, int articleId, PrintWriter out) throws IOException {
         User currentUser = SessionUtil.getCurrentUser(request);
 
-        boolean isLiked = false;
+        boolean isBookmarked = false;
         if (currentUser != null) {
-            isLiked = articleLikeDAO.hasUserLikedArticle(articleId, currentUser.getId());
+            isBookmarked = bookmarkDAO.isBookmarked(currentUser.getId(), articleId);
         }
 
         JsonObject successResponse = new JsonObject();
         successResponse.addProperty("success", true);
-        successResponse.addProperty("liked", isLiked);
+        successResponse.addProperty("bookmarked", isBookmarked);
         out.print(gson.toJson(successResponse));
     }
 }

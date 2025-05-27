@@ -215,7 +215,6 @@
 }
 
 .comment-item.reply {
-    margin-left: 2rem;
     margin-top: 1rem;
 }
 
@@ -420,4 +419,14 @@
     .comment-avatar {
         align-self: flex-start;
     }
+}
+
+.comment-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.comment-action-btn:disabled:hover {
+    background-color: transparent;
 }
