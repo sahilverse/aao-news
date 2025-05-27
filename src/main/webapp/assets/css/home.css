@@ -32,45 +32,47 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Main Article */
+/* Container */
 .main-article {
+    position: relative;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
-    position: relative;
-    height: fit-content;
+    height: 100%; /* Ensure it has defined height in context */
 }
 
+/* Hover effect */
 .main-article:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
+/* Link inside main-article */
 .main-article-link {
     display: block;
     position: relative;
-    min-height: 450px;
+    width: 100%;
+    height: 100%;
     text-decoration: none;
     color: white;
     overflow: hidden;
     border-radius: 16px;
+    min-height: 450px; /* Already defined */
 }
 
-.main-article-link:hover {
-    color: white;
-}
-
+/* Image container fills full space */
 .main-article .image-container {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
     overflow: hidden;
 }
 
+/* Image fills the container */
 .main-article-image {
     width: 100%;
     height: 100%;
