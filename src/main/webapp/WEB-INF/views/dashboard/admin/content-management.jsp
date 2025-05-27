@@ -44,7 +44,7 @@
                             <div class="action-buttons">
                                 <a href="viewArticle?id=${article.id}" class="btn btn-info">View</a>
                                 <a href="approveArticle?id=${article.id}" class="btn btn-success">Approve</a>
-                                <a href="rejectArticle?id=${article.id}" class="btn btn-danger" onclick="openRejectModal('${article.id}')">Reject</a>
+                                <a href="#${article.id}" class="btn btn-danger" onclick="openRejectModal('${article.id}')">Reject</a>
                             </div>
                         </td>
                     </tr>
@@ -66,7 +66,7 @@
             <span class="modal-title">Reject Article</span>
             <button class="close" onclick="closeModal('rejectModal')">&times;</button>
         </div>
-        <form method="post" action="rejectArticle">
+        <form method="get" action="rejectArticle">
             <div class="modal-body">
                 <input type="hidden" name="articleId" id="rejectArticleId">
                 <div class="form-group">
@@ -85,6 +85,7 @@
 <script>
     function openRejectModal(articleId) {
         console.log("this is funciton clicked");
+        console.log("this is article id of reject",articleId);
         document.getElementById("rejectArticleId").value = articleId;
         document.getElementById("rejectionReason").value = ""; // Clear previous input
         document.getElementById("rejectModal").classList.add("show");
