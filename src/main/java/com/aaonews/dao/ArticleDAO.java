@@ -465,7 +465,7 @@ public class ArticleDAO {
     public List<Article> getTrendingArticles(int limit) {
         List<Article> articles = new ArrayList<>();
 
-        // Even more optimized version with indexed columns
+
         String sql = "SELECT a.id, a.title, a.slug, a.content, a.summary, a.featured_image, " +
                 "a.author_id, a.category_id, a.status_id, a.rejection_message, " +
                 "a.is_featured, a.view_count, a.published_at, a.created_at, a.updated_at, " +
@@ -678,7 +678,7 @@ public class ArticleDAO {
         author.setId(rs.getInt("author_id"));
         author.setFullName(rs.getString("author_name"));
         author.setEmail(rs.getString("author_email"));
-        author.setUsername(rs.getString("author_name")); // Using full_name as username for display
+        author.setUsername(rs.getString("author_name"));
 
         byte[] authorImage = rs.getBytes("author_image");
         if (authorImage != null) {
@@ -735,7 +735,7 @@ public class ArticleDAO {
             e.printStackTrace();
         }
 
-        return 1; // Default fallback
+        return 1;
     }
 
     public int getAllArticlesCount() {
