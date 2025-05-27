@@ -60,7 +60,7 @@
                                     <div class="article-info">
                                         <span class="author">By ${mainArticle.author.username}</span>
                                         <span class="date">
-                                                <fmt:formatDate value="${mainArticle.publishedAt}" pattern="MMM d, yyyy 'at' h:mm a"/>
+                                                <fmt:formatDate value="${mainArticle.publishedAt}" pattern="MMM d, yyyy"/>
                                             </span>
                                     </div>
                                 </div>
