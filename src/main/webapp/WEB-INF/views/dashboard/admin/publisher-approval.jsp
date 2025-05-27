@@ -90,7 +90,7 @@
                     <td>${publisher.getEmail()}</td>
                     <td>
                         <c:choose>
-                            <c:when test="${publisher.isVerified()}">
+                            <c:when test="${publisher.getIsVerified()}">
                                 Verified
                             </c:when>
                             <c:otherwise>

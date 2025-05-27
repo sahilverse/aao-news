@@ -43,7 +43,11 @@
                         <td>
                             <div class="action-buttons">
                                 <a href="viewArticle?id=${article.id}" class="btn btn-info">View</a>
-                                <a href="approveArticle?id=${article.id}" class="btn btn-success">Approve</a>
+                                <form action="${pageContext.request.contextPath}">
+                                    <input type="hidden" name="articleId" value="${article.id}">
+                                    <input type="hidden" name="action" value="approve">
+                                    <button type="submit">Approve</button>
+                                </form>
                                 <a href="rejectArticle?id=${article.id}" class="btn btn-danger" onclick="openRejectModal('${article.id}')">Reject</a>
                             </div>
                         </td>
@@ -66,9 +70,10 @@
             <span class="modal-title">Reject Article</span>
             <button class="close" onclick="closeModal('rejectModal')">&times;</button>
         </div>
-        <form method="post" action="rejectArticle">
+        <form method="post" action="${pageContext.request.contextPath}/contentmanagementAction/">
             <div class="modal-body">
                 <input type="hidden" name="articleId" id="rejectArticleId">
+                <input type="hidden" name="action" value="reject">
                 <div class="form-group">
                     <label for="rejectionReason">Reason for rejection</label>
                     <textarea name="rejectionReason" id="rejectionReason" class="form-control" rows="4" required></textarea>

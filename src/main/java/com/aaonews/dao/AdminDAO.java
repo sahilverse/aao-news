@@ -6,6 +6,7 @@ import com.aaonews.models.User;
 import com.aaonews.utils.DatabaseUtil;
 
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -59,6 +60,11 @@ public class AdminDAO {
                 PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
             System.out.println("this is rs"+rs);
+
+            if(!rs.next()){
+                publishersWithUsers.add(null);
+                return publishersWithUsers;
+            }
             while (rs.next()) {
                 Publisher publisherWithUser = new Publisher();
                 publisherWithUser.setPublisherId(rs.getInt("publisher_id"));
@@ -69,6 +75,8 @@ public class AdminDAO {
 
                 publishersWithUsers.add(publisherWithUser);
             }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Error fetching pending publishers", e);
@@ -104,6 +112,58 @@ public class AdminDAO {
             e.printStackTrace();
             return false;
         }
+
+    }
+    // unverify publisher
+    public boolean unverifyPublisher(int publisherId) throws SQLException {
+        String query = "UPDATE publisher SET is_verified = false WHERE publisher_id = ?";
+        try(Connection conn = DatabaseUtil.getConnection();){
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, publisherId);
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    // approve article
+
+    public boolean approveArticle(int id) throws SQLException {
+        String query = "UPDATE articles SET status_id = 3 WHERE id = ?";
+        try(Connection conn = DatabaseUtil.getConnection();){
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, id);
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean rejectArticle(int id, String rejectionMessage) throws SQLException {
+        String query = "UPDATE articles SET rejection_message = ? WHERE id = ?";
+        try(Connection conn = DatabaseUtil.getConnection();){
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, rejectionMessage);
+            stmt.setInt(2, id);
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
 
     }
 
