@@ -1,0 +1,5 @@
+db.host=YourDatabaseHost
+db.port=DatabasePort
+db.name=YourDatabaseName
+db.user=YourDatabaseUserName
+db.password=YourDatabasePassword
