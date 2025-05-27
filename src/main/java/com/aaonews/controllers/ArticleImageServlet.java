@@ -1,4 +1,4 @@
-package com.aaonews.controllers.dashboard.publisher;
+package com.aaonews.controllers;
 
 
 import com.aaonews.utils.DatabaseUtil;

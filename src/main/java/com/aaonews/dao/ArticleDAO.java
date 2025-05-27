@@ -7,7 +7,9 @@ import com.aaonews.utils.DatabaseUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -257,8 +259,13 @@ public class ArticleDAO {
      * @return List of articles by the author
      */
     public List<Article> getArticlesByAuthor(int authorId) {
-        String sql = "SELECT * FROM articles WHERE author_id = ? ORDER BY created_at DESC";
         List<Article> articles = new ArrayList<>();
+        String sql = "SELECT a.*, u.id as author_id, u.full_name as author_name, u.email as author_email, " +
+                "u.profile_image as author_image " +
+                "FROM articles a " +
+                "JOIN users u ON a.author_id = u.id " +
+                "WHERE a.author_id = ? " +
+                "ORDER BY a.created_at DESC";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -267,10 +274,11 @@ public class ArticleDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Article article = mapResultSetToArticle(rs);
+                    Article article = mapResultSetToArticleWithAuthor(rs);
                     articles.add(article);
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -310,25 +318,32 @@ public class ArticleDAO {
      * Retrieves all articles by category
      *
      * @param categoryId The category ID to filter by
+     * @param limit The maximum number of articles to retrieve
      * @return List of articles in the specified category
      */
-    public List<Article> getArticlesByCategory(int categoryId) {
-        String sql = "SELECT * FROM articles WHERE category_id = ? AND status_id = ? " +
-                "ORDER BY published_at DESC";
+    public List<Article> getArticlesByCategory(int categoryId, int limit) {
         List<Article> articles = new ArrayList<>();
+        String sql = "SELECT a.*, u.id as author_id, u.full_name as author_name, u.email as author_email, " +
+                "u.profile_image as author_image " +
+                "FROM articles a " +
+                "JOIN users u ON a.author_id = u.id " +
+                "WHERE a.category_id = ? AND a.status_id = ? " +
+                "ORDER BY a.created_at DESC LIMIT ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, categoryId);
             stmt.setInt(2, getPublishedStatusId());
+            stmt.setInt(3, limit);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Article article = mapResultSetToArticle(rs);
+                    Article article = mapResultSetToArticleWithAuthor(rs);
                     articles.add(article);
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -343,9 +358,13 @@ public class ArticleDAO {
      * @return List of featured articles
      */
     public List<Article> getFeaturedArticles(int limit) {
-        String sql = "SELECT * FROM articles WHERE is_featured = TRUE AND status_id = ? " +
-                "ORDER BY published_at DESC LIMIT ?";
         List<Article> articles = new ArrayList<>();
+        String sql = "SELECT a.*, u.id as author_id, u.full_name as author_name, u.email as author_email, " +
+                "u.profile_image as author_image " +
+                "FROM articles a " +
+                "JOIN users u ON a.author_id = u.id " +
+                "WHERE a.is_featured = TRUE AND a.status_id = ? " +
+                "ORDER BY a.created_at DESC LIMIT ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -355,10 +374,46 @@ public class ArticleDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Article article = mapResultSetToArticle(rs);
+                    Article article = mapResultSetToArticleWithAuthor(rs);
                     articles.add(article);
                 }
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return articles;
+    }
+
+    /**
+     * Retrieves the latest articles
+     *
+     * @param limit The maximum number of articles to retrieve
+     * @return List of latest articles
+     */
+    public List<Article> getLatestArticles(int limit) {
+        List<Article> articles = new ArrayList<>();
+        String sql = "SELECT a.*, u.id as author_id, u.full_name as author_name, u.email as author_email, " +
+                "u.profile_image as author_image " +
+                "FROM articles a " +
+                "JOIN users u ON a.author_id = u.id " +
+                "WHERE a.status_id = ? " +
+                "ORDER BY a.published_at DESC LIMIT ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, getPublishedStatusId());
+            stmt.setInt(2, limit);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Article article = mapResultSetToArticleWithAuthor(rs);
+                    articles.add(article);
+                }
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -373,9 +428,13 @@ public class ArticleDAO {
      * @return List of most viewed articles
      */
     public List<Article> getMostViewedArticles(int limit) {
-        String sql = "SELECT * FROM articles WHERE status_id = ? " +
-                "ORDER BY view_count DESC LIMIT ?";
         List<Article> articles = new ArrayList<>();
+        String sql = "SELECT a.*, u.id as author_id, u.full_name as author_name, u.email as author_email, " +
+                "u.profile_image as author_image " +
+                "FROM articles a " +
+                "JOIN users u ON a.author_id = u.id " +
+                "WHERE a.status_id = ? " +
+                "ORDER BY a.view_count DESC LIMIT ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -385,11 +444,68 @@ public class ArticleDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Article article = mapResultSetToArticle(rs);
+                    Article article = mapResultSetToArticleWithAuthor(rs);
                     articles.add(article);
                 }
             }
+
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return articles;
+    }
+
+    /**
+     * Retrieves trending articles based on view count in the last 7 days
+     *
+     * @param limit The maximum number of articles to retrieve
+     * @return List of trending articles
+     */
+    public List<Article> getTrendingArticles(int limit) {
+        List<Article> articles = new ArrayList<>();
+
+        // Even more optimized version with indexed columns
+        String sql = "SELECT a.id, a.title, a.slug, a.content, a.summary, a.featured_image, " +
+                "a.author_id, a.category_id, a.status_id, a.rejection_message, " +
+                "a.is_featured, a.view_count, a.published_at, a.created_at, a.updated_at, " +
+                "u.full_name as author_name, u.email as author_email, u.profile_image as author_image, " +
+                "(COALESCE(al.like_count, 0) + COALESCE(c.comment_count, 0) + (a.view_count * 0.1)) as engagement_score " +
+                "FROM articles a " +
+                "INNER JOIN users u ON a.author_id = u.id " +
+                "LEFT JOIN (" +
+                "    SELECT article_id, COUNT(*) as like_count " +
+                "    FROM article_likes " +
+                "    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY) " +  // Only recent likes
+                "    GROUP BY article_id" +
+                ") al ON a.id = al.article_id " +
+                "LEFT JOIN (" +
+                "    SELECT article_id, COUNT(*) as comment_count " +
+                "    FROM comments " +
+                "    WHERE is_approved = TRUE " +
+                "    AND created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY) " +  // Only recent comments
+                "    GROUP BY article_id" +
+                ") c ON a.id = c.article_id " +
+                "WHERE a.status_id = ? " +
+                "AND a.published_at >= DATE_SUB(NOW(), INTERVAL 7 DAY) " +
+                "ORDER BY engagement_score DESC, a.published_at DESC " +
+                "LIMIT ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, getPublishedStatusId());
+            stmt.setInt(2, limit);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Article article = mapResultSetToArticleWithAuthor(rs);
+                    articles.add(article);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error fetching trending articles: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -404,10 +520,13 @@ public class ArticleDAO {
      * @return List of articles matching the search term
      */
     public List<Article> searchArticles(String searchTerm, int limit) {
-        String sql = "SELECT * FROM articles WHERE status_id = ? AND " +
-                "(title LIKE ? OR content LIKE ?) " +
-                "ORDER BY published_at DESC LIMIT ?";
         List<Article> articles = new ArrayList<>();
+        String sql = "SELECT a.*, u.id as author_id, u.full_name as author_name, u.email as author_email, " +
+                "u.profile_image as author_image " +
+                "FROM articles a " +
+                "JOIN users u ON a.author_id = u.id " +
+                "WHERE a.status_id = ? AND (a.title LIKE ? OR a.content LIKE ?) " +
+                "ORDER BY a.published_at DESC LIMIT ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -420,10 +539,11 @@ public class ArticleDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Article article = mapResultSetToArticle(rs);
+                    Article article = mapResultSetToArticleWithAuthor(rs);
                     articles.add(article);
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -484,9 +604,122 @@ public class ArticleDAO {
     }
 
     /**
+     * Bulk fetch authors for multiple articles (Alternative approach)
+     * Use this if you need to fetch authors separately
+     */
+    public Map<Integer, User> getAuthorsForArticles(List<Integer> authorIds) {
+        Map<Integer, User> authors = new HashMap<>();
+
+        if (authorIds.isEmpty()) {
+            return authors;
+        }
+
+        // Create placeholders for IN clause
+        String placeholders = String.join(",", authorIds.stream().map(id -> "?").toArray(String[]::new));
+        String sql = "SELECT id, full_name, email, profile_image FROM users WHERE id IN (" + placeholders + ")";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set parameters
+            for (int i = 0; i < authorIds.size(); i++) {
+                stmt.setInt(i + 1, authorIds.get(i));
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User author = new User();
+                    author.setId(rs.getInt("id"));
+                    author.setFullName(rs.getString("full_name"));
+                    author.setEmail(rs.getString("email"));
+                    author.setProfileImage(rs.getBytes("profile_image"));
+
+                    authors.put(author.getId(), author);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return authors;
+    }
+
+    /**
+     * Helper method to map ResultSet to Article with Author information (OPTIMIZED)
+     */
+    private Article mapResultSetToArticleWithAuthor(ResultSet rs) throws SQLException {
+        Article article = new Article();
+
+        // Map article fields
+        article.setId(rs.getInt("id"));
+        article.setTitle(rs.getString("title"));
+        article.setSlug(rs.getString("slug"));
+        article.setContent(rs.getString("content"));
+        article.setSummary(rs.getString("summary"));
+        article.setAuthorId(rs.getInt("author_id"));
+        article.setCategoryId(rs.getInt("category_id"));
+        article.setStatus(ArticleStatus.fromId(rs.getInt("status_id")));
+        article.setRejectionMessage(rs.getString("rejection_message"));
+        article.setFeatured(rs.getBoolean("is_featured"));
+        article.setViewCount(rs.getInt("view_count"));
+        article.setCreatedAt(rs.getTimestamp("created_at"));
+        article.setUpdatedAt(rs.getTimestamp("updated_at"));
+        article.setPublishedAt(rs.getTimestamp("published_at"));
+
+        // Handle article image
+        byte[] featuredImage = rs.getBytes("featured_image");
+        if (featuredImage != null) {
+            article.setFeatureImage(featuredImage);
+        }
+
+        // Map author fields
+        User author = new User();
+        author.setId(rs.getInt("author_id"));
+        author.setFullName(rs.getString("author_name"));
+        author.setEmail(rs.getString("author_email"));
+        author.setUsername(rs.getString("author_name")); // Using full_name as username for display
+
+        byte[] authorImage = rs.getBytes("author_image");
+        if (authorImage != null) {
+            author.setProfileImage(authorImage);
+        }
+
+        article.setAuthor(author);
+
+        return article;
+    }
+
+    /**
+     * Original mapping method for backward compatibility
+     */
+    private Article mapResultSetToArticle(ResultSet rs) throws SQLException {
+        Article article = new Article();
+        article.setId(rs.getInt("id"));
+        article.setTitle(rs.getString("title"));
+        article.setSlug(rs.getString("slug"));
+        article.setContent(rs.getString("content"));
+        article.setSummary(rs.getString("summary"));
+        article.setAuthorId(rs.getInt("author_id"));
+        article.setCategoryId(rs.getInt("category_id"));
+        article.setStatus(ArticleStatus.fromId(rs.getInt("status_id")));
+        article.setRejectionMessage(rs.getString("rejection_message"));
+        article.setFeatured(rs.getBoolean("is_featured"));
+        article.setViewCount(rs.getInt("view_count"));
+        article.setCreatedAt(rs.getTimestamp("created_at"));
+        article.setUpdatedAt(rs.getTimestamp("updated_at"));
+        article.setPublishedAt(rs.getTimestamp("published_at"));
+
+        byte[] featuredImage = rs.getBytes("featured_image");
+        if (featuredImage != null) {
+            article.setFeatureImage(featuredImage);
+        }
+
+        return article;
+    }
+
+    /**
      * Helper method to get the ID of the published status
-     *
-     * @return The ID of the published status
      */
     private int getPublishedStatusId() {
         String sql = "SELECT id FROM article_statuses WHERE name = 'published'";
@@ -502,7 +735,7 @@ public class ArticleDAO {
             e.printStackTrace();
         }
 
-        return 1;
+        return 1; // Default fallback
     }
 
     public int getAllArticlesCount() {
@@ -543,38 +776,5 @@ public class ArticleDAO {
             e.printStackTrace();
         }
         return null;
-    }
-
-    /**
-     * Helper method to map a ResultSet row to an Article object
-     *
-     * @param rs The ResultSet containing article data
-     * @return An Article object populated with data from the ResultSet
-     * @throws SQLException If a database access error occurs
-     */
-    private Article mapResultSetToArticle(ResultSet rs) throws SQLException {
-        Article article = new Article();
-        article.setId(rs.getInt("id"));
-        article.setTitle(rs.getString("title"));
-        article.setSlug(rs.getString("slug"));
-        article.setContent(rs.getString("content"));
-        article.setSummary(rs.getString("summary"));
-        article.setAuthorId(rs.getInt("author_id"));
-        article.setCategoryId(rs.getInt("category_id"));
-        article.setStatus(ArticleStatus.fromId(rs.getInt("status_id")));
-        article.setRejectionMessage(rs.getString("rejection_message"));
-        article.setFeatured(rs.getBoolean("is_featured"));
-        article.setViewCount(rs.getInt("view_count"));
-        article.setCreatedAt(rs.getTimestamp("created_at"));
-        article.setUpdatedAt(rs.getTimestamp("updated_at"));
-
-        // Handle image bytes
-        byte[] featuredImage = rs.getBytes("featured_image");
-        if (featuredImage != null) {
-            article.setFeatureImage(featuredImage);
-        }
-
-
-        return article;
     }
 }
