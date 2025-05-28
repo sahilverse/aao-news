@@ -17,7 +17,15 @@ public class Publisher {
 //    added by -raghav dahal
     private String publisherName;
     private String publisherEmail;
+    private int articleCount;
 
+
+    public int getArticleCount() {
+        return articleCount;
+    }
+    public void setArticleCount(int articleCount) {
+        this.articleCount = articleCount;
+    }
 
     public String getEmail() {
         return publisherEmail;

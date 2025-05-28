@@ -2,6 +2,7 @@ package com.aaonews.controllers.dashboard.admin;
 
 import com.aaonews.dao.AdminDAO;
 
+import com.aaonews.dao.ArticleDAO;
 import com.aaonews.dao.PublisherDAO;
 import com.aaonews.models.Publisher;
 import jakarta.servlet.ServletException;
@@ -29,6 +30,18 @@ public class UserManagementServlet extends HttpServlet {
                 verified.add(p);
             }
         }
+//        Get article Count by publisher
+        ArticleDAO articleDAO = new ArticleDAO();
+        for (Publisher p : verified){
+            int articleCount = articleDAO.getArticleCountByAuthor(p.getPublisherId());
+            p.setArticleCount(articleCount);
+        }
+
+        int totalArticles = articleDAO.getAllArticlesCount();
+
+
+        request.setAttribute("totalArticles", totalArticles);
+        request.setAttribute("averageArticlesPerPublisher", verified.isEmpty() ? 0 : totalArticles / verified.size());
         request.setAttribute("verified",verified);
         request.setAttribute("activePage","userManagement");
         request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/admin.jsp").forward(request, response);
