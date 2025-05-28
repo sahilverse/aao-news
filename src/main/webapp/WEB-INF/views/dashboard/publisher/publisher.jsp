@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Aaonews | Publisher Dashboard</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dashboard/sidebar.css">
+
     <c:if test="${requestScope.activePage == 'publisherProfile'}">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/profile.css">
     </c:if>

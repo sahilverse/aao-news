@@ -150,7 +150,7 @@ public class ProfileServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/views/dashboard/publisher/publisher.jsp").forward(req, res);
         } else if (user.getRole() == Role.ADMIN) {
             req.setAttribute("activePage", "adminProfile");
-            req.getRequestDispatcher("/WEB-INF/views/dashboard/admin/admin.jsp").forward(req, res);
+            req.getRequestDispatcher("/WEB-INF/views/dashboard/admin/admin1.jsp").forward(req, res);
         } else {
             req.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(req, res);
         }

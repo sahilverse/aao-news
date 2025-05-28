@@ -591,14 +591,7 @@ body {
     }
 }
 
-/* ===== ACCESSIBILITY ===== */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
+
 
 /* Focus States */
 .main-article-link:focus,
@@ -609,14 +602,3 @@ body {
     outline-offset: 2px;
 }
 
-/* High Contrast Mode */
-@media (prefers-contrast: high) {
-    .main-article,
-    .side-article {
-        border: 2px solid white;
-    }
-
-    .section-article-card {
-        border: 2px solid var(--color-text-primary, #1f2937);
-    }
-}

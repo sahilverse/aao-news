@@ -33,8 +33,6 @@ public class ContentManagement extends HttpServlet {
                 article.setAuthor(publisher);
             }
 
-
-
         }
         for (Article article : articlesByStatus) {
             System.out.println(article.getAuthor());
@@ -45,7 +43,7 @@ public class ContentManagement extends HttpServlet {
         request.setAttribute("articles", articlesByStatus);
         request.setAttribute("activePage","contentManagement");
         System.out.println("this is from the article dao "+ articlesByStatus.size());
-        request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/adminn.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/admin.jsp").forward(request, response);
 
     }
 
@@ -60,12 +58,8 @@ public class ContentManagement extends HttpServlet {
             System.out.println("approve");
 
 
-
-
-
         } else if ("reject".equals(action)) {
             System.out.println("reject");
-
 
         }
 

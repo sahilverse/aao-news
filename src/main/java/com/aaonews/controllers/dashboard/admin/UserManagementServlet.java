@@ -11,11 +11,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin/usermanagement")
+@WebServlet("/admin/user-management")
 
 
 public class UserManagementServlet extends HttpServlet {
-    private AdminDAO adminDAO = new AdminDAO();
+    private final AdminDAO adminDAO = new AdminDAO();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String publisherId = String.valueOf(Integer.parseInt(request.getParameter("publisherId")));

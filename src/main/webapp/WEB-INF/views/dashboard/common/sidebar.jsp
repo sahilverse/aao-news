@@ -49,7 +49,7 @@
                     </li>
 
                     <li class="${requestScope.activePage == 'adminProfile' ? 'active' : ''}">
-                        <a href="${pageContext.request.contextPath}/publisher/profile">
+                        <a href="${pageContext.request.contextPath}/admin/profile">
                             <i class="fas fa-user"></i>
                             <span>Profile</span>
                         </a>

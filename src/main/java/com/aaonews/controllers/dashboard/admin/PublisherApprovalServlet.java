@@ -29,6 +29,6 @@ public class PublisherApprovalServlet extends HttpServlet {
         System.out.println("this is pending"+pendingPublishers);
         request.setAttribute("pendingPublishers", pendingPublishers);
         request.setAttribute("activePage","pendingPublishers");
-        request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/adminn.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/admin.jsp").forward(request, response);
     }
 }

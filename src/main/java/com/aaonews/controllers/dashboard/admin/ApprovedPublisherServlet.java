@@ -21,8 +21,6 @@ import java.util.List;
 public class ApprovedPublisherServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Publisher publisher = new Publisher();
-        AdminDAO adminDAO = new AdminDAO();
         PublisherDAO publisherDAO = new PublisherDAO();
         List<Publisher> all = publisherDAO.getAllPublishers();
         List <Publisher> verified = new ArrayList<Publisher>();
@@ -33,12 +31,11 @@ public class ApprovedPublisherServlet extends HttpServlet {
         }
         request.setAttribute("verified",verified);
         request.setAttribute("activePage","approvedPublisher");
-        request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/adminn.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/admin.jsp").forward(request, response);
 
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Publisher publisher = new Publisher();
         AdminDAO adminDAO = new AdminDAO();
         boolean unverified = false;
 
