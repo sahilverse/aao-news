@@ -144,13 +144,10 @@
                                             <td class="actions-cell">
                                                 <div class="table-actions">
                                                     <a href="${pageContext.request.contextPath}/article/${article.id}"
-                                                       class="action-btn view-btn" title="View Article">
+                                                       class="action-btn view-btn" title="View Article" target="_blank">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                    <a href="${pageContext.request.contextPath}/admin/content-management?edit=${article.id}"
-                                                       class="action-btn edit-btn" title="Edit Article">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
+
                                                 </div>
                                             </td>
                                         </tr>
@@ -257,7 +254,7 @@
                                                         <td class="actions-cell">
                                                             <div class="table-actions">
                                                                 <a href="${pageContext.request.contextPath}/article/${article.id}"
-                                                                   class="action-btn view-btn" title="View Article">
+                                                                   class="action-btn view-btn" title="View Article" target="_blank">
                                                                     <i class="fas fa-eye"></i>
                                                                 </a>
 
