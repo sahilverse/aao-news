@@ -21,13 +21,9 @@ import com.aaonews.utils.SessionUtil;
 import com.aaonews.models.User;
 
 
-@WebServlet(name = "DashboardServlet", urlPatterns = {"/admin/user-management",
-        "/dashboard",
-        "/admin/pending-publishers",
-"/admin/content-management",
-"/admin/approveArticle",
-        "/admin/rejectArticle",
-"/edit-user"})
+
+@WebServlet(name = "DashboardServlet", urlPatterns = {"/dashboard"})
+
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1 MB
         maxFileSize = 1024 * 1024 * 10,      // 10 MB
@@ -99,7 +95,8 @@ public class DashboardServlet extends HttpServlet {
                             request.setAttribute("most_viewedArticles", most_viewedArticles);
                             request.setAttribute("searchResults", searchResults);
                             request.setAttribute("searchQuery", searchQuery);
-                            request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/admin-dashboard.jsp").forward(request, response);
+                            request.setAttribute("activePage","dashboard");
+                            request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/adminn.jsp").forward(request, response);
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -114,14 +111,14 @@ public class DashboardServlet extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/admin.jsp").forward(request, response);
                     return;
 
-                case "/admin/content-management":
-                    ArticleDAO articledao2 = new ArticleDAO();
+
 
                     List <Article> articlesByStatus = articledao2.getArticlesByStatus(2);
                     System.out.println("articlesByStatus: " + articlesByStatus.size());
                     request.setAttribute("pendingArticles", articlesByStatus);
                     request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/content-management.jsp").forward(request, response);
                     return;
+
 
                 case "/admin/approveArticle":
                     ArticleDAO articledao3 = new ArticleDAO();
