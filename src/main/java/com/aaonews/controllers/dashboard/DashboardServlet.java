@@ -21,8 +21,9 @@ import com.aaonews.utils.SessionUtil;
 import com.aaonews.models.User;
 
 
-@WebServlet(name = "DashboardServlet", urlPatterns = {
-        "/dashboard"})
+
+@WebServlet(name = "DashboardServlet", urlPatterns = {"/dashboard"})
+
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1 MB
         maxFileSize = 1024 * 1024 * 10,      // 10 MB
@@ -108,7 +109,15 @@ public class DashboardServlet extends HttpServlet {
                     request.setAttribute("pendingPublishers", pendingPublishersU);
                     request.setAttribute("users", allUsers);
                     request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/admin.jsp").forward(request, response);
+                    return;
 
+
+
+                    List <Article> articlesByStatus = articledao2.getArticlesByStatus(2);
+                    System.out.println("articlesByStatus: " + articlesByStatus.size());
+                    request.setAttribute("pendingArticles", articlesByStatus);
+                    request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/content-management.jsp").forward(request, response);
+                    return;
 
 
                 case "/admin/approveArticle":
@@ -122,6 +131,18 @@ public class DashboardServlet extends HttpServlet {
                    }
 
                    response.sendRedirect(request.getContextPath() + "/admin/content-management");
+                   return;
+                case "/admin/rejectArticle":
+                    ArticleDAO articledao4 = new ArticleDAO();
+                    String reason = request.getParameter("rejectionReason");
+                    System.out.println("reason: " + reason);
+                    int artId = Integer.parseInt(request.getParameter("articleId"));
+                    System.out.println("articleId: " + artId);
+                    boolean rejected = articledao4.rejectArticle(artId,4,reason);
+                    if (rejected) {
+                        request.setAttribute("rejected", true);
+                        response.sendRedirect(request.getContextPath() + "/admin/content-management");
+                    }
             }
 
             System.out.println("this is admin");
@@ -197,7 +218,6 @@ public class DashboardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         String path = request.getServletPath();
-
 
         switch (path) {
             case "/admin/pending-publishers":
