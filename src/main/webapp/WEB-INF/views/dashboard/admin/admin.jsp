@@ -12,6 +12,7 @@
     <c:if test="${requestScope.activePage == 'dashboard'}">
         <link rel="stylesheet"
               href="${pageContext.request.contextPath}/assets/css/dashboard/admin/adminDashboard.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </c:if>
 
     <c:if test="${requestScope.activePage == 'publisherApproval'}">
