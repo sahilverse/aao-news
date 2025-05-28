@@ -3,8 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-
-
 <div class="container adminContainer">
     <h1>Pending Publishers Verification</h1>
 

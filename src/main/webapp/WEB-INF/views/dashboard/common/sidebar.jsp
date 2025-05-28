@@ -27,21 +27,21 @@
                         </a>
                     </li>
 
-                    <li class="${requestScope.activePage == 'user-management' ? 'active' : ''}">
+                    <li class="${requestScope.activePage == 'userManagement' ? 'active' : ''}">
                         <a href="${pageContext.request.contextPath}/admin/user-management">
                             <i class="fas fa-users"></i>
                             <span>User Management</span>
                         </a>
                     </li>
 
-                    <li class="${requestScope.activePage == 'pending-publishers' ? 'active' : ''}">
-                        <a href="${pageContext.request.contextPath}/admin/pending-publishers">
+                    <li class="${requestScope.activePage == 'publisherApproval' ? 'active' : ''}">
+                        <a href="${pageContext.request.contextPath}/admin/publisher-approval">
                             <i class="fas fa-check-circle"></i>
                             <span>Publisher Approval</span>
                         </a>
                     </li>
 
-                    <li class="${requestScope.activePage == 'content-management' ? 'active' : ''}">
+                    <li class="${requestScope.activePage == 'contentManagement' ? 'active' : ''}">
                         <a href="${pageContext.request.contextPath}/admin/content-management">
                             <i class="fas fa-newspaper"></i>
                             <span>Content Management</span>

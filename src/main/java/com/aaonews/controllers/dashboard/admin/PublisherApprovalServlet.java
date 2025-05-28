@@ -11,14 +11,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin/pending-publishers")
+@WebServlet("/admin/publisher-approval")
 public class PublisherApprovalServlet extends HttpServlet {
     private AdminDAO adminDAO;
 
     @Override
     public void init() throws ServletException {
         adminDAO = new AdminDAO();
-        System.out.println("this is init");
 
     }
 
@@ -28,7 +27,7 @@ public class PublisherApprovalServlet extends HttpServlet {
         List<Publisher> pendingPublishers = adminDAO.getPendingPublishers();
         System.out.println("this is pending"+pendingPublishers);
         request.setAttribute("pendingPublishers", pendingPublishers);
-        request.setAttribute("activePage","pendingPublishers");
+        request.setAttribute("activePage","publisherApproval");
         request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/admin.jsp").forward(request, response);
     }
 }

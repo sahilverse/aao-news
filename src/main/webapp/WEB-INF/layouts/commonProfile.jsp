@@ -26,14 +26,14 @@
                     <div class="user-info">
                         <h1>${sessionScope.currentUser.fullName}
                             <c:if test="${sessionScope.currentUser.role == 'PUBLISHER'}">
-                            <span>
-                                <c:if test="${sessionScope.currentPublisher.isVerified}">
-                                    <i class="fas fa-check-circle verified-icon" title="Verified"></i>
-                                </c:if>
-                                <c:if test="${!sessionScope.currentPublisher.isVerified}">
-                                    <i class="fas fa-exclamation-circle pending-icon" title="Not-Verified"></i>
-                                </c:if>
-                            </span>
+                                <span>
+                                    <c:if test="${sessionScope.currentPublisher.isVerified}">
+                                        <i class="fas fa-check-circle verified-icon" title="Verified"></i>
+                                    </c:if>
+                                    <c:if test="${!sessionScope.currentPublisher.isVerified}">
+                                        <i class="fas fa-exclamation-circle pending-icon" title="Not-Verified"></i>
+                                    </c:if>
+                                </span>
 
                             </c:if>
 
@@ -52,11 +52,12 @@
         <div class="profile-section">
             <div class="info-container">
                 <h2>Personal Information</h2>
-                <form id="personal-info-form" name="personal-info-form" action="${pageContext.request.contextPath}/update-profile" method="post">
+                <form id="personal-info-form" name="personal-info-form"
+                      action="${pageContext.request.contextPath}/update-profile" method="post">
                     <div class="form-group">
                         <label for="fullName">Full Name</label>
                         <input type="text" id="fullName" name="fullName" value="${sessionScope.currentUser.fullName}"
-                               >
+                        >
                         <c:if test="${not empty errors.fullName}">
                             <p class="error">${errors.fullName}</p>
                         </c:if>
@@ -95,13 +96,14 @@
             <!-- Security -->
             <div class="info-container">
                 <h2>Security</h2>
-                <form id="password-change-form" name="password-change-form" action="${pageContext.request.contextPath}/update-password"
+                <form id="password-change-form" name="password-change-form"
+                      action="${pageContext.request.contextPath}/update-password"
                       method="post">
                     <div class="form-group">
                         <label for="oldPassword">Old Password</label>
                         <div class="password-input-container">
                             <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter Old Password"
-                                   >
+                            >
                             <button type="button" class="password-toggle">
                                 <i class="fas fa-eye-slash"></i>
                             </button>
@@ -116,7 +118,7 @@
 
                         <div class="password-input-container">
                             <input type="password" id="newPassword" name="newPassword" placeholder="Enter New Password"
-                                   >
+                            >
                             <button type="button" class="password-toggle">
                                 <i class="fas fa-eye-slash"></i>
                             </button>
@@ -129,7 +131,7 @@
                         <label for="confirmPassword">Confirm New Password</label>
                         <div class="password-input-container">
                             <input type="password" id="confirmPassword" name="confirmPassword"
-                                   placeholder="Confirm New Password" >
+                                   placeholder="Confirm New Password">
                             <button type="button" class="password-toggle">
                                 <i class="fas fa-eye-slash"></i>
                             </button>

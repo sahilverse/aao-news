@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<div class="container">
+<div class="content-container" style="margin-top: 20px;">
     <div class="header">
         <h1>Article Management</h1>
         <p>Review and manage pending articles</p>
@@ -63,8 +63,7 @@
                                     <button type="submit" class="btn btn-approve" onclick="return confirm('Are you sure you want to approve this article?')">✅ Approve</button>
                                 </form>
                                 <button type="button" class="btn btn-reject" onclick="openRejectModal(${article.id}, '${fn:escapeXml(article.title)}')">❌ Reject</button>
-                                <a href="viewArticle?id=${article.id}" class="btn btn-view" target="_blank">View</a>
-                                <a href="editArticle?id=${article.id}" class="btn btn-edit"> Edit</a>
+                                <a href="${pageContext.request.contextPath}/article/${article.id}" class="btn btn-view" target="_blank">Preview</a>
                             </td>
                         </tr>
                     </c:forEach>
