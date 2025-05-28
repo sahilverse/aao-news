@@ -15,7 +15,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jdk.jfr.Category;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet("/admin/content-management")
 
@@ -34,12 +36,7 @@ public class ContentManagement extends HttpServlet {
             }
 
         }
-        for (Article article : articlesByStatus) {
-            System.out.println(article.getAuthor());
-            System.out.println(article.getTitle());
-            System.out.println(article.getContent());
-            System.out.println(article.getSummary());
-        }
+
         request.setAttribute("articles", articlesByStatus);
         request.setAttribute("activePage","contentManagement");
         System.out.println("this is from the article dao "+ articlesByStatus.size());
@@ -53,14 +50,21 @@ public class ContentManagement extends HttpServlet {
         String articleId = String.valueOf(Integer.parseInt(request.getParameter("articleId")));
         String action = request.getParameter("action");
         System.out.println("this is article id "+articleId);
-
-        if ("approve".equals(action)) {
-            System.out.println("approve");
-
-
-        } else if ("reject".equals(action)) {
-            System.out.println("reject");
-
+        AdminDAO admindao = new AdminDAO();
+        if (action.equals("approve")) {
+            try {
+                admindao.approveArticle(Integer.parseInt(articleId));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (action.equals("reject")) {
+            try {
+                admindao.rejectArticle(Integer.parseInt(articleId), request.getParameter("reason"));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (action.equals("delete")) {
+            articledao.deleteArticle(Integer.parseInt(articleId));
         }
 
         response.sendRedirect(request.getContextPath() + "/admin/content-management");

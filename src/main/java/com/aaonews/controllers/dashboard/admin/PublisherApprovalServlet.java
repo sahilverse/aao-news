@@ -30,4 +30,19 @@ public class PublisherApprovalServlet extends HttpServlet {
         request.setAttribute("activePage","publisherApproval");
         request.getRequestDispatcher("/WEB-INF/views/dashboard/admin/admin.jsp").forward(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int publisherId = Integer.parseInt(request.getParameter("publisherId"));
+        String action = request.getParameter("action");
+
+        if ("approve".equals(action)) {
+            adminDAO.approvePublisher(publisherId);
+        } else if ("reject".equals(action)) {
+            adminDAO.rejectPublisher(publisherId);
+        }
+
+        response.sendRedirect(request.getContextPath() + "/admin/publisher-approval");
+    }
 }
