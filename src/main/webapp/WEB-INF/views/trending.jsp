@@ -255,7 +255,7 @@
 
 <jsp:include page="../layouts/footer.jsp"/>
 
-<!-- JavaScript for enhanced interactions -->
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Add smooth scrolling for internal links
@@ -291,12 +291,6 @@
             observer.observe(card);
         });
 
-        // Add click tracking for trending articles
-        document.querySelectorAll('.article-link, .featured-link').forEach(link => {
-            link.addEventListener('click', function() {
-                // Track article click (you can implement analytics here)
-                console.log('Trending article clicked:', this.href);
-            });
         });
 
         // Add hover effects for better UX
