@@ -34,17 +34,14 @@ public class PreviewArticleServlet extends HttpServlet {
         }
         String articleId = request.getPathInfo().substring(1);
 
-        // Fetch the article from the database
         Optional<Article> article = articleDAO.getArticleById(Integer.parseInt(articleId));
         User author = articleDAO.getArticleAuthor(Integer.parseInt(articleId));
         article.ifPresent(a -> a.setAuthor(author));
 
 
         if (article.isPresent()) {
-            // increase the view count if only the article is being previewed and the user is not the author and admin
             User currentUser = SessionUtil.getCurrentUser(request);
             if (currentUser == null) {
-               // create null user to avoid null pointer exception
                 currentUser = new User();
             }
             if (!(currentUser.getRole() == Role.ADMIN) && !(currentUser.getId() == author.getId())) {
