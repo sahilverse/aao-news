@@ -25,7 +25,7 @@ public class ArticleImageServlet extends HttpServlet {
             return;
         }
 
-        // Fetch the image data from the database (this part is not implemented here)
+
         byte[] imageData = fetchImageDataFromDatabase(articleId);
 
         if (imageData != null && imageData.length > 0) {
