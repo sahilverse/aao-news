@@ -125,7 +125,6 @@ public class ArticleLikeServlet extends HttpServlet {
             response.addProperty("message", "Failed to toggle like");
         }
 
-        // Make sure to flush and close properly
         String jsonResponse = gson.toJson(response);
         out.print(jsonResponse);
         out.flush();
