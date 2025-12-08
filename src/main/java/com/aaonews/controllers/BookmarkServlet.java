@@ -93,7 +93,7 @@ public class BookmarkServlet extends HttpServlet {
             String action = request.getParameter("action");
             String articleIdParam = request.getParameter("articleId");
 
-            // Handle case where no parameters are provided or action is "getAll"
+         
             if (action == null || action.isEmpty() || "getAll".equals(action)) {
                 User currentUser = SessionUtil.getCurrentUser(request);
                 if (currentUser == null) {
@@ -113,7 +113,7 @@ public class BookmarkServlet extends HttpServlet {
                 return;
             }
 
-            // For other actions, articleId is required
+        
             if (articleIdParam == null || articleIdParam.isEmpty()) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 JsonObject errorResponse = new JsonObject();
